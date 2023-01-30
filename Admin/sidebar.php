@@ -42,11 +42,11 @@
                     padding-right: 10px;"></i>Ecom</h3>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="dashboard.php" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="inventory.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Inventory</a>            
-                    <a href="Category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
-                    <a href="subcategory.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>SubCategory</a>
-                    <a href="user.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>User</a>
+                   <a href="dashboard.php"  class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                   <a href="inventory.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Inventory</a>            
+                    <a href="category.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Category</a>
+                   <a href="subcategory.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>SubCategory</a>
+                   <a href="user.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>User</a>
                 </div>
             </nav>
         </div>

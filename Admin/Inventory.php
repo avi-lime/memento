@@ -121,7 +121,7 @@
                             <div class="table-responsive">
                                 <table class="table" >
                                     <?php 
-                                     $sql = "SELECT * FROM tblproduct LEFT JOIN tblcategory ON tblproduct.catid=tblcategory.cat_id LEFT JOIN tblsubcat ON tblproduct.subcatid = tblsubcat.subCat_id LEFT JOIN tbladmin ON tblproduct.product_companyid = tbladmin.id";
+                                     $sql = "SELECT * FROM tblproduct LEFT JOIN tblcategory ON tblproduct.catid=tblcategory.cat_id LEFT JOIN tblsubcat ON tblproduct.subcatid = tblsubcat.subCat_id LEFT JOIN tbladmin ON tblproduct.product_companyid = tbladmin.id ORDER BY productid ASC";
                                      $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                                      $output ="
                                      <thead>
@@ -157,7 +157,6 @@
                                            <a role="button" href="api/deleteprod.php?id='. $row['productid'].'" style="padding-left: 5px" ><i class="fa fa-trash"></i></a></td>'
                                         . '</tr>';
                                 }
-                                mysqli_close($conn);
                                 echo $output;
                                 ?>
                                 </table>
@@ -192,6 +191,10 @@
     </div>
 <?php
 if(isset($_REQUEST['btn_add'])){
+    $image = $_FILES['formFile']['name'];
+    $tempimg = $_FILES['formFile']['tmp_name'];
+    $path = "img/" . $image;
+    move_uploaded_file($tempimg, $path);
     $name=$_REQUEST['Name'];
     $description=$_REQUEST['desc'];
     $price= $_REQUEST['price'];
@@ -199,7 +202,6 @@ if(isset($_REQUEST['btn_add'])){
     $quantity=$_REQUEST['quantity'];
     $catid=$_REQUEST['cat_select'];
     $subcatid = $_REQUEST['subcatSelect'];
-    $product_img =$_REQUEST['formFile'];
     $product_series=$_REQUEST['Series'];
     $product_company=$_SESSION['username'];
     $idquery="SELECT id FROM tbladmin WHERE company='$product_company'";
@@ -207,7 +209,7 @@ if(isset($_REQUEST['btn_add'])){
     $data=mysqli_fetch_assoc($result);
     $product_companyid= $data['id'];
     echo $product_companyid;
-    $query='INSERT INTO tblproduct (product_name, product_price, product_quantity,product_desc, product_dis, catid, subcatid, product_companyid, product_img,product_series) VALUES ("'.$name.'",'.$price.','.$quantity.',"'.$description.'",'.$discount.','.$catid.','.$subcatid.','.$product_companyid.',"'.$product_img.'","'.$product_series.'")';  
+    $query='INSERT INTO tblproduct (product_name, product_price, product_quantity,product_desc, product_dis, catid, subcatid, product_companyid, product_img,product_series) VALUES ("'.$name.'",'.$price.','.$quantity.',"'.$description.'",'.$discount.','.$catid.','.$subcatid.','.$product_companyid.',"'.$image.'","'.$product_series.'")';  
     echo $query;
     if(mysqli_query($conn,$query) or die(mysqli_error($conn))){
     echo "<script> 
