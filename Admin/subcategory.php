@@ -5,31 +5,7 @@
     include "sidebar.php";
     include "navbar.php";
 ?>
-<head>
-    <meta charset="utf-8">
-    <title>SubCategory</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="img/icon.png" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="css/fontgoogle.css" rel="stylesheet"> 
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="css/all.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Admin/css/all.min.css" crossorigin>
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+<head><title>SubCategory</title>
 </head>
 <body>
 
@@ -92,7 +68,7 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <?php 
-                                      $sql = "SELECT subCat_id AS id, subCat_name,cat_name,subCat_img FROM tblsubcat LEFT JOIN tblcategory ON tblsubcat.cat_id=tblcategory.cat_id";
+                                      $sql = "SELECT * FROM tblsubcat LEFT JOIN tblcategory ON tblsubcat.cat_id=tblcategory.cat_id";
                                      $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                                      $output ="
                                      <thead>
@@ -106,12 +82,12 @@
                                  </thead>";
                                     while($row = mysqli_fetch_assoc($result)){
                                         $output .= '<tr>'
-                                        . '<th scope="row">' . $row['id'] . '</td>'
+                                        . '<th scope="row">' . $row['subCat_id'] . '</td>'
                                         . '<td>' . $row['subCat_name'] . '</td>'
                                         . '<td>' . $row['cat_name'] . '</td>'
-                                        . '<td><img style="height:200px;width:200px" class="rounded" src="img/' . $row['subCat_img'] . '"></td>'
-                                        . '<td><a role="button"  id="'.$row['id'].'" ><i class="far fa-edit"></i></a>
-                                           <a role="button" href="api/deletecat.php?id='.$row['id'].'" style="padding-left: 5px" ><i class="fa fa-trash"></i></a></td>'
+                                        . '<td><img style="height:100px;width:100px" class="rounded" src="img/' . $row['subCat_img'] . '"></td>'
+                                        . '<td><a data-toggle="modal" data-target="#exampleModal" role="button"  id="'.$row['subCat_id'].'" ><i class="far fa-edit"></i></a>
+                                           <a role="button" href="api/deletesubcat.php?id='.$row['subCat_id'].'" style="padding-left: 5px" ><i class="fa fa-trash"></i></a></td>'
                                         . '</tr>';
                                 }
                                 mysqli_close($conn);
@@ -122,25 +98,31 @@
                         </div>
             </div>                                      
         <!---Main content-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    Update Sub-Category
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+        </div>
 <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
         <?php 
         include "footer.php";
         ?>
     </div>
-<!-- JavaScript Libraries -->
-    <script src="../Admin/js/jquery-3.4.1.min.js"></script>
-    <script src="../Admin/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
 <!-- image preview -->
 <script>
     formFile.onchange = evt => {
@@ -166,4 +148,3 @@ if(isset($_REQUEST['btn_add'])){
 }
 }
 ?>
-</html>

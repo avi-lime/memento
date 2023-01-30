@@ -1,39 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
     include "conn.php";
     include "sidebar.php";
     include "navbar.php";
 ?>
 <head>
-    <meta charset="utf-8">
     <title>Inventory</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="img/icon.png" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="css/fontgoogle.css" rel="stylesheet"> 
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="css/all.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Admin/css/all.min.css" crossorigin>
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
 </head>
-
-<body>
-    
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -149,7 +121,7 @@
                             <div class="table-responsive">
                                 <table class="table" >
                                     <?php 
-                                     $sql = "SELECT * FROM tblproduct LEFT JOIN tblcategory ON tblproduct.catid=tblcategory.cat_id LEFT JOIN tblsubcat ON tblproduct.subcatid = tblsubcat.subCat_id";
+                                     $sql = "SELECT * FROM tblproduct LEFT JOIN tblcategory ON tblproduct.catid=tblcategory.cat_id LEFT JOIN tblsubcat ON tblproduct.subcatid = tblsubcat.subCat_id LEFT JOIN tbladmin ON tblproduct.product_companyid = tbladmin.id";
                                      $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                                      $output ="
                                      <thead>
@@ -172,16 +144,16 @@
                                         $output .= '<tr>'
                                         . '<th scope="row">' . $row['productid'] . '</td>'
                                         . '<td>' . $row['product_name'] . '</td>'
-                                        . '<td> '. $row['product_price'] .'</td>'
+                                        . '<td> ₹'. $row['product_price'] .'</td>'
                                         . '<td>' . $row['product_quantity'] . '</td>'
                                         . '<td>' . substr($row['product_desc'], 0, 50) . '...</td>'
                                         . '<td>' . $row['product_dis'] . '</td>'
-                                        . '<td>' . $row['catid'] . '</td>'
-                                        . '<td>' . $row['subcatid'] . '</td>'
-                                        . '<td>' . $row['product_companyid'] . '</td>'
+                                        . '<td>' . $row['cat_name'] . '</td>'
+                                        . '<td>' . $row['subCat_name'] . '</td>'
+                                        . '<td>' . $row['company'] . '</td>'
                                         . '<td>' . $row['product_series'] . '</td>'
-                                        . '<td><img style="height:200px; width:200px" class="rounded" src="img/' . $row['product_img'] . '"></td>'
-                                        . '<td><a role="button"  id="'.$row['productid'].'" ><i class="far fa-edit"></i></a>
+                                        . '<td><img style="height:100px; width:100px" class="rounded" src="img/' . $row['product_img'] . '"></td>'
+                                        . '<td><a role="button" data-toggle="modal" data-target="#exampleModal"  id="'.$row['productid'].'" ><i class="far fa-edit"></i></a>
                                            <a role="button" href="api/deleteprod.php?id='. $row['productid'].'" style="padding-left: 5px" ><i class="fa fa-trash"></i></a></td>'
                                         . '</tr>';
                                 }
@@ -192,25 +164,32 @@
                             </div>
                         </div>
             </div>
+            <!-- edit model -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                     Update Product
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+            </div>
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
         <?php 
-include "footer.php";
-?>
+        include "footer.php";
+        ?>
     </div>
-
-    <script src="../Admin/js/jquery-3.4.1.min.js"></script>
-    <script src="../Admin/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="js/main.js"></script>
-
-</body>
 <?php
 if(isset($_REQUEST['btn_add'])){
     $name=$_REQUEST['Name'];
@@ -242,4 +221,3 @@ if(isset($_REQUEST['btn_add'])){
  }
 }
 ?>
-</html>

@@ -1,38 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+
 <?php
     include "conn.php";
     include "sidebar.php";
     include "navbar.php";
 ?>
-<head>
-    <meta charset="utf-8">
-    <title>Category</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="img/icon.png" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="css/fontgoogle.css" rel="stylesheet"> 
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="css/all.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Admin/css/all.min.css" crossorigin>
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body>
-
+<head><title>Category</title></head>
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center mb-4">
@@ -54,7 +26,7 @@
                                 <img src="" id="imageprev" name="imageprev" hidden class="img-container-fluid" alt="" style="height: 250px; width:250px; margin-left:170px;">   
                                 </div>                       
                                 <button type="submit" id="btn_addcat" name="btn_addcat" class="btn btn-primary">Add Category</button>
-                            </form>
+                                </form>
                     </div>
                 </div>  
             </div>
@@ -80,8 +52,8 @@
                                         $output .= '<tr>'
                                         . '<th scope="row">' . $row['cat_id'] . '</td>'
                                         . '<td>' . $row['cat_name'] . '</td>'
-                                        . '<td><img style="height:200px;width:200px" class="rounded" src="img/' . $row['cat_img'] . '"></td>'
-                                        . '<td><a role="button"  id="'.$row['cat_id'].'" ><i class="far fa-edit"></i></a>
+                                        . '<td><img style="height:100px;width:100px" class="rounded" src="img/' . $row['cat_img'] . '"></td>'
+                                        . '<td><a  data-toggle="modal" data-target="#exampleModal" role="button"  id="'.$row['cat_id'].'" ><i class="far fa-edit"></i></a>
                                            <a role="button" href="api/deletecat.php?id='.$row['cat_id'].'" style="padding-left: 5px" ><i class="fa fa-trash"></i></a></td>'
                                         . '</tr>';
                                 }
@@ -92,6 +64,41 @@
                             </div>
                         </div>
             </div>
+            <!-- edit/add -->
+        <!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        Update Category
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="post" action="">
+                                <div class="row mb-3">
+                                    <label for="cat_name" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" required name="cat_name" id="cat_name">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="formFile"  class="col-sm-2 col-form-label">Image</label>
+                                    <div class="col-sm-10">
+                                    <input class="form-control bg-dark" required name="formFile" id="formFile" style="width: 300px;" type="file" id="formFile">
+                                </div>
+                                </div>                       
+                                </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
         <!---Main content-->
 <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
@@ -99,19 +106,6 @@
         include "footer.php";
         ?>
     </div>
-<!-- JavaScript Libraries -->
-    <script src="../Admin/js/jquery-3.4.1.min.js"></script>
-    <script src="../Admin/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
 <!-- image preview -->
 <script>
     formFile.onchange = evt => {
@@ -136,4 +130,3 @@ if(isset($_REQUEST['btn_addcat'])){
 }
 }
 ?>
-</html>
