@@ -18,7 +18,7 @@ include "navbar.php";
                 <h6 class="mb-0">Add SubCategory</h6>
             </div>
             <div class="row mb-3">
-                <form method="post" action="">
+                <form method="post" action="" enctype="multipart/form-data">
                     <div class="row mb-3">
                         <label for="cat_name" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
@@ -110,11 +110,12 @@ include "navbar.php";
                     </button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="">
+                <form method="post" action="" enctype="multipart/form-data">
                                 <div class="row mb-3">
+                                    <input type="text" id="id" name="id" hidden>
                                     <label for="cat_name" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="editsubcat_name"  required name="editsubcat_name" id="cat_name">
+                                        <input type="text" class="form-control" id="editsubcat_name"  required name="editsubcat_name" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -219,6 +220,26 @@ include "navbar.php";
             $(this).remove();
         });
     });</script>";
+    echo "<meta http-equiv='refresh' content='0'>";
         }
     }
-    ?>
+    if(isset($_REQUEST['btnedit'])){
+        $image = $_FILES['editimg']['name'];
+        $tempimg = $_FILES['editimg']['tmp_name'];
+        $path = "img/" . $image;
+        move_uploaded_file($tempimg, $path);
+        $id=$_REQUEST['id'];
+        $editcatid=$_REQUEST['editsubcat_select'];
+        $editname=$_REQUEST['editsubcat_name'];
+        $editquery='UPDATE tblsubcat SET subCat_name="' . $editname . '",subCat_img="' . $image . '",cat_id='.$editcatid.' WHERE subCat_id=' . $id . '';
+        mysqli_query($conn,$editquery) or die(mysqli_error($conn));
+        if (mysqli_query($conn, $sql)) {
+            ?>
+                    <script>
+                        alert("SubCategory Updated");
+                    </script>
+            <?php
+            echo "<meta http-equiv='refresh' content='0'>";   
+            }
+            }
+            ?>

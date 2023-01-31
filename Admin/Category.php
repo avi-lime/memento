@@ -166,7 +166,8 @@ if (isset($_REQUEST['btnedit'])) {
         <script>
             alert("Category Updated")
         </script>
-<?php   
+<?php 
+echo "<meta http-equiv='refresh' content='0'>";  
 }
 }
 ?>
