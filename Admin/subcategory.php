@@ -1,245 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include "conn.php";
-include "sidebar.php";
-include "navbar.php";
+    include "conn.php";
+    include "sidebar.php";
+    include "navbar.php";
 ?>
-
 <head>
+    <meta charset="utf-8">
     <title>SubCategory</title>
-</head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
+    <!-- Favicon -->
+    <link href="img/icon.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="css/fontgoogle.css" rel="stylesheet"> 
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="css/all.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Admin/css/all.min.css" crossorigin>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
 <body>
 
-    <div class="container-fluid pt-4 px-4">
-        <div class="bg-secondary text-center rounded p-4">
-            <div class="d-flex align-items-center mb-4">
-                <h6 class="mb-0">Add SubCategory</h6>
-            </div>
-            <div class="row mb-3">
-                <form method="post" action="" enctype="multipart/form-data">
-                    <div class="row mb-3">
-                        <label for="cat_name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="subcat_name" required name="subcat_name" id="cat_name">
-                        </div>
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <h6 class="mb-0">Add SubCategory</h6>
                     </div>
                     <div class="row mb-3">
-                        <label for="cat_select" class="col-sm-2 col-form-label">Category</label>
-                        <div class="col-sm-10">
-                            <select class="form-select form-select-sm mb-3" style="width: 300px;" name="subcat_select" id="subcat_select" aria-label=".form-select-sm example">
-                                <option selected="">Open this select menu</option>
-                                <?php
-                                $query = "select * from tblcategory";
-                                $result = mysqli_query($conn, $query);
-                                if ($result->num_rows > 0) {
-                                    while ($optiondata = $result->fetch_assoc()) {
-                                        $option = $optiondata['cat_name'];
-                                        $optionvalue = $optiondata['cat_id'];
-                                ?>
-                                        <?php
-                                        if (!empty($courseName) && $courseName == $option) {
-                                        ?>
-                                            <option value="<?php echo $optionvalue; ?>" selected><?php echo $option; ?> </option>
-                                        <?php
-                                            continue;
-                                        } ?>
-                                        <option value="<?php echo $optionvalue; ?>"><?php echo $option; ?> </option>
-                                <?php
-                                    }
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="formFile" class="col-sm-2 col-form-label">Image</label>
-                        <div class="col-sm-10">
-                            <input class="form-control bg-dark" required name="formFile" id="formFile" style="width: 500px;" type="file" id="formFile">
-                        </div>
-                        <img src="" id="imageprev" name="imageprev" hidden class="img-container-fluid" alt="" style="height: 250px; width:250px; margin-left:170px;">
-                    </div>
-                    <button type="submit" id="btn_add" name="btn_add" class="btn btn-primary">Add Category</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid pt-4 px-4">
-        <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">All Sub-Category</h6>
-            <div class="table-responsive">
-                <table class="table">
-                    <?php
-                    $sql = "SELECT * FROM tblsubcat LEFT JOIN tblcategory ON tblsubcat.cat_id=tblcategory.cat_id ORDER BY subCat_id ASC";
-                    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-                    $output = "
-                                     <thead>
-                                     <tr>
-                                         <th scope='col'>ID</th>
-                                         <th scope='col'>Name</th>
-                                         <th scope='col'>CategoryID</th>
-                                         <th scope='col'>Image</th>
-                                         <th scope='col'>Action</th>
-                                     </tr>
-                                 </thead>";
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $output .= '<tr>'
-                            . '<th scope="row">' . $row['subCat_id'] . '</td>'
-                            . '<td>' . $row['subCat_name'] . '</td>'
-                            . '<td>' . $row['cat_name'] . '</td>'
-                            . '<td><img style="height:100px;width:100px" class="rounded" src="img/' . $row['subCat_img'] . '"></td>'
-                            . '<td><a class="me-2 btn-edit" data-toggle="modal" data-target="#exampleModal" role="button"  id="' . $row['subCat_id'] . '" ><i class="far fa-edit"></i></a>
-                                <a role="button" href="api/deletesubcat.php?id=' . $row['subCat_id'] . '" style="padding-left: 5px" ><i class="fa fa-trash"></i></a></td>'
-                            . '</tr>';
-                    }
-                    echo $output;
-                    ?>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!---Main content-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    Update Sub-Category
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <form method="post" action="" enctype="multipart/form-data">
+                    <form method="post" action="">
                                 <div class="row mb-3">
-                                    <input type="text" id="id" name="id" hidden>
                                     <label for="cat_name" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="editsubcat_name"  required name="editsubcat_name" >
+                                        <input type="text" class="form-control" required name="cat_name" id="cat_name">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="cat_select" class="col-sm-2 col-form-label">Category</label>
+                                    <label for="cat_name" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
-                                    <select class="form-select form-select-sm mb-3" style="width: 300px;" name="editsubcat_select" id="editsubcat_select" aria-label=".form-select-sm example">
-                                        <option selected="">Open this select menu</option>
-                                        <?php 
-                                            $query="select * from tblcategory";
-                                            $result=mysqli_query($conn,$query);
-                                            if($result->num_rows > 0){
-                                                while($optiondata=$result->fetch_assoc()){
-                                                    $option = $optiondata['cat_name'];  
-                                                    $optionvalue = $optiondata['cat_id'];
-                                        ?>
-                                        <?php 
-                                      if(!empty($courseName) && $courseName== $option){
-                                        ?>
-                                        <option value="<?php echo $optionvalue; ?>" selected><?php echo $option; ?> </option>
-                                        <?php 
-                                    continue;
-                                       }?>
-                                        <option value="<?php echo $optionvalue; ?>" ><?php echo $option; ?> </option>
-                                       <?php
-                                                }
-                                            }
-                                        ?>
-                                    </select>
+                                        <input type="text" class="form-control" required name="cat_name" id="cat_name">
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="row mb-3">
                                     <label for="formFile"  class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-10">
-                                    <input class="form-control bg-dark" required name="editimg" id="editimg" type="file" id="formFile">
+                                    <input class="form-control bg-dark" required name="formFile" id="formFile" style="width: 500px;" type="file" id="formFile">
                                 </div>
+                                <img src="" id="imageprev" name="imageprev" hidden class="img-container-fluid" alt="" style="height: 250px; width:250px; margin-left:170px;">   
                                 </div>                       
-                                
+                                <button type="submit" id="btn_addcat" name="btn_addcat" class="btn btn-primary">Add Category</button>
+                            </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" id="btnedit" name="btnedit" class="btn btn-primary" value="Save">
-                </div>
-                </form>
-                </div>
-            
+            </div>
+
+        <!---Main content-->
+<!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
     </div>
-</div>
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
-    <?php
-    include "footer.php";
-    ?>
-    </div>
-    <!-- image preview -->
-    <script>
-        formFile.onchange = evt => {
-            const [file] = formFile.files
-            if (file) {
-                imageprev.hidden = false;
-                imageprev.src = URL.createObjectURL(file)
-            }
+<!-- JavaScript Libraries -->
+    <script src="../Admin/js/jquery-3.4.1.min.js"></script>
+    <script src="../Admin/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+<!-- image preview -->
+<script>
+    formFile.onchange = evt => {
+        const [file] = formFile.files
+        if (file) {
+        imageprev.hidden=false;
+        imageprev.src = URL.createObjectURL(file)
         }
-        formFile.onchange = evt => {
-            const [file] = formFile.files
-            if (file) {
-                imageprev.hidden = false;
-                imageprev.src = URL.createObjectURL(file)
-            }
-        }
-        $('.btn-edit').click(function() {
-            var id = $(this).attr("id");
-            console.log(id);
-            $.ajax({
-                url: 'api/fetch.php',
-                method: 'POST',
-                data: {
-                    id: id,
-                    table: "tblsubcat",
-                    idname: "subCat_id"
-                },
-                dataType: "json",
-                success: function(data) {
-                    $("#id").val(data.subCat_id);
-                    $("#editsubcat_name").val(data.subCat_name);
-                    $("#editsubcat_select").val(data.cat_id);
-                }
-            })
-        })
+    }
     </script>
-    <?php
-    if (isset($_REQUEST['btn_add'])) {
-        $image = $_FILES['formFile']['name'];
-        $tempimg = $_FILES['formFile']['tmp_name'];
-        $path = "img/" . $image;
-        move_uploaded_file($tempimg, $path);
-        $name = $_REQUEST['subcat_name'];
-        $catid = $_REQUEST['subcat_select'];
-        if (mysqli_query($conn, "insert into tblsubcat(subCat_name,cat_id,subCat_img) value('$name','$catid','$image')")) {
-            echo "<script> 
+<?php
+if(isset($_REQUEST['btn_addcat'])){
+    $name=$_REQUEST['cat_name'];
+    $img_name=$_REQUEST['formFile'];
+    if(mysqli_query($conn,"insert into tblcategory(cat_name,cat_img) value('$name','$img_name')")){
+    echo "<script> 
     $(function(){
-        $('<div> " . $name . " added Successfully </div>').insertBefore('#btn_addcat').delay(3000).fadeOut(function(){
+        $('<div> ".$name." added Successfully </div>').insertBefore('#btn_addcat').delay(3000).fadeOut(function(){
             $(this).remove();
         });
     });</script>";
-    echo "<meta http-equiv='refresh' content='0'>";
-        }
-    }
-    if(isset($_REQUEST['btnedit'])){
-        $image = $_FILES['editimg']['name'];
-        $tempimg = $_FILES['editimg']['tmp_name'];
-        $path = "img/" . $image;
-        move_uploaded_file($tempimg, $path);
-        $id=$_REQUEST['id'];
-        $editcatid=$_REQUEST['editsubcat_select'];
-        $editname=$_REQUEST['editsubcat_name'];
-        $editquery='UPDATE tblsubcat SET subCat_name="' . $editname . '",subCat_img="' . $image . '",cat_id='.$editcatid.' WHERE subCat_id=' . $id . '';
-        mysqli_query($conn,$editquery) or die(mysqli_error($conn));
-        if (mysqli_query($conn, $sql)) {
-            ?>
-                    <script>
-                        alert("SubCategory Updated");
-                    </script>
-            <?php
-            echo "<meta http-equiv='refresh' content='0'>";   
-            }
-            }
-            ?>
+}
+}
+?>
+</html>
