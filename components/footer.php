@@ -81,6 +81,7 @@
         const currentLocation = location.href;
         $(".header__menu>ul>li>a").each(function (index, element) {
             if (element.href == currentLocation) {
+                $(".active").removeClass("active");
                 $(element).parent('li').addClass("active");
             }
         });
