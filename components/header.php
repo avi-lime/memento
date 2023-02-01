@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+include "Admin/conn.php";
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Memento Couture">
@@ -15,8 +17,7 @@
 
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -91,13 +92,26 @@
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
-                            <li><a href="./shop.php">Shop</a>
+                            <li><a href="./shop.php">Category</a>
                                 <ul class="dropdown">
-                                    <li><a href="./about.php">About Us</a></li>
-                                    <li><a href="./shop-details.php">Shop Details</a></li>
-                                    <li><a href="./shopping-cart.php">Shopping Cart</a></li>
-                                    <li><a href="./checkout.php">Check Out</a></li>
-                                    <li><a href="./blog-details.php">Blog Details</a></li>
+                                    <?php
+                                    $query = "SELECT * FROM tblcategory";
+                                    if ($result=mysqli_query($conn, $query)) {
+                                        while($row=mysqli_fetch_assoc($result)){
+                                    ?>
+                                        <li><a href="./about.php" id=><?php echo $row['cat_name']?></a></li>
+                                        <?php
+                                        $subquery='SELECT * FROM tblsubcat WHERE cat_id='.$row['cat_id'].' ';
+                                        if ($subresult=mysqli_query($conn, $subquery)) {
+                                            while($subrow=mysqli_fetch_assoc($subresult)){
+                                        ?>
+                                            <li><a href="./about.php" id=>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subrow['subCat_name']?></a></li>
+                                    <?php
+                                    }
+                                }
+                            }
+                        }
+                                    ?>
                                 </ul>
                             </li>
                             <li><a href="./contact.php">Contact Us</a></li>

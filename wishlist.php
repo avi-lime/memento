@@ -28,7 +28,6 @@
  						<div class="card-body">
  							<h5 class="card-title">Card title</h5>
  							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-<<<<<<< HEAD
  						</div>
  						<ul class="list-group list-group-flush">
  							<li class="list-group-item">Cras justo odio</li>
@@ -38,18 +37,11 @@
  						<div class="card-body">
  							<a href="#" class="card-link">Card link</a>
  							<a href="#" class="card-link">Another link</a>
-=======
- 							<a href="#" class="btn btn-primary">Go somewhere</a>
->>>>>>> b04f2439336d5d9f94f409dab9f26ac7582ce631
  						</div>
  					</div>
  				</div>
  			</div>
  		</div>
-<<<<<<< HEAD
-=======
- 	</div>
->>>>>>> b04f2439336d5d9f94f409dab9f26ac7582ce631
  	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  </body>
