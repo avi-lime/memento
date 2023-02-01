@@ -1,6 +1,5 @@
 <?php include("components/header.php"); ?>
 <!-- Hero Section Begin -->
-
 <section class="hero">
     <div class="hero__slider owl-carousel">
         <div class="hero__items set-bg" data-setbg="img/hero/hero-1.jpg">
