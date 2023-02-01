@@ -461,4 +461,4 @@
     </div>
 </section>
 <!-- Latest Blog Section End -->
-<?php include("components/footer.html"); ?>
+<?php include("components/footer.php"); ?>
