@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include "Admin/conn.php";
+include "global/api/conn.php";
 ?>
 
 <head>
@@ -129,7 +129,7 @@ include "Admin/conn.php";
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                        <a href="wishlist.php"><img src="img/icon/heart.png" alt=""></a>
                         <a href="./shopping-cart.php"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
                         <div class="price">₹0.00</div>
                     </div>
