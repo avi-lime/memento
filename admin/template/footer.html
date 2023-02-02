@@ -44,10 +44,9 @@
         if ($(window).width() < 768) {
             $(".sidebar").removeClass("active");
             $(".main,.header").addClass("open");
-            // $(".main,.header").removeClass("blur");
         } else {
             $(".main,.header").removeClass("open");
-            // $(".main,.header").addClass("blur");
+            $(".main,.header").removeClass("blur");
             $(".sidebar").addClass("active");
         }
 
