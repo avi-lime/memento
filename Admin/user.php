@@ -45,4 +45,4 @@ include("../global/api/conn.php");
         $("#table").DataTable();
     })
 </script>
-<?php include("../global/html/footer.html") ?>
+<?php include("template/footer.html") ?>

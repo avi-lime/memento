@@ -5,4 +5,4 @@ include("../global/api/conn.php");
 <div class="card">
     <h1>Dashboard</h1>
 </div>
-<?php include("../global/html/footer.html") ?>
+<?php include("template/footer.html") ?>
