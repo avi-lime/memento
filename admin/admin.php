@@ -8,11 +8,11 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
 
 ?>
 <div class="card">
-    <h1>Categories</h1>
+    <h1>Admin</h1>
     <hr>
 
     <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-        Add Category
+        Add Admin
     </button>
 
     <!-- Add/Edit Products Modal -->
@@ -22,26 +22,38 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="mdlLabel">
-                        Add Category
+                        Add Admin
                     </h5>
                     <button type="button" class="btn-close-2" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <form action="api/category.php" method="post" enctype="multipart/form-data">
+                <form action="api/admin.php" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
                             <label>Name: *</label>
                             <input required id="name" name="name" type="text" class="form-control mb-3">
                         </div>
+
+                        <div class="form-group">
+                            <label>E-mail: *</label>
+                            <input required id="email" name="email" type="email" class="form-control mb-3">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password: *</label>
+                            <input required id="password" name="password" type="password" class="form-control mb-3">
+                        </div>
+                        <!-- 
                         <div class="form-group">
                             <label>Image: </label>
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" name="imgfile" id="imgfile" required
+                                <input type="file" class="form-control" name="imgfile" id="imgfile"
                                     accept=".png,.jpg,.jpeg">
                             </div>
-                        </div>
+
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                         <button class="btn" type="reset" data-bs-dismiss="modal">Cancel</button>
@@ -53,17 +65,18 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         </div>
     </div>
     <table id="table" class="table table-responsive text-center">
-        <caption>List of Categories</caption>
+        <caption>List of Admins</caption>
         <?php
         // filling up the table
-        $table = "category";
+        $table = "admin";
         $sql = "SELECT * FROM $table ";
         $result = mysqli_query($conn, $sql);
         $output = '<thead>'
             . '<tr>'
             . '<th>ID</th>'
             . '<th>Name</th>'
-            . '<th>Image</th>'
+            . '<th>Email</th>'
+            // . '<th>Image</th>'
             . '<th>Action</th>'
             . '</tr>'
             . '</thead>'
@@ -71,8 +84,9 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         while ($row = mysqli_fetch_assoc($result)) {
             $output .= '<tr>'
                 . '<th scope="row">' . $row['id'] . '</td>'
-                . '<td>' . $row['name'] . '</td>'
-                . "<td><img style='height:200px; object-fit:cover' class='rounded' alt='img' src='../global /assets/images/" . $row['image'] . "'></td>"
+                . '<td>' . $row['username'] . '</td>'
+                . '<td>' . $row['email'] . '</td>'
+                // . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../assets/images/" . $row['image'] . "'></td>"
                 . '<td>'
                 . '<a class="me-2 btn-edit" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-pen"></i></a>'
                 . '<a role="button" href="api/delete.php?table=' . $table . '&id=' . $row['id'] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
@@ -95,13 +109,17 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 method: 'POST',
                 data: {
                     id: id,
-                    table: "category"
+                    table: "admin"
                 },
                 dataType: "json",
                 success: function (data) {
                     $("#id").val(data.id);
-                    $("#name").val(data.name);
-                    $("#mdlLabel").text("Edit Category");
+                    $("#name").val(data.username);
+                    $("#email").val(data.email);
+                    $("#password").attr("type", "text");
+                    $("#password").val(data.password);
+                    $("#password").attr("type", "password");
+                    $("#mdlLabel").text("Edit Admin");
                     $("#btnSubmit").text("Update");
                     $("#modal").modal('show');
                 }
@@ -110,8 +128,10 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         $('#btnAdd').click(function () {
             $("#id").val("");
             $("#name").val("");
+            $("#email").val("");
+            $("#password").val("");
             $("#imgfile").val("");
-            $("#mdlLabel").text("Add Category");
+            $("#mdlLabel").text("Add Admin");
             $("#btnSubmit").text("Add");
         })
     })

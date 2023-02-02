@@ -3,6 +3,7 @@
 <?php
 include "Admin/conn.php";
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Memento Couture">
@@ -17,7 +18,8 @@ include "Admin/conn.php";
 
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -28,6 +30,7 @@ include "Admin/conn.php";
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/memento.css" type="text/css">
 </head>
 
 <body>
@@ -95,22 +98,26 @@ include "Admin/conn.php";
                             <li><a href="./shop.php">Category</a>
                                 <ul class="dropdown">
                                     <?php
-                                    $query = "SELECT * FROM tblcategory";
-                                    if ($result=mysqli_query($conn, $query)) {
-                                        while($row=mysqli_fetch_assoc($result)){
-                                    ?>
-                                        <li><a href="./about.php" id=><?php echo $row['cat_name']?></a></li>
-                                        <?php
-                                        $subquery='SELECT * FROM tblsubcat WHERE cat_id='.$row['cat_id'].' ';
-                                        if ($subresult=mysqli_query($conn, $subquery)) {
-                                            while($subrow=mysqli_fetch_assoc($subresult)){
-                                        ?>
-                                            <li><a href="./about.php" id=>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subrow['subCat_name']?></a></li>
-                                    <?php
+                                    $query = "SELECT * FROM category";
+                                    if ($result = mysqli_query($conn, $query)) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            ?>
+                                            <li class="dropdown-item-m"><a href="shop.php?cat_id=<?php echo $row["id"] ?>">
+                                                    <?php echo $row['name'] ?>
+                                                </a></li>
+                                            <?php
+                                            $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $row['id'] . ' ';
+                                            if ($subresult = mysqli_query($conn, $subquery)) {
+                                                while ($subrow = mysqli_fetch_assoc($subresult)) {
+                                                    ?>
+                                                    <li class="sub-dropdown-item"><a href="shop.php?sub_id=<?php echo $subrow["id"] ?>">
+                                                            <?php echo $subrow['name'] ?>
+                                                        </a></li>
+                                                    <?php
+                                                }
+                                            }
+                                        }
                                     }
-                                }
-                            }
-                        }
                                     ?>
                                 </ul>
                             </li>

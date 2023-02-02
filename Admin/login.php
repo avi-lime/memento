@@ -1,98 +1,95 @@
 <!DOCTYPE html>
-<?php 
-    require_once "clearcache.php";
-    session_start();
-?>
 <html lang="en">
-<?php
-    include "conn.php";
-?>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style1.css">
-    <link href="img/icon.png" rel="icon">
-
-<!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="css/fontgoogle.css" rel="stylesheet"> 
-
-<!-- Icon Font Stylesheet -->
-<link href="css/all.min.css" rel="stylesheet">
-<link href="css/bootstrap-icons.css" rel="stylesheet">
-<link rel="stylesheet" href="../Admin/css/all.min.css" crossorigin>
-
-<!-- Customized Bootstrap Stylesheet -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Template Stylesheet -->
-<link href="css/style.css" rel="stylesheet">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- custom css -->
+    <link rel="stylesheet" href="../global/css/global.css">
+    <link rel="stylesheet" href="../global/css/login.css">
+    <!-- font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title>Login</title>
 </head>
 
 <body class="login_body">
+    <?php
+    require_once("../global/api/conn.php");
+    session_start();
+    if (isset($_REQUEST["submit"])) {
+        $email = $_REQUEST["email"];
+        $password = $_REQUEST["password"];
+
+        $sanitized_email = mysqli_real_escape_string($conn, $email);
+        $sanitized_password = mysqli_real_escape_string($conn, $password);
+
+        $query = "SELECT * FROM admin WHERE email='$sanitized_email'";
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        $num = mysqli_num_rows($result);
+
+        $error = "";
+        if ($num > 0) {
+            $admin = mysqli_fetch_assoc($result);
+            if (password_verify($sanitized_password, $admin["password"])) {
+                $_SESSION["admin"] = $admin["id"];
+                $_SESSION["super"] = $admin["superadmin"];
+                $_SESSION['expire'] = time() + (60 * 60);
+                header("location: dashboard.php");
+            } else {
+                $error = "E-mail and Password don't match.";
+            }
+        } else {
+            $error = "User doesn't exist.";
+        }
+        if ($error != "") {
+            ?>
+            <!-- alert -->
+            <div class="mb-4 alert alert-danger d-flex align-items-center gap-2 alert-dismissible fade show" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div>
+                    <?php echo $error ?>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php
+        }
+    }
+    ?>
+
     <form action="" method="post" class="login_form">
         <div class="login_title">
-            <h2>ECOM</h2>
+            <h2>MEMENTO</h2>
         </div>
+
         <div class="form_group">
-            <label for="username">Email</label>
-            <input class="form_input" type="email" name="username" id="username" required autocomplete="username" autofocus>
+            <label for="email">E-mail</label>
+            <input class="form_input" type="email" name="email" id="email" autocomplete="email" autofocus required>
             <span class="underline-animation"></span>
         </div>
         <div class="form_group">
             <label for="password">Password</label>
-            <input class="form_input" type="password" name="password" id="password" required autocomplete="current-password">
-            <div class="form_group account">
-            <span style="text-align: right;" ><a href="forgetpass.php">Change password?</a></span>
-            </div>
+            <input class="form_input" type="password" name="password" id="password" autocomplete="current-password"
+                required>
             <span class="underline-animation"></span>
         </div>
         <div class="form_group">
-            <label id="invalidtxt" name="invalidtxt" ></label>
-            <input class="login_btn" name="btnsignin" id="btnsignin" value="SIGN IN"type="submit"></button>
-        </div>
-        <div class="form_group account">
-            <span>Don't have an account? <a href="register.php?">Sign up</a></span>
+            <button class="login_btn btn" name="submit" type="submit">SIGN IN <i
+                    class="fa-solid fa-arrow-right"></i></button>
         </div>
     </form>
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
-<?php
-try{
-if(isset($_REQUEST['btnsignin'])){
-    $username=$_REQUEST['username'];
-    $pass=$_REQUEST['password'];
-    $result=mysqli_query($conn,"SELECT * FROM tbladmin WHERE username ='".$username."' AND pass ='".$pass."'");
-    if($result->num_rows >0){
-        header("location:dashboard.php");
-        $username=$result->fetch_assoc();
-        $_SESSION['username']=$username['company'];
-    }else{
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-        <i class='fa fa-exclamation-circle me-2'></i>An icon &amp; dismissing danger alert—check it out!
-        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-    </div>";
-    }
-}
-}catch(Exception $e){
-    echo $e;
-}
-?>
 
-    <script src="../Admin/js/jquery-3.4.1.min.js"></script>
-    <script src="../Admin/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="js/main.js"></script>
 </html>

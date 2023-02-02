@@ -1,0 +1,77 @@
+</div>
+</div>
+</div>
+<!-- bootstrap js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    // toggle sidebar on windows resize
+    $(window).resize(function () {
+        if ($(window).width() < 768) {
+            $(".sidebar").removeClass("active");
+            $(".main,.header").addClass("open");
+            $(".main,.header").removeClass("blur");
+        } else {
+            $(".sidebar").addClass("active");
+            $(".main,.header").removeClass("open");
+            // $(".main,.header").addClass("blur");
+        }
+    })
+
+    var elements = $(".sidebar.active .link_names,.sidebar.active .brand-link").each(function (index, element) {
+        element.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+        })
+    })
+
+    $(document).ready(function () {
+
+        const currentLocation = location.href;
+        $("a").each(function (index, element) {
+            const linkRegEx = new RegExp(`^${currentLocation}`)
+            if (linkRegEx.test(element.href)) {
+                $(element).parent('li').addClass("active");
+            }
+        });
+
+        // set sidebar toggle state based on device/window width
+        if ($(window).width() < 768) {
+            $(".sidebar").removeClass("active");
+            $(".main,.header").addClass("open");
+            // $(".main,.header").removeClass("blur");
+        } else {
+            $(".main,.header").removeClass("open");
+            // $(".main,.header").addClass("blur");
+            $(".sidebar").addClass("active");
+        }
+
+        $(".sidebar-toggler").click(function () {
+            $(".main,.header").toggleClass("open");
+            $(".sidebar").toggleClass("active");
+            if ($(window).width() < 768) {
+                $(".header,.main").toggleClass("blur")
+            }
+        })
+
+        // close sidebar when tapped outside
+        $(".main").click(function (e) {
+            if ($(window).width() < 768) {
+                if ($('.sidebar').hasClass("active")) {
+                    $(".sidebar").removeClass("active")
+                    $(".header,.main").removeClass("blur")
+                }
+            }
+        })
+    })
+
+
+</script>
+</body>
+
+</html>

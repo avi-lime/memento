@@ -1,31 +1,48 @@
 <?php
-    include "conn.php";
-    include "sidebar.php";
-    include "navbar.php";
+include("template/header.php");
+include("../global/api/conn.php");
+
 ?>
-<head>
-    <title>User</title>
-</head>
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Dashboard</h6>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-<!---Main content-->
+<div class="card">
+    <h1>Users</h1>
+    <hr>
 
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
-        <?php 
-        include "footer.php";
+    <table id="table" class="table table-responsive text-center">
+        <caption>List of Users</caption>
+        <?php
+        // filling up the table
+        $table = "user";
+        $sql = "SELECT * FROM $table ";
+        $result = mysqli_query($conn, $sql);
+        $output = '<thead>'
+            . '<tr>'
+            . '<th>ID</th>'
+            . '<th>Name</th>'
+            . '<th>Email</th>'
+            . '<th>Image</th>'
+            . '<th>Action</th>'
+            . '</tr>'
+            . '</thead>'
+            . '<tbody>';
+        while ($row = mysqli_fetch_assoc($result)) {
+            $output .= '<tr>'
+                . '<th scope="row">' . $row['id'] . '</td>'
+                . '<td>' . $row['username'] . '</td>'
+                . '<td>' . $row['email'] . '</td>'
+                . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../global/assets/images/" . $row['image'] . "'></td>"
+                . '<td>'
+                . '<a role="button" href="api/delete.php?table=' . $table . '&id=' . $row['id'] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
+                . '</td>'
+                . '</tr>';
+        }
+        $output .= "</tbody>";
+        echo $output;
         ?>
-    </div>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#table").DataTable();
+    })
+</script>
+<?php include("../global/html/footer.html") ?>
