@@ -136,4 +136,4 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         })
     })
 </script>
-<?php include("../global/html/footer.html") ?>
+<?php include("template/footer.html") ?>

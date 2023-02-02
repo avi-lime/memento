@@ -42,4 +42,4 @@ include("../global/api/conn.php");
             </form>
         </div>
     </div>
-<?php include("../global/html/footer.html") ?>
+<?php include("template/footer.html") ?>
