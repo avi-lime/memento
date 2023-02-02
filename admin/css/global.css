@@ -101,6 +101,9 @@ hr {
     border-color: #111;
 }
 
+.form-select:disabled {
+    background-color: #2e2e2e;
+}
 
 .form-control:focus {
     background-color: var(--black-1);
