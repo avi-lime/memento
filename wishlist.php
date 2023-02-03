@@ -32,7 +32,7 @@
 					 <a href="#" class="card-link"><i class="fa fa-trash" aria-hidden="true"></i></a>
 					 </div>
  						<ul class="list-group list-group-flush">
- 							<li class="list-group-item"></li>
+ 							<li class="list-group-item">name(bob the builder karke dikhayenge)</li>
  						</ul>
  						<div class="card-body">
  							<a href="#" class="card-link">Add To Bag</a>
