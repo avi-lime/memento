@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 03, 2023 at 01:29 PM
+-- Generation Time: Feb 03, 2023 at 05:55 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -20,6 +20,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `memento`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `address`
+--
+
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `landmark` text NOT NULL,
+  `locality` varchar(255) NOT NULL,
+  `pincode` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -54,6 +73,22 @@ INSERT INTO `admin` (`id`, `email`, `password`, `username`, `superadmin`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `size` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -75,6 +110,23 @@ INSERT INTO `category` (`id`, `name`, `image`) VALUES
 (10, 'rahul', 'Screenshot (4).png'),
 (11, 'Shirt', 'Screenshot (4).png'),
 (12, 'Casual wear', 'autri-taheri-QAwtEAY6V8I-unsplash.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+DROP TABLE IF EXISTS `payment`;
+CREATE TABLE IF NOT EXISTS `payment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `transaction_date` date NOT NULL,
+  `payment_mode` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `amount` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -106,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discount`, `cat_id`, `subcat_id`, `company_id`, `img`, `series`) VALUES
 (6, 'Captain America: Colourblock', 2000, 800, 'Official Licensed Captain America Oversized Full Sleeve T-shirt.\r\n\r\nAre you ready to take your Streetwear game to the next level? Are you ready to have all the attention on you?\r\n\r\nIf yes, then you definitely need this ultra-stylish and extraordinarily comfortable Oversized Tee! And what better one than the one with Captain America\'s Shield on it which automatically makes it 10x cooler!\r\n\r\nBelieve us when we say that this is truly one of the most good-looking pieces of clothing you will ever own simply because of how innovative and different it is!\r\n\r\nWith our trademark quirky designs and unbelievably great quality, we guarantee that you will always look your best wherever you go!\r\n\r\nBe the trendsetter in your group and grab this tee today!\r\n\r\nShop for the best T-shirts online, exclusively at The Souled Store!', 12, 3, 2, 1, 'Screenshot (5).png', 'Captain America'),
-(7, 'Batman: Go Hawai', 2500, 500, 'Official Licensed Batman Summer Shirt\r\n\r\nWhen Batman requested us to make him a premium shirt, we couldn\'t deny him! Presenting to you this super-stylish and comfortable Batman shirt.\r\n\r\nBuy Batman Shirts online, available in India only at The Souled Store.', 0, 11, 10, 1, 'Screenshot (6).png', 'Batman');
+(7, 'Batman: Go Hawai', 2500, 500, 'Official Licensed Batman Summer Shirt\r\n\r\nWhen Batman requested us to make him a premium shirt, we couldn\'t deny him! Presenting to you this super-stylish and comfortable Batman shirt.\r\n\r\nBuy Batman Shirts online, available in India only at The Souled Store.', 0, 11, 10, 1, 'product-10.jpg', 'Batman');
 
 -- --------------------------------------------------------
 
@@ -122,6 +174,20 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slider`
+--
+
+DROP TABLE IF EXISTS `slider`;
+CREATE TABLE IF NOT EXISTS `slider` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -153,6 +219,26 @@ INSERT INTO `subcat` (`id`, `name`, `cat_id`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblorder`
+--
+
+DROP TABLE IF EXISTS `tblorder`;
+CREATE TABLE IF NOT EXISTS `tblorder` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `date` int(11) NOT NULL,
+  `extra_expenses` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -168,7 +254,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `city` int(11) NOT NULL,
   `img` blob NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+CREATE TABLE IF NOT EXISTS `wishlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
@@ -192,6 +294,13 @@ ALTER TABLE `product_images`
 --
 ALTER TABLE `subcat`
   ADD CONSTRAINT `FK_sub_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
