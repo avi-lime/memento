@@ -13,7 +13,8 @@
 
     // toggle sidebar on windows resize
     $(window).resize(function () {
-        if ($(window).width() < 768) {
+        console.log($(window).width())
+        if ($(window).width() < 850) {
             $(".sidebar").removeClass("active");
             $(".main,.header").addClass("open");
             $(".main,.header").removeClass("blur");
@@ -41,7 +42,7 @@
         });
 
         // set sidebar toggle state based on device/window width
-        if ($(window).width() < 768) {
+        if ($(window).width() < 850) {
             $(".sidebar").removeClass("active");
             $(".main,.header").addClass("open");
         } else {
@@ -53,14 +54,14 @@
         $(".sidebar-toggler").click(function () {
             $(".main,.header").toggleClass("open");
             $(".sidebar").toggleClass("active");
-            if ($(window).width() < 768) {
+            if ($(window).width() < 850) {
                 $(".header,.main").toggleClass("blur")
             }
         })
 
         // close sidebar when tapped outside
         $(".main").click(function (e) {
-            if ($(window).width() < 768) {
+            if ($(window).width() < 850) {
                 if ($('.sidebar').hasClass("active")) {
                     $(".sidebar").removeClass("active")
                     $(".header,.main").removeClass("blur")

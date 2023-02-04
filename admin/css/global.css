@@ -34,7 +34,7 @@
     box-sizing: border-box;
 }
 
-.card {
+.main>.card {
     background-color: var(--black-1);
     padding: 20px;
     margin-block: 10px;
@@ -74,7 +74,7 @@ hr {
     cursor: pointer;
     position: relative;
     transition: 200ms ease-in-out;
-    width: 200px;
+    width: min(100%, 200px);
 }
 
 .my-btn:focus,
@@ -172,4 +172,49 @@ hr {
 
 #btnDelM:hover {
     background-color: #611e7d !important;
+}
+
+.list .card {
+    margin: 0;
+    padding: 0;
+    min-width: 175px;
+}
+
+.list .card .my-btn:hover {
+    color: black;
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+a.my-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actions {
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-inline: 3px;
+}
+
+.search-bar {
+    background-color: var(--black);
+    color: var(--white);
+    height: 48px;
+    margin-block: 10px;
+    margin-left: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    width: min(450px, 80%);
+    outline: none;
 }

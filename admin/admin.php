@@ -11,9 +11,13 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     <h1>Admin</h1>
     <hr>
 
-    <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-        Add Admin
-    </button>
+
+    <div class="actions">
+        <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
+            Add Admin
+        </button>
+        <input type="text" class="search-bar" name="search" id="search" placeholder="Search...">
+    </div>
 
     <!-- Add/Edit Products Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="mdlLabel" aria-hidden="true">
@@ -64,6 +68,26 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             </div>
         </div>
     </div>
+
+    <div class="list row container-fluid justify-content-between">
+        <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
+            <div class="card bg-black text-white">
+                <img src="../global/assets/images/aoyama.jpg" alt="" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Product</h5>
+                    <p class="card-text line-clamp">Description of the product which I'm trying to make long but idk
+                        what to keep here, I am planning on clamping it on 3 lines or something to make it not long
+                        anyways so yeah.</p>
+                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                        <button type="button" class="btn my-btn">View</button>
+                        <a role="button" class="btn my-btn">Update</a>
+                        <a role="button" class="btn my-btn">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <table id="table" class="table table-responsive text-center">
         <caption>List of Admins</caption>
         <?php
@@ -71,6 +95,8 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         $table = "admin";
         $sql = "SELECT * FROM $table ";
         $result = mysqli_query($conn, $sql);
+
+
         $output = '<thead>'
             . '<tr>'
             . '<th>ID</th>'
