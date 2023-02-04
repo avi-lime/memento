@@ -51,8 +51,8 @@
     });
 
     /*------------------
-		Navigation
-	--------------------*/
+        Navigation
+    --------------------*/
     $(".mobile-menu").slicknav({
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: true
@@ -92,9 +92,9 @@
         navText: ["<span class='arrow_left'><span/>", "<span class='arrow_right'><span/>"],
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
-        smartSpeed: 1200,
+        smartSpeed: 3000,
         autoHeight: false,
-        autoplay: false
+        autoplay: true
     });
 
     /*--------------------------
@@ -103,16 +103,16 @@
     $("select").niceSelect();
 
     /*-------------------
-		Radio Btn
-	--------------------- */
+        Radio Btn
+    --------------------- */
     $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label").on('click', function () {
         $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label").removeClass('active');
         $(this).addClass('active');
     });
 
     /*-------------------
-		Scroll
-	--------------------- */
+        Scroll
+    --------------------- */
     $(".nice-scroll").niceScroll({
         cursorcolor: "#0d0d0d",
         cursorwidth: "5px",
@@ -125,26 +125,26 @@
     /*------------------
         CountDown
     --------------------*/
-  
+
 
     // Uncomment below and use your date //
 
-    var timerdate = "2023/01/29" 
+    var timerdate = "2023/01/29"
 
     $("#countdown").countdown(timerdate, function (event) {
         $(this).html(event.strftime("<div class='cd-item'><span>%D</span> <p>Days</p> </div>" + "<div class='cd-item'><span>%H</span> <p>Hours</p> </div>" + "<div class='cd-item'><span>%M</span> <p>Minutes</p> </div>" + "<div class='cd-item'><span>%S</span> <p>Seconds</p> </div>"));
     });
 
     /*------------------
-		Magnific
-	--------------------*/
+        Magnific
+    --------------------*/
     $('.video-popup').magnificPopup({
         type: 'iframe'
     });
 
     /*-------------------
-		Quantity change
-	--------------------- */
+        Quantity change
+    --------------------- */
     var proQty = $('.pro-qty');
     proQty.append('<span class="fa fa-angle-up inc qtybtn"></span>');
     proQty.prepend('<span class="fa fa-angle-down dec qtybtn"></span>');
@@ -198,4 +198,15 @@
         });
     });
 
+    /*---------------------------
+        Active Nav link changer
+    ----------------------------*/
+
+    $(".header__menu>ul>li>a").each(function (index, element) {
+        const currentLocation = location.href;
+        if (element.href == currentLocation) {
+            $(".header__menu>ul>li.active").removeClass("active");
+            $(element).parent('li').addClass("active");
+        }
+    });
 })(jQuery);

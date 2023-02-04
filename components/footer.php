@@ -76,17 +76,6 @@
 <script src="js/mixitup.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
-<script>
-    $(document).ready(function () {
-        const currentLocation = location.href;
-        $(".header__menu>ul>li>a").each(function (index, element) {
-            if (element.href == currentLocation) {
-                $(".active").removeClass("active");
-                $(element).parent('li').addClass("active");
-            }
-        });
-    })
-</script>
 </body>
 
 </html>
