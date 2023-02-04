@@ -79,7 +79,7 @@
                             </div>
                             <div class="card">
                                 <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
+                                    <a data-toggle="collapse" data-target="#collapseSix">Sub-Category</a>
                                 </div>
                                 <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
@@ -89,18 +89,22 @@
                                                 $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
                                                 if ($result = mysqli_query($conn, $subquery)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                            ?>
-                                                        <a href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php echo $row['name'] ?></a>
-                                                    <?php
+                                                        ?>
+                                                        <a
+                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
+                                                                  echo $row['name'] ?></a>
+                                                        <?php
                                                     }
                                                 }
                                             } else {
                                                 $query = 'SELECT * FROM subcat';
                                                 if ($result = mysqli_query($conn, $query)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                    ?>
-                                                        <a href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php echo $row['name'] ?></a>
-                                            <?php
+                                                        ?>
+                                                        <a
+                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
+                                                                  echo $row['name'] ?></a>
+                                                        <?php
                                                     }
                                                 }
                                             }
@@ -140,7 +144,7 @@
                         $pquery = 'SELECT * FROM product WHERE subcat_id=' . $subcat . '';
                         if ($presult = mysqli_query($conn, $pquery)) {
                             while ($prow = mysqli_fetch_assoc($presult)) {
-                    ?>
+                                ?>
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item sale">
                                         <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
@@ -150,7 +154,9 @@
                                             </ul>
                                         </div>
                                         <div class="product__item__text">
-                                            <h6><?php echo $prow['name']; ?></h6>
+                                            <h6>
+                                                <?php echo $prow['name']; ?>
+                                            </h6>
                                             <a href="#" class="add-cart">+ Add To Cart</a>
                                             <div class="rating">
                                                 <i class="fa fa-star"></i>
@@ -159,11 +165,13 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-o"></i>
                                             </div>
-                                            <h5>₹<?php echo $prow['price']; ?></h5>
+                                            <h5>₹
+                                                <?php echo $prow['price']; ?>
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
-                            <?php
+                                <?php
 
                             }
                         }
@@ -171,30 +179,34 @@
                         $pquery = 'SELECT * FROM product WHERE cat_id=' . $subcat . '';
                         if ($presult = mysqli_query($conn, $pquery)) {
                             while ($prow = mysqli_fetch_assoc($presult)) {
-                            ?>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item sale">
-                                        <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
-                                            <!-- <span class="label">Sale</span> -->
-                                            <ul class="product__hover">
-                                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h6><?php echo $prow['name']; ?></h6>
-                                            <a href="#" class="add-cart">+ Add To Cart</a>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
+                                ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item sale">
+                                            <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
+                                                <!-- <span class="label">Sale</span> -->
+                                                <ul class="product__hover">
+                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                                </ul>
                                             </div>
-                                            <h5>₹<?php echo $prow['price']; ?></h5>
+                                            <div class="product__item__text">
+                                                <h6>
+                                                <?php echo $prow['name']; ?>
+                                                </h6>
+                                                <a href="#" class="add-cart">+ Add To Cart</a>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <h5>₹
+                                                <?php echo $prow['price']; ?>
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php
+                                <?php
 
                             }
                         }
@@ -202,35 +214,39 @@
                         $pquery = 'SELECT * FROM product';
                         if ($presult = mysqli_query($conn, $pquery)) {
                             while ($prow = mysqli_fetch_assoc($presult)) {
-                            ?>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item sale">
-                                        <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
-                                            <!-- <span class="label">Sale</span> -->
-                                            <ul class="product__hover">
-                                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h6><?php echo $prow['name']; ?></h6>
-                                            <a href="#" class="add-cart">+ Add To Cart</a>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
+                                ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item sale">
+                                            <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
+                                                <!-- <span class="label">Sale</span> -->
+                                                <ul class="product__hover">
+                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                                </ul>
                                             </div>
-                                            <h5>₹<?php echo $prow['price']; ?></h5>
+                                            <div class="product__item__text">
+                                                <h6>
+                                                <?php echo $prow['name']; ?>
+                                                </h6>
+                                                <a href="#" class="add-cart">+ Add To Cart</a>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <h5>₹
+                                                <?php echo $prow['price']; ?>
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                    <?php
+                                <?php
                             }
                         }
                     }
                     ?>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item sale">
                             <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
                                 <span class="label">Sale</span>
@@ -371,7 +387,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-lg-12">

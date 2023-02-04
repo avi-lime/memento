@@ -11,9 +11,13 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     <h1>Categories</h1>
     <hr>
 
-    <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-        Add Category
-    </button>
+
+    <div class="actions">
+        <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
+            Add Category
+        </button>
+        <input type="text" class="search-bar" name="search" id="search" data-table="category" placeholder="Search...">
+    </div>
 
     <!-- Add/Edit Products Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="mdlLabel" aria-hidden="true">
@@ -52,37 +56,36 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             </div>
         </div>
     </div>
-    <table id="table" class="table table-responsive text-center">
-        <caption>List of Categories</caption>
+    <?php
+    $table = "category";
+    $sql = "SELECT * FROM $table ";
+    $result = mysqli_query($conn, $sql);
+    ?>
+    <div class="list row container-fluid" id="list">
         <?php
-        // filling up the table
-        $table = "category";
-        $sql = "SELECT * FROM $table ";
-        $result = mysqli_query($conn, $sql);
-        $output = '<thead>'
-            . '<tr>'
-            . '<th>ID</th>'
-            . '<th>Name</th>'
-            . '<th>Image</th>'
-            . '<th>Action</th>'
-            . '</tr>'
-            . '</thead>'
-            . '<tbody>';
         while ($row = mysqli_fetch_assoc($result)) {
-            $output .= '<tr>'
-                . '<th scope="row">' . $row['id'] . '</td>'
-                . '<td>' . $row['name'] . '</td>'
-                . "<td><img style='height:200px; object-fit:cover' class='rounded' alt='img' src='../global /assets/images/" . $row['image'] . "'></td>"
-                . '<td>'
-                . '<a class="me-2 btn-edit" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-pen"></i></a>'
-                . '<a role="button" href="api/delete.php?table=' . $table . '&id=' . $row['id'] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
-                . '</td>'
-                . '</tr>';
-        }
-        $output .= "</tbody>";
-        echo $output;
-        ?>
-    </table>
+            ?>
+            <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
+                <div class="card bg-black text-white">
+                    <img src="../global/assets/images/<?php echo $row["image"] ?>" alt="" class="card-img-top"
+                        style="object-fit: cover" height="300px">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?php echo $row["id"] . ". " . $row["name"] ?>
+                        </h5>
+                        <!-- <p class="card-text line-clamp"><?php //echo $row["description"] ?></p> -->
+                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                            <!-- <button type="button" class="btn my-btn">View</button> -->
+                            <a id="<?php echo $row["id"] ?>" role="button" class="btn my-btn btn-edit">Update</a>
+                            <a role="button" href="api/delete.php?table=<? echo $table ?>&id=<?php echo $row['id'] ?>"
+                                class="btn my-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {

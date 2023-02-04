@@ -470,9 +470,8 @@ ol {
 
 .header__menu ul li .dropdown {
 	position: absolute;
-	left: 0;
+	left: -50%;
 	top: 56px;
-	width: 150px;
 	background: #111111;
 	text-align: left;
 	padding: 5px 0;
@@ -487,6 +486,7 @@ ol {
 .header__menu ul li .dropdown li {
 	display: block;
 	margin-right: 0;
+	width: 150px;
 }
 
 .header__menu ul li .dropdown li a {

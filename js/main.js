@@ -87,7 +87,7 @@
         loop: true,
         margin: 0,
         items: 1,
-        dots: false,
+        dots: true,
         nav: true,
         navText: ["<span class='arrow_left'><span/>", "<span class='arrow_right'><span/>"],
         animateOut: 'fadeOut',

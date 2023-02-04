@@ -1,0 +1,84 @@
+::-moz-selection {
+    /* Code for Firefox */
+    background: #000;
+    color: #fff;
+}
+
+::selection {
+    background: #000;
+    color: #fff;
+}
+
+html {
+    height: 100vh;
+}
+
+
+.login_body {
+    background-color: #fff;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.login_image {
+    width: 50%;
+    position: relative;
+}
+
+.login_image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+
+.login_form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40vw;
+    padding: 1rem;
+}
+
+
+* {
+    color: #000;
+}
+
+.login_btn {
+    background-color: #000000;
+    border-radius: 0;
+    color: #fff;
+}
+
+.login_btn>i {
+    color: #fff;
+}
+
+.login_btn:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.form_input {
+    color: #000;
+}
+
+.form_input:focus {
+    color: #000 !important;
+}

@@ -102,24 +102,29 @@ include "global/api/conn.php";
                                     if ($result = mysqli_query($conn, $query)) {
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             ?>
-                                            <li class="dropdown-item-m"><a href="shop.php?sub_id=&cat_id=<?php echo $row["id"] ?>">
-                                                    <?php echo $row['name'] ?>
-                                                </a></li>
-                                            <?php
-                                            $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $row['id'] . ' ';
-                                            if ($subresult = mysqli_query($conn, $subquery)) {
-                                                while ($subrow = mysqli_fetch_assoc($subresult)) {
-                                                    ?>
-                                                    <li class="sub-dropdown-item"><a href="shop.php?cat_id=<?php echo $subrow["cat_id"] ?>&sub_id=<?php echo $subrow["id"] ?>">
-                                                            <?php echo $subrow['name'] ?>
-                                                        </a></li>
+                                            <div class="list">
+                                                <li class="dropdown-item-m"><a
+                                                        href="shop.php?sub_id=&cat_id=<?php echo $row["id"] ?>">
+                                                        <?php echo $row['name'] ?>
+                                                    </a></li>
+                                                <ul class="sub-dropdown">
                                                     <?php
-                                                }
-                                            }
+                                                    $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $row['id'] . ' ';
+                                                    if ($subresult = mysqli_query($conn, $subquery)) {
+                                                        while ($subrow = mysqli_fetch_assoc($subresult)) {
+                                                            ?>
+                                                            <li class="sub-dropdown-item"><a
+                                                                    href="shop.php?cat_id=<?php echo $subrow["cat_id"] ?>&sub_id=<?php echo $subrow["id"] ?>">
+                                                                    <?php echo $subrow['name'] ?>
+                                                                </a></li>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    echo "</ul></div>";
                                         }
                                     }
                                     ?>
-                                </ul>
+                                        </ul>
                             </li>
                             <li><a href="./contact.php">Contact Us</a></li>
                             <li><a href="./about.php">About Us</a></li>

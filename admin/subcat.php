@@ -67,44 +67,47 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             </div>
         </div>
     </div>
-    <table id="table" class="table table-responsive text-center">
-        <caption>List of Sub-Categories</caption>
+
+    <?php
+    $table = "subcat";
+    $sql = "SELECT id, name, image, (SELECT name FROM category WHERE category.id=subcat.cat_id) AS cat FROM $table ";
+    $result = mysqli_query($conn, $sql);
+    ?>
+    <div class="list row container-fluid justify-content-between">
         <?php
-        // filling up the table
-        $table = "subcat";
-        $sql = "SELECT subcat.id AS id, subcat.name , category.name AS cat , subcat.image FROM subcat LEFT JOIN category ON subcat.cat_id=category.id";
-        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-        $output = '<thead>'
-            . '<tr>'
-            . '<th>ID</th>'
-            . '<th>Name</th>'
-            . '<th>Category</th>'
-            . '<th>Image</th>'
-            . '<th>Action</th>'
-            . '</tr>'
-            . '</thead>'
-            . '<tbody>';
         while ($row = mysqli_fetch_assoc($result)) {
-            $output .= '<tr>'
-                . '<th scope="row">' . $row['id'] . '</td>'
-                . '<td>' . $row['name'] . '</td>'
-                . '<td>' . $row['cat'] . '</td>'
-                . "<td><img style='height:200px; object-fit:cover' class='rounded' alt='img' src='../global /assets/images/" . $row['image'] . "'></td>"
-                . '<td>'
-                . '<a class="me-2 btn-edit" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-pen"></i></a>'
-                . '<a role="button" href="api/delete.php?table=' . $table . '&id=' . $row['id'] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
-                . '</td>'
-                . '</tr>';
-        }
-        $output .= "</tbody>";
-        echo $output;
-        ?>
-    </table>
+            ?>
+            <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
+                <div class="card bg-black text-white">
+                    <img src="../global/assets/images/<?php echo $row["image"] ?>" alt="" class="card-img-top"
+                        style="object-fit: cover" height="300px">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?php echo $row["id"] . ". " . $row["name"] ?>
+                        </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-black text-white border-white">
+                                <b>Category:</b>
+                                <?php echo $row["cat"] ?>
+                            </li>
+                        </ul>
+                        <!-- <p class="card-text line-clamp"><?php //echo $row["description"] ?></p> -->
+                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                            <!-- <button type="button" class="btn my-btn">View</button> -->
+                            <a id="<?php echo $row["id"] ?>" role="button" class="btn my-btn btn-edit">Update</a>
+                            <a role="button" href="api/delete.php?table=<?php echo $table ?>&id=<?php echo $row['id'] ?>"
+                                class="btn my-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {
 
-        $("#table").DataTable();
         $('.btn-edit').click(function () {
             var id = $(this).attr("id");
             $.ajax({

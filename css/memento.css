@@ -1,7 +1,18 @@
-.sub-dropdown-item {
-    margin-left: 10px;
+.dropdown {
+    display: flex;
+    flex-direction: row;
+    width: fit-content !important;
+}
+
+.dropdown-item-m {
+    display: flex;
+    flex-direction: row;
 }
 
 .dropdown-item-m>a {
     font-weight: bold !important;
+}
+
+.sub-dropdown-item {
+    margin-left: 10px;
 }

@@ -68,6 +68,25 @@
                 }
             }
         })
+
+        // search function
+        $(".search-bar").keyup(function (e) {
+            $.ajax({
+                url: "api/search.php",
+                method: "POST",
+                data: {
+                    table: $(this).data('table'),
+                    toSearch: $(this).val()
+                },
+                success: function (data) {
+                    console.log(data)
+                    $("#list").html(data);
+
+                }
+            })
+        })
+
+
     })
 
 
