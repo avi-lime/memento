@@ -89,22 +89,18 @@
                                                 $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
                                                 if ($result = mysqli_query($conn, $subquery)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        ?>
-                                                        <a
-                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
-                                                                  echo $row['name'] ?></a>
-                                                        <?php
+                                            ?>
+                                                        <a href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php echo $row['name'] ?></a>
+                                                    <?php
                                                     }
                                                 }
                                             } else {
                                                 $query = 'SELECT * FROM subcat';
                                                 if ($result = mysqli_query($conn, $query)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        ?>
-                                                        <a
-                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
-                                                                  echo $row['name'] ?></a>
-                                                        <?php
+                                                    ?>
+                                                        <a href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php echo $row['name'] ?></a>
+                                            <?php
                                                     }
                                                 }
                                             }
@@ -122,7 +118,35 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__left">
-                                <p>Showing 1–12 of 126 results</p>
+                                <?php
+                                if ($subcat = $_REQUEST['sub_id']) {
+                                    $titlequery = 'SELECT COUNT(id)as totalproduct FROM product WHERE subcat_id=' . $subcat . '';
+                                    if ($result = mysqli_query($conn, $titlequery)) {
+                                        $totalproduct = mysqli_fetch_assoc($result);
+                                    }
+                                } else if ($catid = $_REQUEST['cat_id']) {
+                                    $titlequery = 'SELECT COUNT(id)as totalproduct FROM product WHERE cat_id=' . $catid . '';
+                                    if ($result = mysqli_query($conn, $titlequery)) {
+                                        $totalproduct = mysqli_fetch_assoc($result);
+                                    }
+                                } else {
+                                    $titlequery = 'SELECT COUNT(id)as totalproduct FROM product';
+                                    if ($result = mysqli_query($conn, $titlequery)) {
+                                        $totalproduct = mysqli_fetch_assoc($result);
+                                    }
+                                }
+                                ?>
+                                <p>Showing
+                                    <?php if ($totalproduct['totalproduct'] < 1) {
+                                        echo "0";
+                                    } else {
+                                        echo "1";
+                                    }  ?>–<?php
+                                            if ($totalproduct['totalproduct'] >= 12) {
+                                                echo "12";
+                                            } else {
+                                                echo $totalproduct['totalproduct'];
+                                            } ?> of <?php echo $totalproduct['totalproduct'] ?> results</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -140,80 +164,52 @@
                 <!-- Product view Start -->
                 <div class="row">
                     <?php
-                    if ($subcat = $_REQUEST['sub_id']) {
-                        $pquery = 'SELECT * FROM product WHERE subcat_id=' . $subcat . '';
-                        if ($presult = mysqli_query($conn, $pquery)) {
-                            while ($prow = mysqli_fetch_assoc($presult)) {
-                                ?>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item sale">
-                                        <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
-                                            <!-- <span class="label">Sale</span> -->
-                                            <ul class="product__hover">
-                                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h6>
-                                                <?php echo $prow['name']; ?>
-                                            </h6>
-                                            <a href="#" class="add-cart">+ Add To Cart</a>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </div>
-                                            <h5>₹
-                                                <?php echo $prow['price']; ?>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-
-                            }
-                        }
-                    } else if ($subcat = $_REQUEST['cat_id']) {
-                        $pquery = 'SELECT * FROM product WHERE cat_id=' . $subcat . '';
-                        if ($presult = mysqli_query($conn, $pquery)) {
-                            while ($prow = mysqli_fetch_assoc($presult)) {
-                                ?>
-                                    <div class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
-                                                <!-- <span class="label">Sale</span> -->
-                                                <ul class="product__hover">
-                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6>
-                                                <?php echo $prow['name']; ?>
-                                                </h6>
-                                                <a href="#" class="add-cart">+ Add To Cart</a>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <h5>₹
-                                                <?php echo $prow['price']; ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
-
-                            }
-                        }
+                    if ($totalproduct['totalproduct'] < 1) {
+                    ?>
+                        <div class="box__description-container" style="padding-left: 250px" >
+                            <div class="box__description-title">Whoops!</div>
+                            <div class="box__description-text">It seems like we don't have the product you were looking for</div>
+                        </div>
+                        <?php
                     } else {
-                        $pquery = 'SELECT * FROM product';
-                        if ($presult = mysqli_query($conn, $pquery)) {
-                            while ($prow = mysqli_fetch_assoc($presult)) {
+                        if ($subcat = $_REQUEST['sub_id']) {
+                            $pquery = 'SELECT * FROM product WHERE subcat_id=' . $subcat . '';
+                            if ($presult = mysqli_query($conn, $pquery)) {
+                                while ($prow = mysqli_fetch_assoc($presult)) {
+                        ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item sale">
+                                            <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
+                                                <!-- <span class="label">Sale</span> -->
+                                                <ul class="product__hover">
+                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product__item__text">
+                                                <h6>
+                                                    <?php echo $prow['name']; ?>
+                                                </h6>
+                                                <a href="#" class="add-cart">+ Add To Cart</a>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <h5>₹
+                                                    <?php echo $prow['price']; ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                            }
+                        } else if ($catid = $_REQUEST['cat_id']) {
+                            $pquery = 'SELECT * FROM product WHERE cat_id=' . $catid . '';
+                            if ($presult = mysqli_query($conn, $pquery)) {
+                                while ($prow = mysqli_fetch_assoc($presult)) {
                                 ?>
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item sale">
@@ -225,7 +221,7 @@
                                             </div>
                                             <div class="product__item__text">
                                                 <h6>
-                                                <?php echo $prow['name']; ?>
+                                                    <?php echo $prow['name']; ?>
                                                 </h6>
                                                 <a href="#" class="add-cart">+ Add To Cart</a>
                                                 <div class="rating">
@@ -236,12 +232,48 @@
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
                                                 <h5>₹
-                                                <?php echo $prow['price']; ?>
+                                                    <?php echo $prow['price']; ?>
                                                 </h5>
                                             </div>
                                         </div>
                                     </div>
                                 <?php
+
+                                }
+                            }
+                        } else {
+                            $pquery = 'SELECT * FROM product';
+                            if ($presult = mysqli_query($conn, $pquery)) {
+                                while ($prow = mysqli_fetch_assoc($presult)) {
+                                ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item sale">
+                                            <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
+                                                <!-- <span class="label">Sale</span> -->
+                                                <ul class="product__hover">
+                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product__item__text">
+                                                <h6>
+                                                    <?php echo $prow['name']; ?>
+                                                </h6>
+                                                <a href="#" class="add-cart">+ Add To Cart</a>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <h5>₹
+                                                    <?php echo $prow['price']; ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                    <?php
+                                }
                             }
                         }
                     }
