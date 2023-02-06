@@ -11,9 +11,12 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     <h1>Products</h1>
     <hr>
 
-    <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-        Add Product
-    </button>
+    <div class="actions">
+        <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
+            Add Product
+        </button>
+        <input type="text" class="search-bar" name="search" id="search" data-table="product" placeholder="Search...">
+    </div>
 
     <!-- Add/Edit Product Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="mdlLabel" aria-hidden="true">
@@ -37,7 +40,6 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                 required>
                                 <option selected disabled value="-1">Select a Category</option>
                                 <?php
-
                                 $query = "SELECT * FROM category";
                                 $result = mysqli_query($conn, $query);
                                 while ($row = mysqli_fetch_assoc($result)) {

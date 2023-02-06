@@ -11,9 +11,12 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     <h1>Sub-Categories</h1>
     <hr>
 
-    <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-        Add Sub-Category
-    </button>
+    <div class="actions">
+        <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
+            Add Sub-Category
+        </button>
+        <input type="text" class="search-bar" name="search" id="search" data-table="subcat" placeholder="Search...">
+    </div>
 
     <!-- Add/Edit Sub-Category Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="mdlLabel" aria-hidden="true">
