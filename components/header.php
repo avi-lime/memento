@@ -12,9 +12,9 @@ include "global/api/conn.php";
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Memento | Apparels, Cool Designs & Everything In Between.</title>
     <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href="img/favicons/mxm-favicon-32.png" sizes="any">
-    <link rel="shortcut icon" href="img/favicons/mxm-android.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="img/favicons/mxm-ios.png">
+    <link rel="icon" type="image/x-icon" href="img/mxm-white.png" sizes="any">
+    <link rel="shortcut icon" href="img/favicons/mxm-white.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/mxm-white.png">
 
 
     <!-- Google Font -->
