@@ -13,7 +13,7 @@ include "global/api/conn.php";
     <title>Memento | Apparels, Cool Designs & Everything In Between.</title>
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="img/mxm-white.png" sizes="any">
-    <link rel="shortcut icon" href="img/favicons/mxm-white.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/mxm-white.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="img/mxm-white.png">
 
 
@@ -22,8 +22,10 @@ include "global/api/conn.php";
         rel="stylesheet">
 
     <!-- Css Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/nice-select.css" type="text/css">
@@ -50,9 +52,9 @@ include "global/api/conn.php";
             </div>
         </div>
         <div class="offcanvas__nav__option">
-            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-            <a href="#"><img src="img/icon/heart.png" alt=""></a>
-            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+            <a href="#" class="search-switch"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="./wishlist.php"><i class="fa-regular fa-heart"></i></a>
+            <a href="./cart.php"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
             <div class="price">₹0.00</div>
         </div>
         <div id="mobile-menu-wrap"></div>
@@ -65,7 +67,7 @@ include "global/api/conn.php";
     <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6 col-md-7">
                         <div class="header__top__left">
@@ -84,14 +86,9 @@ include "global/api/conn.php";
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__logo">
-                        <a href="./index.php"><img height="100px" src="img/mxm-black.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-xl-4 col-lg-5">
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
@@ -131,16 +128,21 @@ include "global/api/conn.php";
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3 col-md-3">
+                <div class="col-xl-4 col-lg-2 text-center">
+                    <div class="header__logo">
+                        <a href="./index.php"><img height="84px" src="img/mxm-white.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
                     <div class="header__nav__option">
-                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                        <a href="wishlist.php"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="./shopping-cart.php"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        <a href="#" class="search-switch"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a href="wishlist.php"><i class="fa-regular fa-heart"></i></a>
+                        <a href="./shopping-cart.php"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
                         <div class="price">₹0.00</div>
                     </div>
                 </div>
             </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+            <div class="canvas__open"><i class="fa-solid fa-bars"></i></div>
         </div>
     </header>
     <!-- Header Section End -->

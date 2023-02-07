@@ -13,11 +13,11 @@
                                 commitment to exceptional quality.</p>
                             <a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                             <div class="hero__social">
-                                <!--<a href=""><i class="fa fa-facebook"></i></a>-->
-                                <!--<a href="#"><i class="fa fa-twitter"></i></a>-->
-                                <!--<a href="#"><i class="fa fa-pinterest"></i></a>-->
+                                <!--<a href=""><i class="fa-brands fa-facebook"></i></a>-->
+                                <!--<a href="#"><i class="fa-brands fa-twitter"></i></a>-->
+                                <!--<a href="#"><i class="fa-brands fa-pinterest"></i></a>-->
                                 <a href="https://www.instagram.com/memento.couture/" target="_blank"><i
-                                        class="fa fa-instagram"></i></a>
+                                        class="fa-brands fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -36,12 +36,12 @@
                             <a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                             <div class="hero__social">
                                 <!--
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
--->
+                                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                                -->
                                 <a href="https://www.instagram.com/memento.couture/" target="_blank"><i
-                                        class="fa fa-instagram"></i></a>
+                                        class="fa-brands fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -396,14 +396,16 @@
                     <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-1.jpg"></div>
                     <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-2.jpg"></div>
                     <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-3.jpg"></div>
-                    <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-4.jpg"></div>
-                    <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-5.jpg"></div>
+                    <!-- <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-4.jpg"></div> -->
+                    <!-- <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-5.jpg"></div> -->
                     <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-6.jpg"></div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="instagram__text">
-                    <h2>Instagram</h2>
+                    <a href="https://www.instagram.com/memento.couture/" target="_blank">
+                        <h2>Instagram<i style="font-size: 22px; margin-left: 6px;" class="fa-solid fa-link"></i></h2>
+                    </a>
                     <p>||स्‍मृति-चिह्न||<br>
                         Merch aimed to amalgamate the zest of belongingness and dash of contemporary style
                         Own your identity with our affordable apparels.</p>

@@ -62,7 +62,7 @@
         cursor: pointer;
 
         i {
-            font-size: 20px;       
+            font-size: 20px;
             position: relative;
             top: 3px;
             right: 2px;
@@ -115,8 +115,8 @@
             &.active {
 
                 a {
-                    
-                    
+
+
                     &:after {
                         transform: scale(1);
                     }
@@ -126,9 +126,9 @@
             &:hover {
 
                 a {
-                    
+
                     &:after {
-                       transform: scale(1);
+                        transform: scale(1);
                     }
                 }
 
