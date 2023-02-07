@@ -76,7 +76,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     $sql = "SELECT id, name, image, (SELECT name FROM category WHERE category.id=subcat.cat_id) AS cat FROM $table ";
     $result = mysqli_query($conn, $sql);
     ?>
-    <div class="list row container-fluid justify-content-between">
+    <div class="list row container-fluid" id="#list">
         <?php
         while ($row = mysqli_fetch_assoc($result)) {
             ?>

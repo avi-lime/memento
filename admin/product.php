@@ -31,7 +31,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <form action="api/subcat.php" method="post" enctype="multipart/form-data">
+                <form action="api/product.php" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group mb-3">
@@ -92,53 +92,65 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             </div>
         </div>
     </div>
-    <table id="table" class="table table-responsive text-center">
-        <caption>List of Products</caption>
-        <?php
-        // filling up the table
-        $table = "product";
-        $sql = "SELECT id, name,
+
+
+    <?php
+    $table = "product";
+    $sql = "SELECT id, name,
             (SELECT name FROM category WHERE category.id=product.cat_id) AS cat,
             (SELECT name FROM subcat WHERE subcat.id=product.subcat_id) AS sub,
             price, quantity, discount, img, description FROM product
             ";
-        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-        $output = '<thead>'
-            . '<tr>'
-            . '<th>ID</th>'
-            . '<th>Name</th>'
-            . '<th>Category</th>'
-            . '<th>Sub-Category</th>'
-            . '<th>Description</th>'
-            . '<th>Price</th>'
-            . '<th>Discount</th>'
-            . '<th>Quantity</th>'
-            . '<th>Image</th>'
-            . '<th>Action</th>'
-            . '</tr>'
-            . '</thead>'
-            . '<tbody>';
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    ?>
+    <div class="list row container-fluid">
+        <?php
         while ($row = mysqli_fetch_assoc($result)) {
-            $output .= '<tr>'
-                . '<th scope="row">' . $row['id'] . '</td>'
-                . '<td>' . $row['name'] . '</td>'
-                . '<td>' . $row['cat'] . '</td>'
-                . '<td>' . $row['sub'] . '</td>'
-                . '<td >' . $row['description'] . '</td>'
-                . '<td>₹' . $row['price'] . '</td>'
-                . '<td>' . $row['discount'] . '</td>'
-                . '<td>' . $row['quantity'] . '</td>'
-                . "<td><img style='height:200px; object-fit:cover' class='rounded' alt='img' src='../global /assets/images/" . $row['img'] . "'></td>"
-                . '<td>'
-                . '<a class="me-2 btn-edit" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-pen"></i></a>'
-                . '<a role="button" href="api/delete.php?table=' . $table . '&id=' . $row['id'] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
-                . '</td>'
-                . '</tr>';
-        }
-        $output .= "</tbody>";
-        echo $output;
-        ?>
-    </table>
+            ?>
+            <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
+                <div class="card bg-black text-white">
+                    <img src="../global/assets/images/<?php echo $row["img"] ?>" alt="" class="card-img-top"
+                        style="object-fit: cover" height="300px">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?php echo $row["id"] . ". " . $row["name"] ?>
+                        </h5>
+                        <p class="card-text line-clamp">
+                            <?php echo $row["description"] ?>
+                        </p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-black text-white border-white">
+                                <b>Category:</b>
+                                <?php echo $row["cat"] ?>
+                            </li>
+                            <li class="list-group-item bg-black text-white border-white">
+                                <b>Sub-Category:</b>
+                                <?php echo $row["sub"] ?>
+                            </li>
+                            <li class="list-group-item bg-black text-white border-white">
+                                <b>Price:</b> ₹
+                                <?php echo $row["price"] ?>
+                            </li>
+                            <li class="list-group-item bg-black text-white border-white">
+                                <b>Discount:</b>
+                                <?php echo $row["discount"] ?>
+                            </li>
+                            <li class="list-group-item bg-black text-white border-white">
+                                <b>Quantity:</b>
+                                <?php echo $row["quantity"] ?>
+                            </li>
+                        </ul>
+                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                            <button type="button" class="btn my-btn">View</button>
+                            <a id="<?php echo $row["id"] ?>" role="button" class="btn my-btn btn-edit">Edit</a>
+                            <a role="button" href="api/delete.php?table=<?php echo $table ?>&id=<?php echo $row['id'] ?>"
+                                class="btn my-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
 </div>
 <script>
     $(document).ready(function () {
@@ -158,7 +170,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 method: 'POST',
                 data: {
                     id: id,
-                    table: "subcat"
+                    table: "product"
                 },
                 dataType: "json",
                 success: function (data) {

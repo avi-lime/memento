@@ -73,7 +73,6 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <h5 class="card-title">
                             <?php echo $row["id"] . ". " . $row["name"] ?>
                         </h5>
-                        <!-- <p class="card-text line-clamp"><?php //echo $row["description"] ?></p> -->
                         <div class="btn-group w-100" role="group" aria-label="Actions">
                             <!-- <button type="button" class="btn my-btn">View</button> -->
                             <a id="<?php echo $row["id"] ?>" role="button" class="btn my-btn btn-edit">Update</a>
