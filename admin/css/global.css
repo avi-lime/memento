@@ -34,12 +34,16 @@
     box-sizing: border-box;
 }
 
+.main .container-fluid {
+    height: 100%;
+}
+
 .main>.card {
     background-color: var(--black-1);
     padding: 20px;
     margin-block: 10px;
     margin-left: 5px;
-    height: max-content;
+    min-height: 400px;
     width: calc(100% - 10px);
     border-radius: 10px;
 }
@@ -84,6 +88,7 @@ hr {
     outline: none;
     background-color: var(--white-2);
 }
+
 
 .modal .btn {
     width: 100px;
@@ -201,6 +206,7 @@ a.my-btn {
     display: flex;
     height: auto;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 1rem;
     padding-inline: 3px;
 }
@@ -215,6 +221,46 @@ a.my-btn {
     padding: 15px;
     border: none;
     border-radius: 10px;
-    width: min(450px, 80%);
+    width: min(450px, 33.33%);
     outline: none;
+}
+
+.sort {
+    padding: 15px;
+    color: white;
+}
+
+.sort .nice-select {
+    background-color: #000;
+    line-height: 48px;
+    height: 48px;
+    border: none;
+}
+
+.sort .nice-select:after {
+    border-bottom: 1.5px solid #fff;
+    border-right: 1.5px solid #fff;
+    height: 8px;
+    right: 12px;
+    width: 8px;
+}
+
+.sort .nice-select span {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.sort .nice-select .list {
+    border-radius: 0;
+    background-color: #000;
+}
+
+.sort .nice-select .list .focus {
+    border-radius: 0;
+    background-color: #111 !important;
+}
+
+.sort .nice-select .option:hover {
+    background-color: #111;
 }

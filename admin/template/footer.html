@@ -7,13 +7,13 @@
     crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="../js/jquery.nice-select.min.js"></script>
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
     // toggle sidebar on windows resize
     $(window).resize(function () {
-        console.log($(window).width())
         if ($(window).width() < 850) {
             $(".sidebar").removeClass("active");
             $(".main,.header").addClass("open");
@@ -69,22 +69,24 @@
             }
         })
 
-        // search function
-        $(".search-bar").keyup(function (e) {
-            $.ajax({
-                url: "api/search.php",
-                method: "POST",
-                data: {
-                    table: $(this).data('table'),
-                    toSearch: $(this).val()
-                },
-                success: function (data) {
-                    console.log(data)
-                    $("#list").html(data);
+        $(".sort select").niceSelect();
 
-                }
-            })
-        })
+        // search function
+        // $(".search-bar").keyup(function (e) {
+        //     $.ajax({
+        //         url: "api/search.php",
+        //         method: "POST",
+        //         data: {
+        //             table: $(this).data('table'),
+        //             toSearch: $(this).val()
+        //         },
+        //         success: function (data) {
+        //             console.log(data)
+        //             $("#list").html(data);
+
+        //         }
+        //     })
+        // })
 
 
     })

@@ -78,7 +78,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <div class="form-group">
                             <label>Image: </label>
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" name="imgfile" id="imgfile" required
+                                <input type="file" class="form-control" name="imgfile" id="imgfile" required multiple
                                     accept=".png,.jpg,.jpeg">
                             </div>
                         </div>

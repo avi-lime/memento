@@ -16,6 +16,14 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
             Add Category
         </button>
+        <div class="sort">
+            <select class="nice-select" name="sort" id="sort">
+                <option value="ORDER BY id" selected>ID, 1-9</option>
+                <option value="ORDER BY id DESC">ID, 9-1</option>
+                <option value="ORDER BY name">Name, A-Z</option>
+                <option value="ORDER BY name DESC">Name, Z-A</option>
+            </select>
+        </div>
         <input type="text" class="search-bar" name="search" id="search" data-table="category" placeholder="Search...">
     </div>
 
@@ -42,7 +50,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <div class="form-group">
                             <label>Image: </label>
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" name="imgfile" id="imgfile" required
+                                <input type="file" class="form-control" name="imgfile" id="imgfile"
                                     accept=".png,.jpg,.jpeg">
                             </div>
                         </div>
@@ -56,48 +64,77 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             </div>
         </div>
     </div>
-    <?php
-    $table = "category";
-    $sql = "SELECT * FROM $table ";
-    $result = mysqli_query($conn, $sql);
-    ?>
     <div class="list row container-fluid" id="list">
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-            <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
-                <div class="card bg-black text-white">
-                    <img src="../global/assets/images/<?php echo $row["image"] ?>" alt="" class="card-img-top"
-                        style="object-fit: cover" height="300px">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <?php echo $row["id"] . ". " . $row["name"] ?>
-                        </h5>
-                        <div class="btn-group w-100" role="group" aria-label="Actions">
-                            <!-- <button type="button" class="btn my-btn">View</button> -->
-                            <a id="<?php echo $row["id"] ?>" role="button" class="btn my-btn btn-edit">Update</a>
-                            <a role="button" href="api/delete.php?table=<? echo $table ?>&id=<?php echo $row['id'] ?>"
-                                class="btn my-btn">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
+
     </div>
 
 </div>
 <script>
-    $(document).ready(function () {
+    function fetch_filter_sort() {
+        let params = "";
+        let search = $("#search").val();
+        let sort_by = $("#sort").val();
+        if (search != "") params += ` WHERE name LIKE '%${search}%'`;
+        params += ` ${sort_by}`
+        $.ajax({
+            url: 'api/fetch.php',
+            method: 'POST',
+            data: {
+                query: "SELECT * FROM category " + params
+            },
+            dataType: "json",
+            success: function (data) {
+                let content = ""
+                data.forEach(item => {
+                    let parsedItem = $.parseJSON(item);
+                    content += `
+                         <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
+                            <div class="card bg-black text-white">
+                                <img src="../global/assets/images/${parsedItem.image}" alt="" class="card-img-top"
+                                    style="object-fit: cover" height="300px">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        ${parsedItem.id}. ${parsedItem.name}
+                                    </h5>
+                                    <div class="btn-group w-100" role="group" aria-label="Actions">
+                                        <!-- <button type="button" class="btn my-btn">View</button> -->
+                                        <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                        <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                })
+                $("#list").html(content)
+            }
+        })
+    }
 
-        $("#table").DataTable();
-        $('.btn-edit').click(function () {
+    // sort
+
+    $("#sort").change(function () {
+        fetch_filter_sort();
+    });
+
+    // search
+
+    $("#search").keyup(function () {
+        fetch_filter_sort();
+    })
+
+    // fetch
+
+    $(document).ready(function () {
+        fetch_filter_sort();
+
+        $('#list').on("click", "a.btn-edit", function () {
             var id = $(this).attr("id");
             $.ajax({
                 url: 'api/fetch.php',
                 method: 'POST',
                 data: {
-                    id: id,
-                    table: "category"
+                    query: "SELECT * FROM category WHERE id=" + id
                 },
                 dataType: "json",
                 success: function (data) {
@@ -109,13 +146,37 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 }
             })
         })
-        $('#btnAdd').click(function () {
-            $("#id").val("");
-            $("#name").val("");
-            $("#imgfile").val("");
-            $("#mdlLabel").text("Add Category");
-            $("#btnSubmit").text("Add");
+
+        $("#list").on("click", "a.btn-del", function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "api/delete.php",
+                method: "POST",
+                data: {
+                    table: "category",
+                    id: id
+                },
+                success: function (data) {
+                    fetch_filter_sort();
+                }
+            })
         })
     })
+
+
+    $('#btnAdd').click(function () {
+        $("#id").val("");
+        $("#name").val("");
+        $("#imgfile").val("");
+        $("#mdlLabel").text("Add Category");
+        $("#btnSubmit").text("Add");
+    })
+
+    $("select").change(function () {
+        let sort_as = $(this).val();
+
+    })
+
+
 </script>
 <?php include("template/footer.html") ?>

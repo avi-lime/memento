@@ -9,16 +9,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-    <!-- custom css -->
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/panel.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="../css/nice-select.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/panel.css">
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     <title>Memento Admin</title>
     <link rel="icon" type="image/x-icon" href="../img/mxm-white.png" sizes="any">
 </head>
