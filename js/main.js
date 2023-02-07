@@ -61,13 +61,13 @@
     /*------------------
         Accordin Active
     --------------------*/
-    $('.collapse').on('shown.bs.collapse', function () {
-        $(this).prev().addClass('active');
-    });
+    // $('.collapse').on('shown.bs.collapse', function () {
+    //     $(this).prev().addClass('active');
+    // });
 
-    $('.collapse').on('hidden.bs.collapse', function () {
-        $(this).prev().removeClass('active');
-    });
+    // $('.collapse').on('hidden.bs.collapse', function () {
+    //     $(this).prev().removeClass('active');
+    // });
 
     //Canvas Menu
     $(".canvas__open").on('click', function () {
@@ -92,7 +92,7 @@
         navText: ["<span class='arrow_left'><span/>", "<span class='arrow_right'><span/>"],
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
-        smartSpeed: 3000,
+        smartSpeed: 1200,
         autoHeight: false,
         autoplay: true
     });
@@ -109,6 +109,13 @@
         $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label").removeClass('active');
         $(this).addClass('active');
     });
+
+    /*-------------------
+        Size Select
+    --------------------- */
+    // $(".shop__sidebar__size label").on('click', function () {
+    //     $(this).toggleClass('active');
+    // });
 
     /*-------------------
         Scroll
