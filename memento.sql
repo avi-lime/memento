@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 03, 2023 at 05:55 PM
+-- Generation Time: Feb 09, 2023 at 11:26 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS `address` (
   `landmark` text NOT NULL,
   `locality` varchar(255) NOT NULL,
   `pincode` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_addresss_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -55,20 +56,15 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `superadmin` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `email`, `password`, `username`, `superadmin`) VALUES
-(1, 'marvel@gmail.com', '$2y$10$d0k8Mbj8yULvhkOHAPMMJu/inRQ7s2wTkxHeUNT4YABFU0ifkUpuK', 'MARVEL', 0),
-(2, 'dc@gmail.com', '$2y$10$.CS/0hvGf4XQD4m34sb.Z.N/ktjXGgUpEX973mWHZmbIDtn.4.MY.', 'DC', 0),
 (3, 'admin@admin.com', '$2y$10$p1hI3LduLkki2cIIsH1WmeHI.dmygMs3mGHNkhWIg/WSlAlERJQBG', 'admin', 1),
-(4, 'allahhuakbar911@boomboom.com', '$2y$10$8MWn2jmfEz5BkAGgR6NSqel7gmEtLIZM.EurMbCp9VxY4mNtgMiN.', 'allah hu akbar', 0),
-(5, 'vomajabij@mailinator.com', '$2y$10$9TQHj7jJ3hGZLiKHugcHHO34wRiAWCnN5uF1Qs51eqteMQE2T26kC', 'Ria Nash', 0),
-(6, 'gotihovusy@mailinator.com', '$2y$10$X.8WTy0GpCNHe5W0ZYv.cerZHVUrXb10H5JXEu6J8Kwx4eq87rE1S', 'Geoffrey Hernandez', 0),
-(7, 'bemah@mailinator.com', '$2y$10$OmtantmKfK6cGjp9eMpt3OsJdDiCi3a4gnYVtEdx.7I5xVRhwR/TG', 'Maxwell Gonzalez', 0);
+(4, 'allahhuakbar911@boomboom.com', '$2y$10$8MWn2jmfEz5BkAGgR6NSqel7gmEtLIZM.EurMbCp9VxY4mNtgMiN.', 'allah hu akbar', 0);
 
 -- --------------------------------------------------------
 
@@ -83,7 +79,9 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `quantity` int(11) NOT NULL,
   `size` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_cart_product` (`product_id`),
+  KEY `FK_card_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -99,17 +97,38 @@ CREATE TABLE IF NOT EXISTS `category` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `image`) VALUES
-(3, 'Tees', 'Screenshot (6).png'),
-(10, 'rahul', 'Screenshot (4).png'),
-(11, 'Shirt', 'Screenshot (4).png'),
-(12, 'Casual wear', 'autri-taheri-QAwtEAY6V8I-unsplash.jpg');
+(11, 'Active wear', 'image_2022-09-08_183304383.png'),
+(12, 'Casual wear', 'autri-taheri-QAwtEAY6V8I-unsplash.jpg'),
+(13, 'Bro', 'image_2022-09-09_030925604.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `date` int(11) NOT NULL,
+  `extra_expenses` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_order_user` (`user_id`),
+  KEY `FK_order_product` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -125,7 +144,8 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `payment_mode` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `amount` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_payment_order` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -157,8 +177,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discount`, `cat_id`, `subcat_id`, `company_id`, `img`, `series`) VALUES
-(6, 'Captain America: Colourblock', 2000, 800, 'Official Licensed Captain America Oversized Full Sleeve T-shirt.\r\n\r\nAre you ready to take your Streetwear game to the next level? Are you ready to have all the attention on you?\r\n\r\nIf yes, then you definitely need this ultra-stylish and extraordinarily comfortable Oversized Tee! And what better one than the one with Captain America\'s Shield on it which automatically makes it 10x cooler!\r\n\r\nBelieve us when we say that this is truly one of the most good-looking pieces of clothing you will ever own simply because of how innovative and different it is!\r\n\r\nWith our trademark quirky designs and unbelievably great quality, we guarantee that you will always look your best wherever you go!\r\n\r\nBe the trendsetter in your group and grab this tee today!\r\n\r\nShop for the best T-shirts online, exclusively at The Souled Store!', 12, 3, 2, 1, 'Screenshot (5).png', 'Captain America'),
-(7, 'Batman: Go Hawai', 2500, 500, 'Official Licensed Batman Summer Shirt\r\n\r\nWhen Batman requested us to make him a premium shirt, we couldn\'t deny him! Presenting to you this super-stylish and comfortable Batman shirt.\r\n\r\nBuy Batman Shirts online, available in India only at The Souled Store.', 0, 11, 10, 1, 'product-10.jpg', 'Batman');
+(7, 'Batman: Go Hawai', 2500, 500, 'Official Licensed Batman Summer Shirt\r\n\r\nWhen Batman requested us to make him a premium shirt, we couldn\'t deny him! Presenting to you this super-stylish and comfortable Batman shirt.\r\n\r\nBuy Batman Shirts online, available in India only at The Souled Store.', 0, 11, 10, 1, 'autri-taheri-QAwtEAY6V8I-unsplash.jpg', 'Batman');
 
 -- --------------------------------------------------------
 
@@ -211,30 +230,8 @@ CREATE TABLE IF NOT EXISTS `subcat` (
 --
 
 INSERT INTO `subcat` (`id`, `name`, `cat_id`, `image`) VALUES
-(2, 'full sleeve', 3, 'Screenshot (5).png'),
-(9, 'Plain shirt ', 3, 'Screenshot (3).png'),
 (10, 'mandarin shirt', 11, 'image_2022-09-09_061323574.png'),
 (11, 'T-Shirts', 12, 'image_2022-09-03_164709322.png');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblorder`
---
-
-DROP TABLE IF EXISTS `tblorder`;
-CREATE TABLE IF NOT EXISTS `tblorder` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `address_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `date` int(11) NOT NULL,
-  `extra_expenses` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -244,16 +241,17 @@ CREATE TABLE IF NOT EXISTS `tblorder` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(25) NOT NULL AUTO_INCREMENT,
+  `id` int(25) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `addressid` int(25) NOT NULL,
-  `mobileno` int(10) NOT NULL,
+  `mobileno` varchar(10) NOT NULL,
   `state` int(11) NOT NULL,
   `city` int(11) NOT NULL,
-  `img` blob NOT NULL,
-  PRIMARY KEY (`user_id`)
+  `image` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -275,6 +273,32 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `address`
+--
+ALTER TABLE `address`
+  ADD CONSTRAINT `FK_addresss_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `FK_card_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_cart_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `FK_order_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `FK_payment_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product`
@@ -300,7 +324,7 @@ ALTER TABLE `subcat`
 --
 ALTER TABLE `wishlist`
   ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
-  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
