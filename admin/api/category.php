@@ -22,7 +22,11 @@ if (!isset($_POST["name"])) {
     if ($_POST['id'] == '') {
         $sql = "INSERT INTO category (name, image) VALUES ('$sanitized_name','$image')";
     } else {
-        $sql = "UPDATE category SET name='$sanitized_name', image='$image' WHERE id=" . $_POST['id'];
+        $sql = "UPDATE category SET name='$sanitized_name'";
+        if ($image != "default.png") {
+            $sql .= ", image='$image'";
+        }
+        $sql .= "WHERE id=" . $_POST['id'];
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));

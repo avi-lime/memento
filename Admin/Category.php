@@ -50,7 +50,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <div class="form-group">
                             <label>Image: </label>
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" name="imgfile" id="imgfile"
+                                <input type="file" class="form-control" name="imgfile" id="imgfile" required
                                     accept=".png,.jpg,.jpeg">
                             </div>
                         </div>
@@ -70,17 +70,84 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
 
 </div>
 <script>
-    function fetch_filter_sort() {
+
+    $(document).ready(function () {
+        // fetch on load
+        fetch_filter_sort("category");
+
+        // fetch and fill on edit
+        $('#list').on("click", "a.btn-edit", function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: 'api/fetch.php',
+                method: 'POST',
+                data: {
+                    query: "SELECT * FROM category WHERE id=" + id
+                },
+                dataType: "json",
+                success: function (data) {
+                    let parsedData = $.parseJSON(data[0]);
+                    $("#id").val(parsedData.id);
+                    $("#name").val(parsedData.name);
+                    $("#imgfile").attr("required", false);
+                    $("#mdlLabel").text("Edit Category");
+                    $("#btnSubmit").text("Update");
+                    $("#modal").modal('show');
+                }
+            })
+        })
+
+        // delete 
+        $("#list").on("click", "a.btn-del", function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "api/delete.php",
+                method: "POST",
+                data: {
+                    table: "category",
+                    id: id
+                },
+                success: function (data) {
+                    fetch_filter_sort("category");
+                }
+            })
+        })
+
+        // sort
+        $("#sort").change(function () {
+            fetch_filter_sort("category");
+        });
+
+        // search
+        $("#search").keyup(function () {
+            fetch_filter_sort("category");
+        })
+
+        // reset form on add        
+        $('#btnAdd').click(function () {
+            $("#id").val("");
+            $("#name").val("");
+            $("#imgfile")
+                .val("")
+                .attr("required", true);
+            $("#mdlLabel").text("Add Category");
+            $("#btnSubmit").text("Add");
+        })
+
+    })
+
+
+    function fetch_filter_sort(table) {
         let params = "";
         let search = $("#search").val();
         let sort_by = $("#sort").val();
-        if (search != "") params += ` WHERE name LIKE '%${search}%'`;
+        if (search != "") params += ` WHERE name LIKE '%${search}%' OR id LIKE '${search}%'`;
         params += ` ${sort_by}`
         $.ajax({
             url: 'api/fetch.php',
             method: 'POST',
             data: {
-                query: "SELECT * FROM category " + params
+                query: `SELECT * FROM ${table} ` + params
             },
             dataType: "json",
             success: function (data) {
@@ -110,72 +177,6 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             }
         })
     }
-
-    // sort
-
-    $("#sort").change(function () {
-        fetch_filter_sort();
-    });
-
-    // search
-
-    $("#search").keyup(function () {
-        fetch_filter_sort();
-    })
-
-    // fetch
-
-    $(document).ready(function () {
-        fetch_filter_sort();
-
-        $('#list').on("click", "a.btn-edit", function () {
-            var id = $(this).attr("id");
-            $.ajax({
-                url: 'api/fetch.php',
-                method: 'POST',
-                data: {
-                    query: "SELECT * FROM category WHERE id=" + id
-                },
-                dataType: "json",
-                success: function (data) {
-                    $("#id").val(data.id);
-                    $("#name").val(data.name);
-                    $("#mdlLabel").text("Edit Category");
-                    $("#btnSubmit").text("Update");
-                    $("#modal").modal('show');
-                }
-            })
-        })
-
-        $("#list").on("click", "a.btn-del", function () {
-            var id = $(this).attr("id");
-            $.ajax({
-                url: "api/delete.php",
-                method: "POST",
-                data: {
-                    table: "category",
-                    id: id
-                },
-                success: function (data) {
-                    fetch_filter_sort();
-                }
-            })
-        })
-    })
-
-
-    $('#btnAdd').click(function () {
-        $("#id").val("");
-        $("#name").val("");
-        $("#imgfile").val("");
-        $("#mdlLabel").text("Add Category");
-        $("#btnSubmit").text("Add");
-    })
-
-    $("select").change(function () {
-        let sort_as = $(this).val();
-
-    })
 
 
 </script>
