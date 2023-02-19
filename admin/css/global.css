@@ -264,3 +264,9 @@ a.my-btn {
 .sort .nice-select .option:hover {
     background-color: #111;
 }
+
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
