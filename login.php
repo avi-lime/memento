@@ -5,96 +5,150 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- custom css -->
-    <link rel="stylesheet" href="global/css/global.css">
+    <title>Sign in & Sign up form</title>
     <link rel="stylesheet" href="css/login.css">
-    <!-- font awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
-        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <title>Login</title>
 </head>
 
-<body class="login_body">
-    <section class="login_form">
-        <?php
-        require_once("global/api/conn.php");
-        session_start();
-        if (isset($_REQUEST["submit"])) {
-            $email = $_REQUEST["email"];
-            $password = $_REQUEST["password"];
+<body>
+    <main>
+        <div class="box">
+            <div class="inner-box">
+                <div class="forms-wrap">
+                    <form action="index.html" autocomplete="off" class="sign-in-form">
+                        <div class="logo">
+                            <img src="cartlogo.jpg" alt="Clothing" />
+                            <h4>Clothing</h4>
+                        </div>
+                        <div class="heading">
+                            <h2>Welcome Back</h2>
+                            <h6>Not Registered yet?</h6>
+                            <a href="#" class="toggle">Sign up</a>
+                        </div>
 
-            $sanitized_email = mysqli_real_escape_string($conn, $email);
-            $sanitized_password = mysqli_real_escape_string($conn, $password);
+                        <div class="actual-form">
+                            <div class="input-wrap">
+                                <input type="text" minlength="4" class="input-field" autocomplete="off" required />
+                                <label>Name</label>
+                            </div>
+                            <div class="input-wrap">
+                                <input type="password" minlength="4" class="input-field" autocomplete="off" required />
+                                <label>Password</label>
+                            </div>
+                            <input type="submit" value="Sign In" class="sign-btn" />
+                            <p class="text">
+                                Forgotten your password or your login details?
+                                <a href="#">Get help</a> signing in
+                            </p>
+                        </div>
+                    </form>
 
-            $query = "SELECT * FROM admin WHERE email='$sanitized_email'";
-            $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-            $num = mysqli_num_rows($result);
 
-            $error = "";
-            if ($num > 0) {
-                $admin = mysqli_fetch_assoc($result);
-                if (password_verify($sanitized_password, $admin["password"])) {
-                    $_SESSION["admin"] = $admin["id"];
-                    $_SESSION["super"] = $admin["superadmin"];
-                    $_SESSION['expire'] = time() + (60 * 60);
-                    header("location: dashboard.php");
-                } else {
-                    $error = "E-mail and Password don't match.";
-                }
-            } else {
-                $error = "User doesn't exist.";
-            }
-            if ($error != "") {
-                ?>
-                <!-- alert -->
-                <div class="mb-4 alert alert-danger d-flex align-items-center gap-2 alert-dismissible fade show" role="alert">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <div>
-                        <?php echo $error ?>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                    <form action="index.html" autocomplete="off" class="sign-up-form">
+                        <div class="logo">
+                            <img src="cartlogo.jpg" alt="Clothing" />
+                            <h3>Clothing</h3>
+                        </div>
+                        <div class="heading">
+                            <h2>Get started</h2>
+                            <h6>Already have an account?</h6>
+                            <a href="#" class="toggle">Sign in</a>
+                        </div>
+
+                        <div class="actual-form">
+                            <div class="input-wrap">
+                                <input type="text" class="input-field" autocomplete="off" required />
+                                <label>Name</label>
+                            </div>
+
+                            <div class="input-wrap">
+                                <input type="email" minlength="4" class="input-field" autocomplete="off" required />
+                                <label>Email</label>
+                            </div>
+
+                            <div class="input-wrap">
+                                <input type="password" minlength="4" class="input-field" autocomplete="off" required />
+                                <label>Password</label>
+                            </div>
+
+                            <input type="submit" value="Sign Up" class="sign-btn" />
+
+                            <p class="text">
+                                By signing up, I agree to the <a href="#">Terms of Services</a>
+                                and <a href="#">Privacy Policy</a>
+                            </p>
+                        </div>
+                    </form>
                 </div>
-                <?php
-            }
+
+                <div class="carousel">
+                    <div class="images-wrapper">
+                        <img src="img/login/cloth1.jpg" class="image img-1 show" alt="" />
+                        <img src="img/login/image2.webp" class="image img-2" alt="" />
+                        <img src="img/login/cloth3.jpg" class="image img-3" alt="" />
+                    </div>
+
+                    <div class="text-slider">
+                        <div class="text-wrap">
+                            <div class="text-group">
+                                <h2>Create your own style</h2>
+                                <h2>Prepare your twinning hoddies</h2>
+                                <h2>Customize as you like</h2>
+                            </div>
+                        </div>
+
+                        <div class="bullets">
+                            <span class="active" data-value="1"></span>
+                            <span data-value="2"></span>
+                            <span data-value="3"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const inputs = document.querySelectorAll(".input-field");
+        const toggle_btn = document.querySelectorAll(".toggle");
+        const main = document.querySelector("main");
+        const bullets = document.querySelectorAll(".bullets span");
+        const images = document.querySelectorAll(".image");
+
+        inputs.forEach(inp => {
+            inp.addEventListener("focus", () => {
+                inp.classList.add("active");
+            });
+            inp.addEventListener("blur", () => {
+                if (inp.value != "") return;
+                inp.classList.remove("active");
+            });
+        });
+
+        toggle_btn.forEach(btn => {
+            btn.addEventListener("click", () => {
+                main.classList.toggle("sign-up-mode");
+            });
+        });
+
+        function moveSlider() {
+            let index = this.dataset.value;
+
+            let currentImage = document.querySelector(`.img-${index}`);
+            images.forEach(img => img.classList.remove("show"));
+            currentImage.classList.add("show");
+
+            const textSlider = document.querySelector(".text-group");
+            textSlider.style.transform = `translateY(${-(index - 1) * 2.2}rem)`;
+
+            bullets.forEach(bull => bull.classList.remove("active"));
+            this.classList.add("active");
         }
-        ?>
-        <form action="" method="post" class="login_form">
 
-            <div class="login_title">
-                <h2>MEMENTO</h2>
-            </div>
-
-            <div class="form_group">
-                <label for="email">E-mail</label>
-                <input class="form_input" type="email" name="email" id="email" autocomplete="email" autofocus required>
-                <span class="underline-animation"></span>
-            </div>
-            <div class="form_group">
-                <label for="password">Password</label>
-                <input class="form_input" type="password" name="password" id="password" autocomplete="current-password"
-                    required>
-                <span class="underline-animation"></span>
-            </div>
-            <div class="form_group">
-                <button class="login_btn btn" name="submit" type="submit">SIGN IN <i
-                        class="fa-solid fa-arrow-right"></i></button>
-            </div>
-        </form>
-    </section>
-    <section class="login_image">
-        <img src="global/assets/images/login.jpg" alt="">
-    </section>
-    <!-- bootstrap js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+        bullets.forEach((bullet) => {
+            bullet.addEventListener("click", moveSlider);
+        });
+    </script>
 </body>
 
 </html>
