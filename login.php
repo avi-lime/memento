@@ -5,48 +5,104 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in & Sign up form</title>
+    <title>Memento Sign in & Sign UP</title>
     <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" type="image/x-icon" href="img/mxm-white.png" sizes="any">
+    <link rel="shortcut icon" href="img/mxm-white.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/mxm-white.png">
 </head>
-
+<?php
+    require_once("global/api/conn.php");
+    // session_start();
+    if (isset($_REQUEST["btn_signin"])) {
+        $email = $_REQUEST["email_signin"];
+        $password = $_REQUEST["pass_signin"];
+        $sanitized_email = mysqli_real_escape_string($conn, $email);
+        $sanitized_password = mysqli_real_escape_string($conn, $password);
+        $query = "SELECT * FROM user WHERE email='$sanitized_email'";
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    
+        $num = mysqli_num_rows($result);
+        $error = "";
+        if ($num > 0) {
+            $user = mysqli_fetch_assoc($result);
+        
+            if (password_verify($sanitized_password, $user["password"])) {
+                $_SESSION["user"] = $user["user_id"];
+                $_SESSION['expire'] = time() + (60 * 60);
+                header('location: index.php');
+            } else {
+                $error = "E-mail and Password don't match.";
+            }
+        } else {
+            $error = "User doesn't exist.";
+        }
+        if ($error != "") {
+            ?>
+            <!-- alert -->
+            <div class="mb-4 alert alert-danger d-flex align-items-center gap-2 alert-dismissible fade show" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div>
+                    <?php echo $error ?>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php
+        }
+    }else if (isset($_REQUEST["btn_signup"])){
+        $name = $_POST['name_signup'];
+        $email = $_POST['email_signup'];
+        $password = $_POST['pass_signup'];
+        $sanitized_name = mysqli_real_escape_string($conn, $name);
+        $sanitized_email = mysqli_real_escape_string($conn, $email);
+        $sanitized_password = mysqli_real_escape_string($conn, $password);
+        $hashed_password = password_hash($sanitized_password, PASSWORD_DEFAULT);
+        $sql="SELECT * FROM user WHERE email='$sanitized_email'";
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+            ?>
+            <script>alert("User Already exists")</script>
+            <?php
+        }else{
+        $sql = "INSERT INTO user (name,email,password) VALUES ('$sanitized_name','$sanitized_email', '$hashed_password')";
+        mysqli_query($conn,$sql) or die(mysqli_error($conn));
+        }
+    }
+?>
 <body>
     <main>
         <div class="box">
             <div class="inner-box">
                 <div class="forms-wrap">
-                    <form action="index.html" autocomplete="off" class="sign-in-form">
+                    <form action="" method="POST" class="sign-in-form">
                         <div class="logo">
-                            <img src="cartlogo.jpg" alt="Clothing" />
-                            <h4>Clothing</h4>
+                            <img src="img/mxm-black.png" alt="Clothing" />
+                            <h3>Clothing</h3>
                         </div>
                         <div class="heading">
                             <h2>Welcome Back</h2>
                             <h6>Not Registered yet?</h6>
                             <a href="#" class="toggle">Sign up</a>
                         </div>
-
                         <div class="actual-form">
                             <div class="input-wrap">
-                                <input type="text" minlength="4" class="input-field" autocomplete="off" required />
+                                <input type="text" minlength="4" id="email_signin" name="email_signin" class="input-field" required />
                                 <label>Name</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="password" minlength="4" class="input-field" autocomplete="off" required />
+                                <input type="password" minlength="4" id="pass_signin" name="pass_signin" class="input-field" required />
                                 <label>Password</label>
                             </div>
-                            <input type="submit" value="Sign In" class="sign-btn" />
+                            <input type="submit" value="Sign In" id="btn_signin" name="btn_signin" class="sign-btn" />
                             <p class="text">
                                 Forgotten your password or your login details?
                                 <a href="#">Get help</a> signing in
                             </p>
                         </div>
                     </form>
-
-
-
-                    <form action="index.html" autocomplete="off" class="sign-up-form">
+                    <form action="" method="POST" class="sign-up-form">
                         <div class="logo">
-                            <img src="cartlogo.jpg" alt="Clothing" />
+                            <img src="img/mxm-black.png" alt="Clothing" />
                             <h3>Clothing</h3>
                         </div>
                         <div class="heading">
@@ -57,21 +113,21 @@
 
                         <div class="actual-form">
                             <div class="input-wrap">
-                                <input type="text" class="input-field" autocomplete="off" required />
+                                <input type="text" class="input-field" id="name_signup" name="name_signup" required />
                                 <label>Name</label>
                             </div>
 
                             <div class="input-wrap">
-                                <input type="email" minlength="4" class="input-field" autocomplete="off" required />
+                                <input type="email" minlength="4" id="email_signup" name="email_signup" class="input-field" required />
                                 <label>Email</label>
                             </div>
 
                             <div class="input-wrap">
-                                <input type="password" minlength="4" class="input-field" autocomplete="off" required />
+                                <input type="password" minlength="4" id="pass_signup" name="pass_signup" class="input-field" required />
                                 <label>Password</label>
                             </div>
 
-                            <input type="submit" value="Sign Up" class="sign-btn" />
+                            <input type="submit" value="Sign Up" id="btn_signup" name="btn_signup" class="sign-btn" />
 
                             <p class="text">
                                 By signing up, I agree to the <a href="#">Terms of Services</a>
@@ -150,5 +206,4 @@
         });
     </script>
 </body>
-
 </html>
