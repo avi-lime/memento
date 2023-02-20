@@ -146,6 +146,11 @@ hr {
     color: var(--white);
 }
 
+table.dataTable td,
+table.dataTable th {
+    text-align: start;
+}
+
 
 .pagination {
     --bs-pagination-bg: var(--black);
