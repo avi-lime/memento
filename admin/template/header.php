@@ -97,7 +97,7 @@
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Orders" data-bs-placement="right">
                         <a href="order.php">
-                            <i class="fa-solid fa-orders"></i>
+                            <i class="fa-solid fa-box"></i>
                             <span class="links_name">Orders</span>
                         </a>
                     </li>

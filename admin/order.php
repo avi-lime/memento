@@ -14,17 +14,16 @@ include("../global/api/conn.php");
         <caption>List of Orders</caption>
         <?php
         // filling up the table
-        $table = "order";
-        $sql = "SELECT * FROM order";
+        $table = "orders";
+        $sql = "SELECT * FROM orders";
         $result = mysqli_query($conn, $sql);
-
 
         $output = '<thead>'
             . '<tr>'
             . '<th>ID</th>'
             . '<th>User id</th>'
             . '<th>Product ID</th>'
-            . '<th>Image</th>'
+            // . '<th>Image</th>'
             . '<th>Addres</th>'
             . '<th>amount</th>'
             . '<th>status</th>'
@@ -39,8 +38,8 @@ include("../global/api/conn.php");
                 . '<th scope="row">' . $row['id'] . '</td>'
                 . '<td>' . $row['user_id'] . '</td>'
                 . '<td>' . $row['product_id'] . '</td>'
-                . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../assets/images/" . $row['image'] . "'></td>"
-                . '<td>' . $row['adress_id'] . '</td>'
+                // . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../assets/images/" . $row['image'] . "'></td>"
+                . '<td>' . $row['address_id'] . '</td>'
                 . '<td>' . $row['amount'] . '</td>'
                 . '<td>' . $row['status'] . '</td>'
                 . '<td>' . $row['date'] . '</td>'
@@ -58,7 +57,7 @@ include("../global/api/conn.php");
     $(document).ready(function () {
 
         $("#table").DataTable();
-        
+
     })
 </script>
 <?php include("template/footer.html") ?>
