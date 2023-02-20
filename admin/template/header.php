@@ -29,6 +29,7 @@
 <body>
     <?php
     include("../global/api/conn.php");
+    session_start();
     if (!isset($_SESSION["admin"]) || $_SESSION["admin"] == null) {
         header("location: login.php");
     }
@@ -38,6 +39,7 @@
         session_destroy();
         header("location: login.php");
     }
+    session_abort();
     ?>
     <div class="hero">
         <div class="sidebar active">
@@ -94,7 +96,7 @@
                         </a>
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Orders" data-bs-placement="right">
-                        <a href="orders.php">
+                        <a href="order.php">
                             <i class="fa-solid fa-orders"></i>
                             <span class="links_name">Orders</span>
                         </a>
