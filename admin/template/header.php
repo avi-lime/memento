@@ -39,6 +39,7 @@
         session_destroy();
         header("location: login.php");
     }
+    session_abort();
     ?>
     <div class="hero">
         <div class="sidebar active">
@@ -92,6 +93,12 @@
                         <a href="user.php">
                             <i class="fa-solid fa-users"></i>
                             <span class="links_name">Users</span>
+                        </a>
+                    </li>
+                    <li class="item" data-bs-toggle="tooltip" data-bs-title="Orders" data-bs-placement="right">
+                        <a href="order.php">
+                            <i class="fa-solid fa-box"></i>
+                            <span class="links_name">Orders</span>
                         </a>
                     </li>
                 </ul>

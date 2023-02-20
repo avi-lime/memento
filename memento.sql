@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 09, 2023 at 11:26 AM
+-- Generation Time: Feb 20, 2023 at 12:45 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -106,16 +106,16 @@ CREATE TABLE IF NOT EXISTS `category` (
 INSERT INTO `category` (`id`, `name`, `image`) VALUES
 (11, 'Active wear', 'image_2022-09-08_183304383.png'),
 (12, 'Casual wear', 'autri-taheri-QAwtEAY6V8I-unsplash.jpg'),
-(13, 'Bro', 'image_2022-09-09_030925604.png');
+(13, 'Professional wear', 'image_2022-09-09_030925604.png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE IF NOT EXISTS `order` (
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -128,7 +128,14 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `product_id`, `address_id`, `amount`, `status`, `date`, `extra_expenses`, `quantity`) VALUES
+(1, 1, 7, 1, 123, 'asd', 123, 123, 123);
 
 -- --------------------------------------------------------
 
@@ -244,15 +251,21 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(25) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `addressid` int(25) NOT NULL,
-  `mobileno` varchar(10) NOT NULL,
-  `state` int(11) NOT NULL,
-  `city` int(11) NOT NULL,
-  `image` varchar(50) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `mobileno` varchar(10) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  `city` int(11) DEFAULT NULL,
+  `image` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `email`, `password`, `mobileno`, `state`, `city`, `image`) VALUES
+(1, 'Avi', 'sa3198154@gmail.com', '$2y$10$Zk6ThOmwRDgv5UtLSrMqk.bm9p9vHKaSymjMEBqCWG1BaamcblXHO', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -288,9 +301,9 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `FK_cart_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `order`
+-- Constraints for table `orders`
 --
-ALTER TABLE `order`
+ALTER TABLE `orders`
   ADD CONSTRAINT `FK_order_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
@@ -298,7 +311,7 @@ ALTER TABLE `order`
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `FK_payment_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_payment_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product`

@@ -27,7 +27,7 @@ include("../global/api/conn.php");
         while ($row = mysqli_fetch_assoc($result)) {
             $output .= '<tr>'
                 . '<th scope="row">' . $row['id'] . '</td>'
-                . '<td>' . $row['username'] . '</td>'
+                . '<td>' . $row['name'] . '</td>'
                 . '<td>' . $row['email'] . '</td>'
                 . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../global/assets/images/" . $row['image'] . "'></td>"
                 . '<td>'
