@@ -16,7 +16,6 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
             Add Admin
         </button>
-        <input type="text" class="search-bar" name="search" id="search" placeholder="Search...">
     </div>
 
     <!-- Add/Edit Products Modal -->
