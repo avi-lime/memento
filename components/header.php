@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 include "global/api/conn.php";
+session_start();
 ?>
 
 <head>
@@ -36,6 +37,19 @@ include "global/api/conn.php";
 </head>
 
 <body>
+<?php
+    include("../global/api/conn.php");
+    session_start();
+    if (!isset($_SESSION["user"]) || $_SESSION["user"] == null) {
+        header("location: login.php");
+    }
+
+    if (time() > $_SESSION['expire']) {
+        session_unset();
+        session_destroy();
+        header("location: login.php");
+    }
+    ?>
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -46,7 +60,7 @@ include "global/api/conn.php";
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
             <div class="offcanvas__links">
-                <a href="#">Sign in</a>
+                <a href="login.php">Sign in</a>
                 <a href="#">FAQs</a>
                 <a href="#">Blog</a>
             </div>
