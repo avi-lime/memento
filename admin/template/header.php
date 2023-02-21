@@ -103,8 +103,8 @@
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="slider" data-bs-placement="right">
                         <a href="slider.php">
-                            <i class="fa-solid fa-box"></i>
-                            <span class="links_name">Slider Products</span>
+                            <i class="fa-regular fa-images"></i>
+                            <span class="links_name">Slider</span>
                         </a>
                     </li>
                 </ul>

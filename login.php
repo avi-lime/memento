@@ -13,7 +13,7 @@
 </head>
 <?php
 require_once("global/api/conn.php");
- session_start();
+session_start();
 if (isset($_REQUEST["btn_signin"])) {
     $email = $_REQUEST["email_signin"];
     $password = $_REQUEST["pass_signin"];
@@ -28,7 +28,7 @@ if (isset($_REQUEST["btn_signin"])) {
         $user = mysqli_fetch_assoc($result);
 
         if (password_verify($sanitized_password, $user["password"])) {
-            $_SESSION["user"] = $user["user_id"];
+            $_SESSION["user"] = $user["id"];
             $_SESSION["username"] = $user["name"];
             $_SESSION['expire'] = time() + (60 * 60);
             header('location: index.php');
@@ -41,7 +41,7 @@ if (isset($_REQUEST["btn_signin"])) {
     if ($error != "") {
         ?>
         <!-- alert -->
-       <!-- add css file merako nahi malum konsa!! -->
+        <!-- add css file merako nahi malum konsa!! -->
         <div class="mb-4 alert alert-danger d-flex align-items-center gap-2 alert-dismissible fade show" role="alert">
             <i class="fa-solid fa-circle-exclamation"></i>
             <div>
