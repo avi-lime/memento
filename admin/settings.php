@@ -11,35 +11,37 @@ include("../global/api/conn.php");
             if (!isset($_SESSION["admin"])) {
                 header("location: ./login.php");
             } else
-                echo $_SESSION["admin"] ?>">
+                echo $_SESSION["admin"]
+                    ?>">
+                <?php
+            $query = "SELECT * FROM admin WHERE id=" . $_SESSION["admin"];
+            $result = mysqli_query($conn, $query);
+            while ($row = mysqli_fetch_assoc($result)) {
+                ?>
                 <div class=" form-group">
                     <label>Username </label>
-                    <input required name="username" id="username" type="text" class="form-control mb-3">
+                    <input name="username" id="username" type="text" class="form-control mb-3"
+                        value="<?php echo $row["username"] ?>">
                 </div>
                 <div class="form-group">
                     <label>Email </label>
-                    <input required name="email" id="email" type="email" class="form-control mb-3">
-                </div>
-                <div class="form-group">
-                    <label>Phone No </label>
-                    <input required name="phno" id="phno" type="number" class="form-control mb-3">
-                </div>
-                <div class="form-group">
-                    <label>Image </label>
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" name="imgfile" id="imgfile" accept=".png,.jpg,.jpeg">
-
-                    </div>
+                    <input name="email" id="email" type="email" class="form-control mb-3"
+                        value="<?php echo $row["email"] ?>">
                 </div>
                 <div class="form-group">
                     <label>Change Password </label>
                     <input name="password" type="password" class="form-control mb-3">
                 </div>
+                <div class="form-group">
+                    <label>Confirm Password *</label>
+                    <input name="password" type="password" class="form-control mb-3" required>
+                </div>
                 <div>
                     <button type="submit" class="my-btn p-2 mb-3 me-2" name="btnSub" style="width:100px">Save</button>
                     <button id="btnDelM" class="my-btn p-2 mb-3">Delete Account</button>
                 </div>
-            </form>
-        </div>
+            <?php } ?>
+        </form>
     </div>
+</div>
 <?php include("template/footer.html") ?>
