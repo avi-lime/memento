@@ -12,10 +12,18 @@ if (!isset($_POST["name"]) || !isset($_POST["cat"])) {
     $sanitized_cat = mysqli_real_escape_string($conn, $cat);
 
     if (file_exists($_FILES['imgfile']["tmp_name"]) && is_uploaded_file($_FILES["imgfile"]["tmp_name"])) {
-        $image = $_FILES["imgfile"]["name"];
-        $tempimg = $_FILES["imgfile"]["tmp_name"];
-        $path = '../../global/assets/images/' . $image;
-        move_uploaded_file($tempimg, $path);
+        // delete old file before uploading -- save storage
+        if ($_POST['id'] != '') {
+            // fetch old image
+            $result = mysqli_query($conn, "SELECT image FROM subcat WHERE id=" . $_POST['id']);
+            $row = mysqli_fetch_assoc($result);
+            unlink("../../global/assets/images/" . $row["image"]);
+        }
+
+        // upload new file
+        $temp = explode(".", $_FILES["imgfile"]["name"]);
+        $image = round(microtime(true)) . '.' . end($temp);
+        move_uploaded_file($_FILES["imgfile"]["tmp_name"], "../../global/assets/images/" . $image);
     } else {
         $image = "default.png";
     }
@@ -25,9 +33,13 @@ if (!isset($_POST["name"]) || !isset($_POST["cat"])) {
     if ($_POST['id'] == '') {
         $sql = "INSERT INTO subcat (name, cat_id, image) VALUES ('$sanitized_name', $sanitized_cat,'$image')";
     } else {
-        $sql = "UPDATE subcat SET name='$sanitized_name', cat_id='$sanitized_cat', image='$image' WHERE id=" . $_POST['id'];
+        $sql = "UPDATE subcat SET name='$sanitized_name', cat_id='$sanitized_cat'";
+        if ($image != "default.png")
+            $sql .= ", image='$image'";
+
+        $sql .= " WHERE id=" . $_POST['id'];
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
     header("Location: ../subcat.php");
-}
+} 

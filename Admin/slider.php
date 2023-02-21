@@ -50,7 +50,8 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <div class="form-group">
                             <label>Image: </label>
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" name="imgfile" id="imgfile" required accept=".png,.jpg,.jpeg">
+                                <input type="file" class="form-control" name="imgfile" id="imgfile" required
+                                    accept=".png,.jpg,.jpeg">
                             </div>
                         </div>
                     </div>
@@ -69,12 +70,12 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
 
 </div>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // fetch on load
         fetch_filter_sort("slider");
 
         // fetch and fill on edit
-        $('#list').on("click", "a.btn-edit", function() {
+        $('#list').on("click", "a.btn-edit", function () {
             var id = $(this).attr("id");
             $.ajax({
                 url: 'api/fetch.php',
@@ -83,10 +84,10 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                     query: "SELECT * FROM slider WHERE id=" + id
                 },
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     let parsedData = $.parseJSON(data[0]);
                     $("#id").val(parsedData.id);
-                    $("#name").val(parsedData.name);
+                    $("#name").val(parsedData.content);
                     $("#imgfile").attr("required", false);
                     $("#mdlLabel").text("Edit slider");
                     $("#btnSubmit").text("Update");
@@ -96,7 +97,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         })
 
         // delete 
-        $("#list").on("click", "a.btn-del", function() {
+        $("#list").on("click", "a.btn-del", function () {
             var id = $(this).attr("id");
             $.ajax({
                 url: "api/delete.php",
@@ -105,24 +106,24 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                     table: "slider",
                     id: id
                 },
-                success: function(data) {
+                success: function (data) {
                     fetch_filter_sort("slider");
                 }
             })
         })
 
         // sort
-        $("#sort").change(function() {
+        $("#sort").change(function () {
             fetch_filter_sort("slider");
         });
 
         // search
-        $("#search").keyup(function() {
+        $("#search").keyup(function () {
             fetch_filter_sort("slider");
         })
 
         // reset form on add        
-        $('#btnAdd').click(function() {
+        $('#btnAdd').click(function () {
             $("#id").val("");
             $("#name").val("");
             $("#imgfile")
@@ -148,7 +149,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 query: `SELECT * FROM ${table} ` + params
             },
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 let content = ""
                 data.forEach(item => {
                     let parsedItem = $.parseJSON(item);
@@ -159,7 +160,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                     style="object-fit: cover" height="300px">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        ${parsedItem.id}. ${parsedItem.name}
+                                        ${parsedItem.id}. ${parsedItem.content}
                                     </h5>
                                     <div class="btn-group w-100" role="group" aria-label="Actions">
                                         <!-- <button type="button" class="btn my-btn">View</button> -->

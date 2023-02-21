@@ -3,19 +3,21 @@ include("template/header.php");
 include("../global/api/conn.php");
 
 if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
-    header("location: dashboard.php");
+    $super = false;
+} else {
+    $super = true;
 }
 
 ?>
 <div class="card">
     <h1>Categories</h1>
     <hr>
-
-
     <div class="actions">
-        <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-            Add Category
-        </button>
+        <?php if ($super) { ?>
+            <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
+                Add Category
+            </button>
+        <?php } ?>
         <div class="sort">
             <select class="nice-select" name="sort" id="sort">
                 <option value="ORDER BY id" selected>ID, 1-9</option>
@@ -64,18 +66,19 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             </div>
         </div>
     </div>
-    <div class="list row container-fluid" id="list">
 
+    <!-- list of items -->
+    <div class="list row" id="list">
     </div>
 
 </div>
 <script>
+    // fetch before load
+    fetch_filter_sort("category");
 
     $(document).ready(function () {
-        // fetch on load
-        fetch_filter_sort("category");
 
-        // fetch and fill on edit
+        // fetch and fill on edit - pre-appending
         $('#list').on("click", "a.btn-edit", function () {
             var id = $(this).attr("id");
             $.ajax({
@@ -133,9 +136,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             $("#mdlLabel").text("Add Category");
             $("#btnSubmit").text("Add");
         })
-
     })
-
 
     function fetch_filter_sort(table) {
         let params = "";
@@ -163,11 +164,13 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                     <h5 class="card-title">
                                         ${parsedItem.id}. ${parsedItem.name}
                                     </h5>
-                                    <div class="btn-group w-100" role="group" aria-label="Actions">
-                                        <!-- <button type="button" class="btn my-btn">View</button> -->
-                                        <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
-                                        <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
-                                    </div>
+                                    <?php if ($super) { ?>
+                                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                                            <!-- <button type="button" class="btn my-btn">View</button> -->
+                                            <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                            <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
