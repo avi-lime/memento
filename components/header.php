@@ -19,13 +19,10 @@ session_start();
 
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
@@ -37,19 +34,6 @@ session_start();
 </head>
 
 <body>
-<?php
-    include("../global/api/conn.php");
-    session_start();
-    if (!isset($_SESSION["user"]) || $_SESSION["user"] == null) {
-        header("location: login.php");
-    }
-
-    if (time() > $_SESSION['expire']) {
-        session_unset();
-        session_destroy();
-        header("location: login.php");
-    }
-    ?>
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -60,7 +44,13 @@ session_start();
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
             <div class="offcanvas__links">
-                <a href="login.php">Sign in</a>
+                <?php
+                if (!isset($_SESSION['user'])) {
+                ?>
+                    <a href="login.php">Sign in</a>
+                <?php
+                }
+                ?>
                 <a href="#">FAQs</a>
                 <a href="#">Blog</a>
             </div>
@@ -91,7 +81,13 @@ session_start();
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <a href="./login.php">Sign in</a>
+                                <?php
+                                if (!isset($_SESSION['user'])) {
+                                ?>
+                                    <a href="login.php">Sign in</a>
+                                <?php
+                                }
+                                ?>
                                 <a href="#">FAQs</a>
                                 <a href="./blog.php">Blog</a>
                             </div>
@@ -112,10 +108,9 @@ session_start();
                                     $query = "SELECT * FROM category";
                                     if ($result = mysqli_query($conn, $query)) {
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            ?>
+                                    ?>
                                             <div class="list">
-                                                <li class="dropdown-item-m"><a
-                                                        href="shop.php?sub_id=&cat_id=<?php echo $row["id"] ?>">
+                                                <li class="dropdown-item-m"><a href="shop.php?sub_id=&cat_id=<?php echo $row["id"] ?>">
                                                         <?php echo $row['name'] ?>
                                                     </a></li>
                                                 <ul class="sub-dropdown">
@@ -123,19 +118,18 @@ session_start();
                                                     $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $row['id'] . ' ';
                                                     if ($subresult = mysqli_query($conn, $subquery)) {
                                                         while ($subrow = mysqli_fetch_assoc($subresult)) {
-                                                            ?>
-                                                            <li class="sub-dropdown-item"><a
-                                                                    href="shop.php?cat_id=<?php echo $subrow["cat_id"] ?>&sub_id=<?php echo $subrow["id"] ?>">
+                                                    ?>
+                                                            <li class="sub-dropdown-item"><a href="shop.php?cat_id=<?php echo $subrow["cat_id"] ?>&sub_id=<?php echo $subrow["id"] ?>">
                                                                     <?php echo $subrow['name'] ?>
                                                                 </a></li>
-                                                            <?php
+                                            <?php
                                                         }
                                                     }
                                                     echo "</ul></div>";
-                                        }
-                                    }
-                                    ?>
-                                        </ul>
+                                                }
+                                            }
+                                            ?>
+                                                </ul>
                             </li>
                             <li><a href="./contact.php">Contact Us</a></li>
                             <li><a href="./about.php">About Us</a></li>
@@ -150,8 +144,14 @@ session_start();
                 <div class="col-xl-4 col-lg-5">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <a href="wishlist.php"><i class="fa-regular fa-heart"></i></a>
-                        <a href="./shopping-cart.php"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
+                        <?php
+                        if (isset($_SESSION['user'])) {
+                        ?>
+                          <a href="#"><?php echo $_SESSION['username'] ?></a>
+                        <?php
+                        } ?>
+                        <a href="wishlist.php?userid=<?php if(isset($_SESSION['user'])){echo $_SESSION["user"];} ?>"><i class="fa-regular fa-heart"></i></a>
+                        <a href="./shopping-cart.php?userid=<?php if(isset($_SESSION['user'])){echo $_SESSION["user"];} ?>"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
                         <div class="price">₹0.00</div>
                     </div>
                 </div>
