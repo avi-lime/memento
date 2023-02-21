@@ -101,6 +101,12 @@
                             <span class="links_name">Orders</span>
                         </a>
                     </li>
+                    <li class="item" data-bs-toggle="tooltip" data-bs-title="slider" data-bs-placement="right">
+                        <a href="slider.php">
+                            <i class="fa-solid fa-box"></i>
+                            <span class="links_name">Slider Products</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

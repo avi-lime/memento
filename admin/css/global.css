@@ -66,6 +66,10 @@ hr {
     color: var(--white);
 }
 
+.row {
+    padding-inline: 10px;
+}
+
 .my-btn,
 .modal .btn {
     margin: 10px 0;
@@ -213,7 +217,6 @@ a.my-btn {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
-    padding-inline: 3px;
 }
 
 .search-bar {
@@ -231,7 +234,6 @@ a.my-btn {
 }
 
 .sort {
-    padding: 15px;
     color: white;
 }
 
