@@ -1,4 +1,12 @@
-<?php include("components/header.php"); ?>
+<?php include("components/header.php");
+if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
+    $sql = 'SELECT * FROM product WHERE id=' . $id . '';
+    $result = mysqli_query($conn, $sql);
+    $detail = mysqli_fetch_assoc($result);
+} else {
+    header("location:shop.php");
+}
+?>
 
 <!-- Shop Details Section Begin -->
 <section class="shop-details">
@@ -13,63 +21,72 @@
                     </div>
                 </div>
             </div>
+            <!-- Image Start -->
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
-                                <div class="product__thumb__pic set-bg" data-setbg="img/shop-details/thumb-1.png">
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                                <div class="product__thumb__pic set-bg" data-setbg="img/shop-details/thumb-2.png">
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
-                                <div class="product__thumb__pic set-bg" data-setbg="img/shop-details/thumb-3.png">
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">
-                                <div class="product__thumb__pic set-bg" data-setbg="img/shop-details/thumb-4.png">
-                                    <i class="fa fa-play"></i>
-                                </div>
-                            </a>
-                        </li>
+                        <?php
+                        $sqlimage = 'SELECT * FROM product_images WHERE product_id=' . $id . '';
+                        $imageresult = mysqli_query($conn, $sqlimage);
+                        $count = 0;
+                        while ($image = mysqli_fetch_assoc($imageresult)) {
+                        ?>
+                            <li class="nav-item">
+                                <?php
+                                $count++;
+                                if ($count == 1) {
+                                ?>
+                                    <a class="nav-link active" data-toggle="tab" href="#tabs-<?php echo $count; ?>" role="tab">
+                                        <div class="product__thumb__pic set-bg" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
+                                        </div>
+                                    </a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-<?php echo $count; ?>" role="tab">
+                                        <div class="product__thumb__pic set-bg" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
+                                        </div>
+                                    </a>
+                                <?php
+                                }
+                                ?>
+                            </li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                            <div class="product__details__pic__item">
-                                <img src="img/shop-details/product-big-2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tabs-2" role="tabpanel">
-                            <div class="product__details__pic__item">
-                                <img src="img/shop-details/product-big-3.png" alt="">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tabs-3" role="tabpanel">
-                            <div class="product__details__pic__item">
-                                <img src="img/shop-details/product-big.png" alt="">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tabs-4" role="tabpanel">
-                            <div class="product__details__pic__item">
-                                <img src="img/shop-details/product-big-4.png" alt="">
-                                <a href="https://www.youtube.com/watch?v=8PJ3_p7VqHw&list=RD8PJ3_p7VqHw&start_radio=1"
-                                    class="video-popup"><i class="fa fa-play"></i></a>
-                            </div>
-                        </div>
+                        <?php
+                        $sqlimage = 'SELECT * FROM product_images WHERE product_id=' . $id . '';
+                        $imageresult = mysqli_query($conn, $sqlimage);
+                        $count = 0;
+                        while (($image = mysqli_fetch_assoc($imageresult))) {
+                            $count++;
+                            if ($count == 1) {
+                        ?>
+                                <div class="tab-pane active" id="tabs-<?php echo $count; ?>" role="tabpanel">
+                                    <div class="product__details__pic__item">
+                                        <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
+                                    </div>
+                                </div>
+                            <?php
+                            } else {
+                            ?>
+                                <div class="tab-pane" id="tabs-<?php echo $count; ?>" role="tabpanel">
+                                    <div class="product__details__pic__item">
+                                        <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
+                                    </div>
+                                </div>
+                        <?php
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
+            <!-- Image End -->
         </div>
     </div>
     <div class="product__details__content">
@@ -77,7 +94,8 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-8">
                     <div class="product__details__text">
-                        <h4>Hooded thermal anorak</h4>
+                        <h4><?php echo $detail['name']; ?></h4>
+                        <!-- rating -->
                         <div class="rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -86,10 +104,15 @@
                             <i class="fa fa-star-half-full"></i>
                             <span> - 10 Reviews</span>
                         </div>
-                        <h3>₹399.00<span>₹499.00</span></h3>
-                        <p>Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
-                            cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
-                            with placket.</p>
+                        <!-- rating -->
+                        <h3>-<?php $discountrate = $detail['discount'];
+                                echo $discountrate
+                                ?>% &nbsp &nbsp &nbsp ₹<?php $originalprice = $detail['price'];
+                                                        $discountprice = $originalprice * ($discountrate / 100);
+                                                        $price = $originalprice - $discountprice;
+                                                        echo $price;
+                                                        ?><span>₹<?php echo $detail['price']; ?></span></h3>
+                        <h5 style="font-weight: lighter; padding-bottom:10px">Please Select a Size</h5>
                         <div class="product__details__option">
                             <div class="product__details__option__size">
                                 <span>Size:</span>
@@ -106,24 +129,6 @@
                                     <input type="radio" id="sm">
                                 </label>
                             </div>
-                            <div class="product__details__option__color">
-                                <span>Color:</span>
-                                <label class="c-1" for="sp-1">
-                                    <input type="radio" id="sp-1">
-                                </label>
-                                <label class="c-2" for="sp-2">
-                                    <input type="radio" id="sp-2">
-                                </label>
-                                <label class="c-3" for="sp-3">
-                                    <input type="radio" id="sp-3">
-                                </label>
-                                <label class="c-4" for="sp-4">
-                                    <input type="radio" id="sp-4">
-                                </label>
-                                <label class="c-9" for="sp-9">
-                                    <input type="radio" id="sp-9">
-                                </label>
-                            </div>
                         </div>
                         <div class="product__details__cart__option">
                             <div class="quantity">
@@ -137,8 +142,13 @@
                             <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
                             <div class="product__details__last__option">
                                 <ul>
-                                    <li><span>Categories:</span> Clothes</li>
-                                    <li><span>Series:</span> Marvel Heroes</li>
+                                    <li><span>Categories:</span> <?php
+                                                                    $categoryid = $detail['cat_id'];
+                                                                    $catnamesql = 'SELECT name FROM category WHERE id=' . $categoryid . '';
+                                                                    $result = mysqli_query($conn, $catnamesql);
+                                                                    $catname = mysqli_fetch_assoc($result);
+                                                                    echo $catname['name'];
+                                                                    ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -155,7 +165,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer
-                                    Previews(5)</a>
+                                    Reviews(5)</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional
@@ -165,35 +175,15 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                 <div class="product__details__tab__content">
-                                    <p class="note">Nam tempus turpis at metus scelerisque placerat nulla deumantos
-                                        solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis
-                                        ut risus. Sedcus faucibus an sullamcorper mattis drostique des commodo
-                                        pharetras loremos.</p>
                                     <div class="product__details__tab__content__item">
-                                        <h5>Products Infomation</h5>
-                                        <p>A Pocket PC is a handheld computer, which features many of the same
-                                            capabilities as a modern PC. These handy little devices allow
-                                            individuals to retrieve and store e-mail messages, create a contact
-                                            file, coordinate appointments, surf the internet, exchange text messages
-                                            and more. Every product that is labeled as a Pocket PC must be
-                                            accompanied with specific software to operate the unit and must feature
-                                            a touchscreen and touchpad.</p>
-                                        <p>As is the case with any new technology product, the cost of a Pocket PC
-                                            was substantial during it’s early release. For approximately $700.00,
-                                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                                            These days, customers are finding that prices have become much more
-                                            reasonable now that the newness is wearing off. For approximately
-                                            $350.00, a new Pocket PC can now be purchased.</p>
+                                        <h5>Product Details:</h5>
+                                        <h5 style="font-size: medium;">Material used:</h5>
+                                        <p>100% Cotton</br>
+                                            Machine Wash</p>
                                     </div>
                                     <div class="product__details__tab__content__item">
-                                        <h5>Material used</h5>
-                                        <p>Polyester is deemed lower quality due to its none natural quality’s. Made
-                                            from synthetic materials, not natural like wool. Polyester suits become
-                                            creased easily and are known for not being breathable. Polyester suits
-                                            tend to have a shine to them compared to wool and cotton suits, this can
-                                            make the suit look cheap. The texture of velvet is luxurious and
-                                            breathable. Velvet is a great choice for dinner party jacket and can be
-                                            worn all year round.</p>
+                                        <h5>Products Description:</h5>
+                                        <p><?php echo $detail['description']; ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -201,22 +191,17 @@
                                 <div class="product__details__tab__content">
                                     <div class="product__details__tab__content__item">
                                         <h5>Products Infomation</h5>
-                                        <p>A Pocket PC is a handheld computer, which features many of the same
-                                            capabilities as a modern PC. These handy little devices allow
-                                            individuals to retrieve and store e-mail messages, create a contact
-                                            file, coordinate appointments, surf the internet, exchange text messages
-                                            and more. Every product that is labeled as a Pocket PC must be
-                                            accompanied with specific software to operate the unit and must feature
-                                            a touchscreen and touchpad.</p>
-                                        <p>As is the case with any new technology product, the cost of a Pocket PC
-                                            was substantial during it’s early release. For approximately $700.00,
-                                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                                            These days, customers are finding that prices have become much more
-                                            reasonable now that the newness is wearing off. For approximately
-                                            $350.00, a new Pocket PC can now be purchased.</p>
+                                        <p>Country of Origin: India (and proud)</br>
+                                            Manufactured & Sold By:</br>
+                                            The Souled Store Pvt. Ltd.</br>
+                                            224, Tantia Jogani Industrial Premises</br>
+                                            J.R. Boricha Marg</br>
+                                            Lower Parel (E)</br>
+                                            Mumbai - 11</p>
                                     </div>
                                     <div class="product__details__tab__content__item">
                                         <h5>Material used</h5>
+                                        <!-- Review area -->
                                         <p>Polyester is deemed lower quality due to its none natural quality’s. Made
                                             from synthetic materials, not natural like wool. Polyester suits become
                                             creased easily and are known for not being breathable. Polyester suits
@@ -229,35 +214,15 @@
                             </div>
                             <div class="tab-pane" id="tabs-7" role="tabpanel">
                                 <div class="product__details__tab__content">
-                                    <p class="note">Nam tempus turpis at metus scelerisque placerat nulla deumantos
-                                        solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis
-                                        ut risus. Sedcus faucibus an sullamcorper mattis drostique des commodo
-                                        pharetras loremos.</p>
                                     <div class="product__details__tab__content__item">
                                         <h5>Products Infomation</h5>
-                                        <p>A Pocket PC is a handheld computer, which features many of the same
-                                            capabilities as a modern PC. These handy little devices allow
-                                            individuals to retrieve and store e-mail messages, create a contact
-                                            file, coordinate appointments, surf the internet, exchange text messages
-                                            and more. Every product that is labeled as a Pocket PC must be
-                                            accompanied with specific software to operate the unit and must feature
-                                            a touchscreen and touchpad.</p>
-                                        <p>As is the case with any new technology product, the cost of a Pocket PC
-                                            was substantial during it’s early release. For approximately $700.00,
-                                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                                            These days, customers are finding that prices have become much more
-                                            reasonable now that the newness is wearing off. For approximately
-                                            $350.00, a new Pocket PC can now be purchased.</p>
-                                    </div>
-                                    <div class="product__details__tab__content__item">
-                                        <h5>Material used</h5>
-                                        <p>Polyester is deemed lower quality due to its none natural quality’s. Made
-                                            from synthetic materials, not natural like wool. Polyester suits become
-                                            creased easily and are known for not being breathable. Polyester suits
-                                            tend to have a shine to them compared to wool and cotton suits, this can
-                                            make the suit look cheap. The texture of velvet is luxurious and
-                                            breathable. Velvet is a great choice for dinner party jacket and can be
-                                            worn all year round.</p>
+                                        <p>Country of Origin: India (and proud)</br>
+                                            Manufactured & Sold By:</br>
+                                            The Souled Store Pvt. Ltd.</br>
+                                            224, Tantia Jogani Industrial Premises</br>
+                                            J.R. Boricha Marg</br>
+                                            Lower Parel (E)</br>
+                                            Mumbai - 11</p>
                                     </div>
                                 </div>
                             </div>
