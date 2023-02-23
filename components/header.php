@@ -146,8 +146,14 @@ session_start();
                         <a href="#" class="search-switch"><i class="fa-solid fa-magnifying-glass"></i></a>
                         <?php
                         if (isset($_SESSION['user'])) {
-                        ?>
-                          <a href="#"><?php echo $_SESSION['username'] ?></a>
+                        ?><li>
+                            <ul class="dropdown-item">
+                          <a href="#"><?php echo $_SESSION['username'] ?></a></ul>
+                         <!-- ya drop down mai aayega maybe class ka problem hai or li ka baad a use kar raha isliye new line mai leleta hai -->
+                         <ul class="dropdown-item-text"> <a href="api/logout.php">Logout</a></ul>
+                            <!-- <a href="#">My Profile</a>
+                            <a href="#">Orders</a> -->
+                            </li>
                         <?php
                         } ?>
                         <a href="wishlist.php?userid=<?php if(isset($_SESSION['user'])){echo $_SESSION["user"];} ?>"><i class="fa-regular fa-heart"></i></a>
