@@ -7,11 +7,13 @@
                     <div class="footer__logo">
                         <a href="index.php"><img src="img/mxm-white.png" alt=""></a>
                     </div>
-                    <p>What you wear is how you present yourself to the world, especially today,when human conatacts are so quick.
-                        "Fashion is like eating; you should'nt stick to same menu."&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                    <p>What you wear is how you present yourself to the world, especially today,when human conatacts are
+                        so quick.
+                        "Fashion is like eating; you shouldn't stick to same menu."&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    </p>
                 </div>
             </div>
-            <div class="col-lg-3 offset-lg-1 col-md-3 col-sm-6">
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                 <div class="footer__widget">
                     <h6>GET HELP</h6>
                     <ul>
@@ -22,8 +24,7 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="col-lg-3 offset-lg-1 col-md-3 col-sm-6">
+            <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="footer__widget">
                     <h6>CUSTOMER POLICIES</h6>
                     <ul>
@@ -36,8 +37,6 @@
                     </ul>
                 </div>
             </div>
-    
-
             <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
                 <div class="footer__widget">
                     <h6>NewsLetter</h6>
