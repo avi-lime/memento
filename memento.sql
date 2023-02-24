@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 24, 2023 at 12:17 PM
+-- Generation Time: Feb 24, 2023 at 04:01 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -167,7 +167,15 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `FK_product_cat` (`cat_id`),
   KEY `FK_product_sub` (`subcat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discount`, `cat_id`, `subcat_id`) VALUES
+(1, 'Kamal Morrison', 404, 403, 'Odio fugiat ea sint', 77, 11, 10),
+(2, 'Willa Thompson', 942, 37, 'Nulla molestias est ', 9, 11, 10);
 
 -- --------------------------------------------------------
 
@@ -182,7 +190,19 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
+(1, 1, '16772509150.png'),
+(2, 1, '16772509151.png'),
+(3, 1, '16772509152.png'),
+(4, 2, '16772540800.png'),
+(5, 2, '16772540801.png'),
+(6, 2, '16772540802.png');
 
 -- --------------------------------------------------------
 
