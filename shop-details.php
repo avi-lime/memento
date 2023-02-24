@@ -4,7 +4,6 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
     $result = mysqli_query($conn, $sql);
     $detail = mysqli_fetch_assoc($result);
 } else {
-    header("location:shop.php");
 }
 ?>
 
@@ -244,6 +243,9 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
             </div>
         </div>
         <div class="row">
+            <?php 
+            
+            ?>
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
