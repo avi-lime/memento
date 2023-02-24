@@ -53,7 +53,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                             <label>Image: </label>
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" name="imgfile" id="imgfile" required
-                                    accept=".png,.jpg,.jpeg">
+                                    accept=".png,.jpg,.jpeg,.webp">
                             </div>
                         </div>
                     </div>
@@ -165,11 +165,11 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                         ${parsedItem.id}. ${parsedItem.name}
                                     </h5>
                                     <?php if ($super) { ?>
-                                        <div class="btn-group w-100" role="group" aria-label="Actions">
-                                            <!-- <button type="button" class="btn my-btn">View</button> -->
-                                            <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
-                                            <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
-                                        </div>
+                                            <div class="btn-group w-100" role="group" aria-label="Actions">
+                                                <!-- <button type="button" class="btn my-btn">View</button> -->
+                                                <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                                <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                            </div>
                                     <?php } ?>
                                 </div>
                             </div>
