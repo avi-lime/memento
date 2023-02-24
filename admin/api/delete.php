@@ -12,7 +12,6 @@ else
 $result = mysqli_query($conn, $select_query);
 
 while ($row = mysqli_fetch_assoc($result)) {
-    print_r($row);
     if ($row['image']) {
         $oldPicture = "../../global/assets/images/" . $row["image"];
         unlink($oldPicture);
@@ -20,6 +19,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 $sql = "DELETE FROM $table WHERE id=$id";
-// mysqli_query($conn, $sql) or die(mysqli_error($conn));
+mysqli_query($conn, $sql) or die(mysqli_error($conn));
 mysqli_close($conn);
-// header("Location: ../$table");
+header("location: ../$table");
