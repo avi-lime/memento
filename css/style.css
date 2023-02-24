@@ -1655,6 +1655,13 @@ ol {
 	margin-left: 10px;
 	text-decoration: line-through;
 }
+.product__details__text h3 span:first-child{
+	text-decoration: none;
+	color:#FF5733;
+	margin-right: 20px;
+	text-align: center;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
 .product__details__text p {
 	margin-bottom: 35px;
