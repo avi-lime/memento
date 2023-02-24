@@ -31,8 +31,8 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <form action="api/admin.php" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form id="form" action="api/admin.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
                             <label>Name: *</label>
@@ -48,21 +48,12 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                             <label>Password: *</label>
                             <input required id="password" name="password" type="password" class="form-control mb-3">
                         </div>
-                        <!-- 
-                        <div class="form-group">
-                            <label>Image: </label>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" name="imgfile" id="imgfile"
-                                    accept=".png,.jpg,.jpeg">
-                            </div>
-
-                        </div> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn" type="reset" data-bs-dismiss="modal">Cancel</button>
-                        <button name="btnSubmit" type="submit" class="btn" id="btnSubmit">Add</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button form="form" class="btn" type="reset" data-bs-dismiss="modal">Cancel</button>
+                    <button form="form" name="btnSubmit" type="submit" class="btn" id="btnSubmit">Add</button>
+                </div>
 
             </div>
         </div>

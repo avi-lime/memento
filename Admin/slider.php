@@ -40,8 +40,8 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <form action="api/slider.php" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form id="form" action="api/slider.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
                             <label>Content: *</label>
@@ -54,12 +54,12 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                     accept=".png,.jpg,.jpeg,.webp">
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn" type="reset" data-bs-dismiss="modal">Cancel</button>
-                        <button name="btnSubmit" type="submit" class="btn" id="btnSubmit">Add</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" form="form" type="reset" data-bs-dismiss="modal">Cancel</button>
+                    <button name="btnSubmit" form="form" type="submit" class="btn" id="btnSubmit">Add</button>
+                </div>
 
             </div>
         </div>

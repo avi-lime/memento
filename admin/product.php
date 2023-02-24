@@ -47,8 +47,8 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <form action="api/product.php" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="api/product.php" id="form" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group mb-3">
                             <label>Category: *</label>
@@ -98,12 +98,12 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                     accept=".png,.jpg,.jpeg,.webp">
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn" type="reset" data-bs-dismiss="modal">Cancel</button>
-                        <button name="btnSubmit" type="submit" class="btn" id="btnSubmit">Add</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" form="form" type="reset" data-bs-dismiss="modal">Cancel</button>
+                    <button name="btnSubmit" form="form" type="submit" class="btn" id="btnSubmit">Add</button>
+                </div>
 
             </div>
         </div>
@@ -275,11 +275,11 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                         </li>
                                     </ul>
                                     <?php if ($super) { ?>
-                                        <div class="btn-group w-100" role="group" aria-label="Actions">
-                                            <!-- <button type="button" class="btn my-btn">View</button> -->
-                                            <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
-                                            <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
-                                        </div>
+                                                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                                                            <!-- <button type="button" class="btn my-btn">View</button> -->
+                                                            <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                                            <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                                        </div>
                                     <?php } ?>
                                 </div>
                             </div>
