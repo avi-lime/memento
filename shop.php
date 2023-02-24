@@ -119,12 +119,12 @@
                             <div class="shop__product__option__left">
                                 <?php
 
-                                if (($subcat = $_REQUEST['sub_id']) && (isset($_REQUEST['sub_id']))) {
+                                if ((isset($_REQUEST['sub_id'])) && ($subcat = $_REQUEST['sub_id']) ) {
                                     $titlequery = 'SELECT COUNT(id)as totalproduct FROM product WHERE subcat_id=' . $subcat . '';
                                     if ($result = mysqli_query($conn, $titlequery)) {
                                         $totalproduct = mysqli_fetch_assoc($result);
                                     }
-                                } else if (($catid = $_REQUEST['cat_id']) && (isset($_REQUEST['cat_id']))) {
+                                } else if (  (isset($_REQUEST['cat_id'])) && ($catid = $_REQUEST['cat_id'])) {
                                     $titlequery = 'SELECT COUNT(id)as totalproduct FROM product WHERE cat_id=' . $catid . '';
                                     if ($result = mysqli_query($conn, $titlequery)) {
                                         $totalproduct = mysqli_fetch_assoc($result);
@@ -179,7 +179,7 @@
                         </div>
                         <?php
                     } else {
-                        if (($subcat = $_REQUEST['sub_id']) && (isset($_REQUEST['sub_id']))) {
+                        if ((isset($_REQUEST['sub_id'])) && ($subcat = $_REQUEST['sub_id'])  ) {
                             $pquery = 'SELECT * FROM product WHERE subcat_id=' . $subcat . '';
                             if ($presult = mysqli_query($conn, $pquery)) {
                                 while ($prow = mysqli_fetch_assoc($presult)) {
@@ -219,7 +219,7 @@
                                 <?php
                                 }
                             }
-                        } else if (($catid = $_REQUEST['cat_id']) && (isset($_REQUEST['cat_id']))) {
+                        } else if ((isset($_REQUEST['cat_id'])) && ($catid = $_REQUEST['cat_id'])) {
                             $pquery = 'SELECT * FROM product WHERE cat_id=' . $catid . '';
                             if ($presult = mysqli_query($conn, $pquery)) {
                                 while ($prow = mysqli_fetch_assoc($presult)) {
@@ -267,7 +267,7 @@
                                 ?>
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item sale">
-                                            <a href="shop-details.php.php?product_id=<?php echo $prow['id']; ?>">
+                                            <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
                                                 <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                                                                                                                         $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
                                                                                                                         $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
