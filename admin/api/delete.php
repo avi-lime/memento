@@ -4,15 +4,22 @@ $table = $_REQUEST['table'];
 $id = $_REQUEST['id'];
 
 // if image exists then delete it
-$result = mysqli_query($conn, "SELECT image FROM category WHERE id=" . $id);
-$row = mysqli_fetch_assoc($result);
-echo $row["image"];
-if ($row['image']) {
-    $oldPicture = "../../global/assets/images/" . $row["image"];
-    unlink($oldPicture);
+if ($table == "product")
+    $select_query = "SELECT image FROM product_images WHERE product_id =" . $id;
+else
+    $select_query = "SELECT image FROM $table WHERE id=" . $id;
+
+$result = mysqli_query($conn, $select_query);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    print_r($row);
+    if ($row['image']) {
+        $oldPicture = "../../global/assets/images/" . $row["image"];
+        unlink($oldPicture);
+    }
 }
 
 $sql = "DELETE FROM $table WHERE id=$id";
-mysqli_query($conn, $sql) or die(mysqli_error($conn));
+// mysqli_query($conn, $sql) or die(mysqli_error($conn));
 mysqli_close($conn);
 // header("Location: ../$table");
