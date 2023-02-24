@@ -29,28 +29,30 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                         $imageresult = mysqli_query($conn, $sqlimage);
                         $count = 0;
                         while ($image = mysqli_fetch_assoc($imageresult)) {
-                        ?>
+                            ?>
                             <li class="nav-item">
                                 <?php
                                 $count++;
                                 if ($count == 1) {
-                                ?>
+                                    ?>
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-<?php echo $count; ?>" role="tab">
-                                        <div class="product__thumb__pic set-bg" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
+                                        <div class="product__thumb__pic set-bg"
+                                            data-setbg="global/assets/images/<?php echo $image['image'] ?>">
                                         </div>
                                     </a>
-                                <?php
+                                    <?php
                                 } else {
-                                ?>
+                                    ?>
                                     <a class="nav-link" data-toggle="tab" href="#tabs-<?php echo $count; ?>" role="tab">
-                                        <div class="product__thumb__pic set-bg" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
+                                        <div class="product__thumb__pic set-bg"
+                                            data-setbg="global/assets/images/<?php echo $image['image'] ?>">
                                         </div>
                                     </a>
-                                <?php
+                                    <?php
                                 }
                                 ?>
                             </li>
-                        <?php
+                            <?php
                         }
                         ?>
                     </ul>
@@ -64,21 +66,23 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                         while (($image = mysqli_fetch_assoc($imageresult))) {
                             $count++;
                             if ($count == 1) {
-                        ?>
+                                ?>
                                 <div class="tab-pane active" id="tabs-<?php echo $count; ?>" role="tabpanel">
                                     <div class="product__details__pic__item">
-                                        <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
+                                        <img src="global/assets/images/<?php echo $image['image'] ?>"
+                                            style="width: 450px; height: 600px;" alt="">
                                     </div>
                                 </div>
-                            <?php
+                                <?php
                             } else {
-                            ?>
+                                ?>
                                 <div class="tab-pane" id="tabs-<?php echo $count; ?>" role="tabpanel">
                                     <div class="product__details__pic__item">
-                                        <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
+                                        <img src="global/assets/images/<?php echo $image['image'] ?>"
+                                            style="width: 450px; height: 600px;" alt="">
                                     </div>
                                 </div>
-                        <?php
+                                <?php
                             }
                         }
                         ?>
@@ -93,7 +97,9 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-8">
                     <div class="product__details__text">
-                        <h4><?php echo $detail['name']; ?></h4>
+                        <h4>
+                            <?php echo $detail['name']; ?>
+                        </h4>
                         <!-- rating -->
                         <div class="rating">
                             <i class="fa fa-star"></i>
@@ -104,13 +110,19 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                             <span> - 10 Reviews</span>
                         </div>
                         <!-- rating -->
-                        <h3><span>(-<?php $discountrate = $detail['discount'];
-                                    echo $discountrate
-                                    ?>% OFF)</span>₹<?php $originalprice = $detail['price'];
-                                                $discountprice = $originalprice * ($discountrate / 100);
-                                                $price = $originalprice - $discountprice;
-                                                echo $price;
-                                                ?><span>₹<?php echo $detail['price']; ?></span></h3>
+                        <h3><span>(-
+                                <?php $discountrate = $detail['discount'];
+                                echo $discountrate
+                                    ?>% OFF)
+                            </span>₹
+                            <?php $originalprice = $detail['price'];
+                            $discountprice = $originalprice * ($discountrate / 100);
+                            $price = $originalprice - $discountprice;
+                            echo $price;
+                            ?><span>₹
+                                <?php echo $detail['price']; ?>
+                            </span>
+                        </h3>
                         <h5 style="font-weight: lighter; padding-bottom:10px">Please Select a Size</h5>
                         <div class="product__details__option">
                             <div class="product__details__option__size">
@@ -141,13 +153,15 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                             <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
                             <div class="product__details__last__option">
                                 <ul>
-                                    <li><span>Categories:</span> <?php
-                                                                    $categoryid = $detail['cat_id'];
-                                                                    $catnamesql = 'SELECT name FROM category WHERE id=' . $categoryid . '';
-                                                                    $result = mysqli_query($conn, $catnamesql);
-                                                                    $catname = mysqli_fetch_assoc($result);
-                                                                    echo $catname['name'];
-                                                                    ?></li>
+                                    <li><span>Categories:</span>
+                                        <?php
+                                        $categoryid = $detail['cat_id'];
+                                        $catnamesql = 'SELECT name FROM category WHERE id=' . $categoryid . '';
+                                        $result = mysqli_query($conn, $catnamesql);
+                                        $catname = mysqli_fetch_assoc($result);
+                                        echo $catname['name'];
+                                        ?>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -182,7 +196,9 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                                     </div>
                                     <div class="product__details__tab__content__item">
                                         <h5>Products Description:</h5>
-                                        <p><?php echo $detail['description']; ?></p>
+                                        <p>
+                                            <?php echo $detail['description']; ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -244,56 +260,60 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
         </div>
         <div class="row">
             <?php
-            $relateditemsql = 'SELECT * FROM product WHERE cat_id=' . $detail['cat_id'] . '';
+            $relateditemsql = 'SELECT * FROM product WHERE cat_id=' . $detail['cat_id'] . ' AND NOT id=' . $id;
             $result = mysqli_query($conn, $relateditemsql);
             while ($relateditem = mysqli_fetch_assoc($result)) {
-                if($relateditem['id']>=$id){
-            ?>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php 
-                    $sql = 'SELECT image FROM product_images WHERE product_id = "' . $detail['id'] . '" LIMIT 1';
-                    $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                    echo $image['image'];
-                    ?>">
-                        <!-- <span class="label">New</span> -->
-                        <ul class="product__hover">
-                            <li><a href="" class="wishlist" id="<?php echo $detail['id'] ?>"><img src="img/icon/heart.png" alt=""></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><?php echo $detail['name'] ?></h6>
-                        <a href="#" class="add-cart">+ Add To Cart</a>
-                        <div class="rating">
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
+                ?>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <a href="shop-details.php?product_id=<?php echo $relateditem['id']; ?>">
+                            <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
+                            $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
+                            $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                            echo $image['image'];
+                            ?>">
+                                <!-- <span class="label">New</span> -->
+                                <ul class="product__hover">
+                                    <li class="wishlist" id="<?php echo $relateditem['id'] ?>"><img src="img/icon/heart.png"
+                                            alt=""></li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="product__item__text">
+                            <h6>
+                                <?php echo $relateditem['name'] ?>
+                            </h6>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>$67.24</h5>
                         </div>
-                        <h5>$67.24</h5>
                     </div>
                 </div>
-            </div>
-            <?php
+                <?php
             }
-        }
+
             ?>
         </div>
     </div>
 </section>
 <!-- script -->
 <script>
-    $(".wishlist").click(function(e) {
-  e.preventDefault();
-  let id = $(this).attr("id");
-  $.ajax({
-    url: "api/wishlist.php",
-    data: {
-      id: id
-    }
-  })
-})
+    $(".wishlist").click(function (e) {
+        e.preventDefault();
+        let id = $(this).attr("id");
+        $.ajax({
+            url: "api/wishlist.php",
+            data: {
+                id: id
+            }
+        })
+    })
 </script>
 <!-- Related Section End -->
 <?php include("components/footer.php"); ?>

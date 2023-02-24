@@ -1655,9 +1655,10 @@ ol {
 	margin-left: 10px;
 	text-decoration: line-through;
 }
-.product__details__text h3 span:first-child{
+
+.product__details__text h3 span:first-child {
 	text-decoration: none;
-	color:#FF5733;
+	color: #FF5733;
 	margin-right: 20px;
 	text-align: center;
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -2000,13 +2001,13 @@ ol {
 
 
 
-.col ul li{
-  list-style: none;
-  line-height: 36px;
+.col ul li {
+	list-style: none;
+	line-height: 36px;
 }
 
-.col ul li a{
-  color: #b7b7b7;
+.col ul li a {
+	color: #b7b7b7;
 	font-size: 15px;
 }
 
@@ -2059,17 +2060,17 @@ ol {
 	border: none;
 }
 
-.footer__widget  .footer__newslatter .social-icons .fa-brands{
-  width: 40px;
-  height: 40px;
-  border-radius: 20%;
-  text-align: center;
-  line-height: 40px;
-  font-size: 20px;
-  color: #000;
-  background: #fff;
-  margin-right: 15px;
-  cursor: pointer;
+.footer__widget .footer__newslatter .social-icons .fa-brands {
+	width: 40px;
+	height: 40px;
+	border-radius: 20%;
+	text-align: center;
+	line-height: 40px;
+	font-size: 20px;
+	color: #000;
+	background: #fff;
+	margin-right: 15px;
+	cursor: pointer;
 	margin: 10px;
 }
 
