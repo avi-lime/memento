@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 21, 2023 at 09:08 PM
+-- Generation Time: Feb 24, 2023 at 12:17 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -97,16 +97,16 @@ CREATE TABLE IF NOT EXISTS `category` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `image`) VALUES
-(11, 'Active wear', '1677002061.png'),
-(12, 'Casual wear', '1677001996.jpg'),
-(13, 'Professional wear', '1677002044.png');
+(11, 'Active wear', '1677211695.png'),
+(12, 'Casual wear', '1677211700.jpg'),
+(13, 'Professional wear', '1677211728.png');
 
 -- --------------------------------------------------------
 
@@ -128,14 +128,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `product_id`, `address_id`, `amount`, `status`, `date`, `extra_expenses`, `quantity`) VALUES
-(1, 1, 7, 1, 123, 'asd', 123, 123, 123);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -174,17 +167,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `FK_product_cat` (`cat_id`),
   KEY `FK_product_sub` (`subcat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `product`
---
-
-INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discount`, `cat_id`, `subcat_id`) VALUES
-(7, 'Shelby Valdez', 520, 11, 'Velit iusto quo cul', 20, 12, 11),
-(15, 'Shelby Valdez', 520, 11, 'Velit iusto quo cul', 11, 12, 11),
-(20, 'Teegan Ray', 452, 510, 'Laboris lorem minim ', 74, 13, 12),
-(22, 'Connor Weber', 968, 38, 'Et enim repudiandae ', 2, 13, 12);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -199,25 +182,7 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `product_images`
---
-
-INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
-(18, 20, '16770125620.png'),
-(19, 20, '16770125621.png'),
-(20, 20, '16770125622.png'),
-(21, 15, '16770129240.png'),
-(22, 15, '16770129241.png'),
-(23, 15, '16770129242.png'),
-(27, 7, '16770129580.png'),
-(28, 7, '16770129581.png'),
-(29, 7, '16770129582.png'),
-(30, 22, '16770130220.png'),
-(31, 22, '16770130221.png'),
-(32, 22, '16770130222.png');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -262,9 +227,9 @@ CREATE TABLE IF NOT EXISTS `subcat` (
 --
 
 INSERT INTO `subcat` (`id`, `name`, `cat_id`, `image`) VALUES
-(10, 'Mandarin shirt', 11, '1677002251.png'),
-(11, 'T-Shirts', 12, '1677002262.png'),
-(12, 'Blazers', 13, '1677002269.png');
+(10, 'Mandarin shirt', 11, '1677212957.png'),
+(11, 'T-Shirts', 12, '1677212967.png'),
+(12, 'Blazers', 13, '1677212978.png');
 
 -- --------------------------------------------------------
 
