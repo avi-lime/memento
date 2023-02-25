@@ -1102,6 +1102,13 @@ ol {
 	color: #0d0d0d;
 	font-weight: 700;
 }
+.product__item__text h5 span {
+	color: #b7b7b7;
+    font-size: 15px;
+    font-weight: 400;
+    margin-left: 10px;
+    text-decoration: line-through;
+}
 
 .product__item__text .product__color__select {
 	position: absolute;
