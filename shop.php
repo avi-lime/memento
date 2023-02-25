@@ -227,10 +227,10 @@
                         } else if ((isset($_REQUEST['cat_id'])) && ($catid = $_REQUEST['cat_id'])) {
                             $pquery = 'SELECT * FROM product WHERE cat_id=' . $catid . '';
                             if ($presult = mysqli_query($conn, $pquery)) {
-                                while ($prow = mysqli_fetch_assoc($presult)) {
-                                    ?>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product__item sale">
+                                    while ($prow = mysqli_fetch_assoc($presult)) {
+                                        ?>
+                                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                                <div class="product__item sale">
                                                 <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
                                                     <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                                                     $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
@@ -333,19 +333,14 @@
         $('.wishlist').click(function (e) {
             e.preventDefault();
             var id = $(this).attr("id");
-            var value = <?php if (isset($_SESSION["user"]))
-                echo $_SESSION['user'];
-            else
-                echo "1" ?>;
-                console.log(value, id);
                 $.ajax({
                     url: 'api/wishlist.php',
                     method: 'POST',
                     data: {
-                        query: "INSERT INTO wishlist(user_id,product_id) VALUES(" + id + "," + value + ")"
+                       id:id
                     },
                     success: function (data) {
-
+                        console.log("hehehe")
                     }
                 })
             })

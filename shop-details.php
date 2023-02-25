@@ -144,13 +144,13 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                         <div class="product__details__cart__option">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" id="quantity" value="1">
                                 </div>
                             </div>
-                            <a href="#" class="primary-btn">add to cart</a>
+                            <a href="#" class="primary-btn" id="<?php echo $detail['id'] ?>">add to cart</a>
                         </div>
                         <div class="product__details__btns__option">
-                            <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                            <a href="#" class="wishlist" id="<?php echo $detail['id'] ?>"><i class="fa fa-heart"></i> add to wishlist</a>
                             <div class="product__details__last__option">
                                 <ul>
                                     <li><span>Categories:</span>
@@ -291,13 +291,16 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            <h5>$67.24</h5>
+                            <h5>₹<?php $originalprice = $relateditem['price'];$discountrate=$relateditem['discount'];
+                            $discountprice = $originalprice * ($discountrate / 100);
+                            $price = $originalprice - $discountprice;
+                            echo $price;
+                            ?><span >₹<?php echo $relateditem['price']?></span></h5>
                         </div>
                     </div>
                 </div>
                 <?php
             }
-
             ?>
         </div>
     </div>
@@ -309,9 +312,31 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
         let id = $(this).attr("id");
         $.ajax({
             url: "api/wishlist.php",
+            method:"post",
             data: {
                 id: id
+            },
+            success : function(data){
+                console.log("product added to wishlist")//idher toast add kar dena merako nahi aa raha
             }
+        })
+    })
+    $(".primary-btn").click(function(){
+        let id= $(this).attr("id");
+        let quantity= $("#quantity").attr("id");
+        //radio ka value lena hai size wala
+        $.ajax({
+            url:"api/addtocart.php",
+            method:"post",
+            data:{
+                id: id,
+                quantity: quantity
+                //radio
+            },
+            success : function(data){
+                console.log("added to cart")//idher bhi 
+            }
+
         })
     })
 </script>
