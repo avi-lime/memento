@@ -4,7 +4,8 @@ session_start();
 if(isset($_REQUEST['id'])){
     $id=$_REQUEST['id'];
     $userid=$_SESSION['user'];
-    $sql='INSERT INTO wishlist(user_id,product_id) VALUES('.$userid.','.$id.')';
-    mysqli_query($conn,$sql) or die(mysqli_error($conn));
+    $rows=mysqli_num_rows(mysqli_query($conn,$check));
+        $sql='INSERT INTO wishlist(user_id,product_id) VALUES('.$userid.','.$id.')';
+        mysqli_query($conn,$sql) or die(mysqli_error($conn));    
 }
 ?>
