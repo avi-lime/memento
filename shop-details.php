@@ -353,7 +353,7 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
         let quantity = $("#quantity").attr("id");
         //radio ka value lena hai size wala // wo b mai karu?
         $.ajax({
-            url: "api/addtocart.php",
+            url: "api/addtocart.php", // saale addtocart.php kidhr h
             method: "post",
             data: {
                 id: id,
