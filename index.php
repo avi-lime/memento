@@ -115,7 +115,7 @@
 
 <?php
 $table = "product";
-$sql = "SELECT * FROM product WHERE product.id=product.cat_id";
+$sql = "SELECT * FROM product";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -132,7 +132,7 @@ $result = mysqli_query($conn, $sql);
         </div>
 
         <?php
-        while ($row = mysqli_fetch_assoc($all_products)) {
+        while ($row = mysqli_fetch_assoc($result)) {
         ?>
 
             <div class="row product__filter">
