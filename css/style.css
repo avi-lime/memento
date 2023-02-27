@@ -4030,3 +4030,9 @@ ol {
 		height: 250px;
 	}
 }
+.card-img-overlay {
+	top:auto;
+	right: auto;
+    bottom: auto;
+    left: auto;
+}
