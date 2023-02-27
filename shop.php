@@ -380,18 +380,113 @@
     <div class="container-fluid">
         <div class="row">
 
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+                    <div class="shop__sidebar__search">
+                        <form action="" method="POST">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                                </div>
+                                <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__price">
+                                            <ul>
+                                                <li><a href="#">$0.00 - $50.00</a></li>
+                                                <li><a href="#">$50.00 - $100.00</a></li>
+                                                <li><a href="#">$100.00 - $150.00</a></li>
+                                                <li><a href="#">$150.00 - $200.00</a></li>
+                                                <li><a href="#">$200.00 - $250.00</a></li>
+                                                <li><a href="#">250.00+</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseFour">Size</a>
+                                </div>
+                                <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__size">
+                                            <label for="sm">s
+                                                <input type="checkbox" name="size" id="sm" value="sm">
+                                            </label>
+                                            <label for="md">m
+                                                <input type="checkbox" name="size" id="md" value="md">
+                                            </label>
+                                            <label for="l">l
+                                                <input type="checkbox" name="size" id="l" value="l">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseSix">Sub-Category</a>
+                                </div>
+                                <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__tags">
+                                            <?php
+                                            if ($catid = isset($_REQUEST['cat_id'])) {
+                                                $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
+                                                if ($result = mysqli_query($conn, $subquery)) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        ?>
+                                                        <a
+                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
+                                                                  echo $row['name'] ?></a>
+                                                        <?php
+                                                    }
+                                                }
+                                            } else {
+                                                $query = 'SELECT * FROM subcat';
+                                                if ($result = mysqli_query($conn, $query)) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        ?>
+                                                        <a
+                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
+                                                                  echo $row['name'] ?></a>
+                                                        <?php
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-9">
                 <div class="shop__product__option">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__left">
                                 <?php
-                                if ($subcat = $_REQUEST['sub_id']) {
+
+                                if ((isset($_REQUEST['sub_id'])) && ($subcat = $_REQUEST['sub_id'])) {
                                     $titlequery = 'SELECT COUNT(id)as totalproduct FROM product WHERE subcat_id=' . $subcat . '';
                                     if ($result = mysqli_query($conn, $titlequery)) {
                                         $totalproduct = mysqli_fetch_assoc($result);
                                     }
-                                } else if ($catid = $_REQUEST['cat_id']) {
+                                } else if ((isset($_REQUEST['cat_id'])) && ($catid = $_REQUEST['cat_id'])) {
                                     $titlequery = 'SELECT COUNT(id)as totalproduct FROM product WHERE cat_id=' . $catid . '';
                                     if ($result = mysqli_query($conn, $titlequery)) {
                                         $totalproduct = mysqli_fetch_assoc($result);
@@ -427,6 +522,7 @@
                 <!-- Product view Start -->
                 <div class="row">
                     <?php
+
                     if ($totalproduct['totalproduct'] < 1) {
                     ?>
                         <div class="box__description-container" style="padding-left: 250px">
@@ -436,19 +532,26 @@
                         </div>
                         <?php
                     } else {
-                        if ($subcat = $_REQUEST['sub_id']) {
+                        if ((isset($_REQUEST['sub_id'])) && ($subcat = $_REQUEST['sub_id'])) {
                             $pquery = 'SELECT * FROM product WHERE subcat_id=' . $subcat . '';
                             if ($presult = mysqli_query($conn, $pquery)) {
                                 while ($prow = mysqli_fetch_assoc($presult)) {
                         ?>
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="img/product/<?php echo $prow['img'] ?>">
-                                                <!-- <span class="label">Sale</span> -->
-                                                <ul class="product__hover">
-                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                                </ul>
-                                            </div>
+                                            <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
+                                                <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
+                                                $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
+                                                $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                                echo $image['image'];
+                                                ?>">
+                                                    <!-- <span class="label">Sale</span> -->
+                                                    <ul class="product__hover">
+                                                        <li id="<?php echo $prow['id'] ?>" class="wishlist"><img
+                                                                src="img/icon/heart.png" alt=""></li>
+                                                    </ul>
+                                                </div>
+                                            </a>
                                             <div class="product__item__text">
                                                 <h6>
                                                     <?php echo $prow['name']; ?>
@@ -470,21 +573,28 @@
                                 <?php
                                 }
                             }
-                        } else if ($catid = $_REQUEST['cat_id']) {
+                        } else if ((isset($_REQUEST['cat_id'])) && ($catid = $_REQUEST['cat_id'])) {
                             $pquery = 'SELECT * FROM product WHERE cat_id=' . $catid . '';
                             if ($presult = mysqli_query($conn, $pquery)) {
-                                while ($prow = mysqli_fetch_assoc($presult)) {
-                                ?>
-                                    <div class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php echo $prow['img'] ?>">
-                                                <!-- <span class="label">Sale</span> -->
-                                                <ul class="product__hover">
-                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6>
+                                    while ($prow = mysqli_fetch_assoc($presult)) {
+                                        ?>
+                                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                                <div class="product__item sale">
+                                                <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
+                                                    <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
+                                                    $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
+                                                    $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                                    echo $image['image'];
+                                                    ?>">
+                                                        <!-- <span class="label">Sale</span> -->
+                                                        <ul class="product__hover">
+                                                            <li id="<?php echo $prow['id'] ?>" class="wishlist"><img
+                                                                    src="img/icon/heart.png" alt=""></li>
+                                                        </ul>
+                                                    </div>
+                                                </a>
+                                                <div class="product__item__text">
+                                                    <h6>
                                                     <?php echo $prow['name']; ?>
                                                 </h6>
                                                 <a href="#" class="add-cart">+ Add To Cart</a>
@@ -509,17 +619,24 @@
                             $pquery = 'SELECT * FROM product';
                             if ($presult = mysqli_query($conn, $pquery)) {
                                 while ($prow = mysqli_fetch_assoc($presult)) {
-                                ?>
-                                    <div class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php echo $prow['img'] ?>">
-                                                <!-- <span class="label">Sale</span> -->
-                                                <ul class="product__hover">
-                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6>
+
+                                        <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <div class="product__item sale">
+                                                <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
+                                                    <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
+                                                    $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
+                                                    $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                                    echo $image['image'];
+                                                    ?>">
+                                                        <!-- <span class="label">Sale</span> -->
+                                                        <ul class="product__hover">
+                                                            <li id="<?php echo $prow['id'] ?>" class="wishlist"><img
+                                                                    src="img/icon/heart.png" alt=""></li>
+                                                        </ul>
+                                                    </div>
+                                                </a>
+                                                <div class="product__item__text">
+                                                    <h6>
                                                     <?php echo $prow['name']; ?>
                                                 </h6>
                                                 <a href="#" class="add-cart">+ Add To Cart</a>
@@ -542,148 +659,7 @@
                         }
                     }
                     ?>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item sale">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                                <span class="label">Sale</span>
-                                <ul class="product__hover">
-                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                    <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                    </li>
-                                    <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>Multi-pocket Chest Bag</h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <h5>$43.48</h5>
-                                <div class="product__color__select">
-                                    <label for="pc-7">
-                                        <input type="radio" id="pc-7">
-                                    </label>
-                                    <label class="active black" for="pc-8">
-                                        <input type="radio" id="pc-8">
-                                    </label>
-                                    <label class="grey" for="pc-9">
-                                        <input type="radio" id="pc-9">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
-                                <ul class="product__hover">
-                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                    <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                    </li>
-                                    <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>Diagonal Textured Cap</h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
-                                <div class="rating">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <h5>$60.9</h5>
-                                <div class="product__color__select">
-                                    <label for="pc-10">
-                                        <input type="radio" id="pc-10">
-                                    </label>
-                                    <label class="active black" for="pc-11">
-                                        <input type="radio" id="pc-11">
-                                    </label>
-                                    <label class="grey" for="pc-12">
-                                        <input type="radio" id="pc-12">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item sale">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/product-6.jpg">
-                                <span class="label">Sale</span>
-                                <ul class="product__hover">
-                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                    <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                    </li>
-                                    <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>Ankle Boots</h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <h5>$98.49</h5>
-                                <div class="product__color__select">
-                                    <label for="pc-16">
-                                        <input type="radio" id="pc-16">
-                                    </label>
-                                    <label class="active black" for="pc-17">
-                                        <input type="radio" id="pc-17">
-                                    </label>
-                                    <label class="grey" for="pc-18">
-                                        <input type="radio" id="pc-18">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
-                                <ul class="product__hover">
-                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                    <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                    </li>
-                                    <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>T-shirt Contrast Pocket</h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
-                                <div class="rating">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <h5>$49.66</h5>
-                                <div class="product__color__select">
-                                    <label for="pc-19">
-                                        <input type="radio" id="pc-19">
-                                    </label>
-                                    <label class="active black" for="pc-20">
-                                        <input type="radio" id="pc-20">
-                                    </label>
-                                    <label class="grey" for="pc-21">
-                                        <input type="radio" id="pc-21">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -746,4 +722,22 @@
     });
 </script>
 <!-- Shop Section End -->
+<script>
+    $(document).ready(function () {
+        $('.wishlist').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("id");
+                $.ajax({
+                    url: 'api/wishlist.php',
+                    method: 'POST',
+                    data: {
+                       id:id
+                    },
+                    success: function (data) {
+                        console.log("hehehe")
+                    }
+                })
+            })
+        })
+    </script>
 <?php include("components/footer.php"); ?>

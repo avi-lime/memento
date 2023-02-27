@@ -7,10 +7,13 @@
                     <div class="footer__logo">
                         <a href="index.php"><img src="img/mxm-white.png" alt=""></a>
                     </div>
-                    <p>Something to remember your loved ones by.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                    <p>What you wear is how you present yourself to the world, especially today,when human conatacts are
+                        so quick.
+                        "Fashion is like eating; you shouldn't stick to same menu."&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    </p>
                 </div>
             </div>
-            <div class="col-lg-3 offset-lg-1 col-md-3 col-sm-6">
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                 <div class="footer__widget">
                     <h6>GET HELP</h6>
                     <ul>
@@ -21,7 +24,19 @@
                     </ul>
                 </div>
             </div>
-
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>CUSTOMER POLICIES</h6>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Cancellation</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Privacy Policies</a></li>
+                        <li><a href="#">Track Order</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
                 <div class="footer__widget">
                     <h6>NewsLetter</h6>
@@ -31,6 +46,12 @@
                             <input type="text" placeholder="Your email" style="color: white">
                             <button type="submit"><span class="icon_mail_alt"></span></button>
                         </form>
+                        <div class="social-icons">
+                            <i class="fa-brands fa-facebook"></i>
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <i class="fa-brands fa-instagram"></i>
+                            <i class="fa-brands fa-pinterest"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,8 +87,6 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.nice-select.min.js"></script>
 <script src="js/jquery.nicescroll.min.js"></script>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 20, 2023 at 12:45 PM
+-- Generation Time: Feb 24, 2023 at 04:01 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -104,9 +104,9 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `image`) VALUES
-(11, 'Active wear', 'image_2022-09-08_183304383.png'),
-(12, 'Casual wear', 'autri-taheri-QAwtEAY6V8I-unsplash.jpg'),
-(13, 'Professional wear', 'image_2022-09-09_030925604.png');
+(11, 'Active wear', '1677211695.png'),
+(12, 'Casual wear', '1677211700.jpg'),
+(13, 'Professional wear', '1677211728.png');
 
 -- --------------------------------------------------------
 
@@ -128,14 +128,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `product_id`, `address_id`, `amount`, `status`, `date`, `extra_expenses`, `quantity`) VALUES
-(1, 1, 7, 1, 123, 'asd', 123, 123, 123);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -171,20 +164,18 @@ CREATE TABLE IF NOT EXISTS `product` (
   `discount` int(3) NOT NULL,
   `cat_id` int(10) NOT NULL,
   `subcat_id` int(10) NOT NULL,
-  `company_id` int(20) NOT NULL,
-  `img` varchar(255) NOT NULL,
-  `series` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_cat` (`cat_id`),
   KEY `FK_product_sub` (`subcat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discount`, `cat_id`, `subcat_id`, `company_id`, `img`, `series`) VALUES
-(7, 'Batman: Go Hawai', 2500, 500, 'Official Licensed Batman Summer Shirt\r\n\r\nWhen Batman requested us to make him a premium shirt, we couldn\'t deny him! Presenting to you this super-stylish and comfortable Batman shirt.\r\n\r\nBuy Batman Shirts online, available in India only at The Souled Store.', 0, 11, 10, 1, 'autri-taheri-QAwtEAY6V8I-unsplash.jpg', 'Batman');
+INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discount`, `cat_id`, `subcat_id`) VALUES
+(1, 'Kamal Morrison', 404, 403, 'Odio fugiat ea sint', 77, 11, 10),
+(2, 'Willa Thompson', 942, 37, 'Nulla molestias est ', 9, 11, 10);
 
 -- --------------------------------------------------------
 
@@ -199,7 +190,19 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
+(1, 1, '16772509150.png'),
+(2, 1, '16772509151.png'),
+(3, 1, '16772509152.png'),
+(4, 2, '16772540800.png'),
+(5, 2, '16772540801.png'),
+(6, 2, '16772540802.png');
 
 -- --------------------------------------------------------
 
@@ -213,7 +216,14 @@ CREATE TABLE IF NOT EXISTS `slider` (
   `content` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `content`, `image`) VALUES
+(2, 'Bevis Baldwin', '1677013293.jpg');
 
 -- --------------------------------------------------------
 
@@ -230,15 +240,16 @@ CREATE TABLE IF NOT EXISTS `subcat` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `FK_sub_cat` (`cat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subcat`
 --
 
 INSERT INTO `subcat` (`id`, `name`, `cat_id`, `image`) VALUES
-(10, 'mandarin shirt', 11, 'image_2022-09-09_061323574.png'),
-(11, 'T-Shirts', 12, 'image_2022-09-03_164709322.png');
+(10, 'Mandarin shirt', 11, '1677212957.png'),
+(11, 'T-Shirts', 12, '1677212967.png'),
+(12, 'Blazers', 13, '1677212978.png');
 
 -- --------------------------------------------------------
 

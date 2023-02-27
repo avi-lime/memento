@@ -13,7 +13,7 @@ if (!isset($_POST["name"])) {
         // delete old file before uploading -- save storage
         if ($_POST['id'] != '') {
             // fetch old image
-            $result = mysqli_query($conn, "SELECT image FROM category WHERE id=" . $_POST['id']);
+            $result = mysqli_query($conn, "SELECT image FROM slider WHERE id=" . $_POST['id']);
             $row = mysqli_fetch_assoc($result);
             $oldPicture = "../../global/assets/images/" . $row["image"];
             unlink($oldPicture);
@@ -31,9 +31,9 @@ if (!isset($_POST["name"])) {
     $image = mysqli_real_escape_string($conn, $image);
 
     if ($_POST['id'] == '') {
-        $sql = "INSERT INTO category (name, image) VALUES ('$sanitized_name','$image')";
+        $sql = "INSERT INTO slider (content, image) VALUES ('$sanitized_name','$image')";
     } else {
-        $sql = "UPDATE category SET name='$sanitized_name'";
+        $sql = "UPDATE slider SET content='$sanitized_name'";
         if ($image != "default.png")
             $sql .= ", image='$image'";
 
@@ -41,5 +41,5 @@ if (!isset($_POST["name"])) {
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("Location: ../category.php");
+    header("Location: ../slider.php");
 }

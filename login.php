@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memento Sign in & Sign UP</title>
+    <title>Memento Sign in & Sign up</title>
     <link rel="stylesheet" href="css/login.css">
     <link rel="icon" type="image/x-icon" href="img/mxm-white.png" sizes="any">
     <link rel="shortcut icon" href="img/mxm-white.ico" type="image/x-icon">
@@ -13,7 +13,7 @@
 </head>
 <?php
 require_once("global/api/conn.php");
-// session_start();
+session_start();
 if (isset($_REQUEST["btn_signin"])) {
     $email = $_REQUEST["email_signin"];
     $password = $_REQUEST["pass_signin"];
@@ -28,7 +28,8 @@ if (isset($_REQUEST["btn_signin"])) {
         $user = mysqli_fetch_assoc($result);
 
         if (password_verify($sanitized_password, $user["password"])) {
-            $_SESSION["user"] = $user["user_id"];
+            $_SESSION["user"] = $user["id"];
+            $_SESSION["username"] = $user["name"];
             $_SESSION['expire'] = time() + (60 * 60);
             header('location: index.php');
         } else {
@@ -40,6 +41,7 @@ if (isset($_REQUEST["btn_signin"])) {
     if ($error != "") {
         ?>
         <!-- alert -->
+        <!-- add css file merako nahi malum konsa!! -->
         <div class="mb-4 alert alert-danger d-flex align-items-center gap-2 alert-dismissible fade show" role="alert">
             <i class="fa-solid fa-circle-exclamation"></i>
             <div>

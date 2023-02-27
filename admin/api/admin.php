@@ -15,19 +15,6 @@ if (!isset($_POST["name"]) || !isset($_POST["email"]) || !isset($_POST["password
 
     $hashed_password = password_hash($sanitized_password, PASSWORD_DEFAULT);
 
-    // $image = "";
-
-    // if (file_exists($_FILES['imgfile']["tmp_name"]) && is_uploaded_file($_FILES["imgfile"]["tmp_name"])) {
-//     $image = $_FILES["imgfile"]["name"];
-//     $tempimg = $_FILES["imgfile"]["tmp_name"];
-//     $path = '../../assets/images/' . $image;
-//     move_uploaded_file($tempimg, $path);
-// } else {
-//     $image = "default.png";
-// }
-
-    // $image = mysqli_real_escape_string($conn,$image));
-
     if ($_POST['id'] == '') {
         $sql = "INSERT INTO admin (username,email,password) VALUES ('$sanitized_name','$sanitized_email', '$hashed_password')";
     } else {

@@ -3,7 +3,9 @@ include("template/header.php");
 include("../global/api/conn.php");
 
 if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
-    header("location: dashboard.php");
+    $super = false;
+} else {
+    $super = true;
 }
 
 ?>
@@ -12,9 +14,23 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     <hr>
 
     <div class="actions">
-        <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-            Add Product
-        </button>
+        <?php if ($super) { ?>
+            <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
+                Add Product
+            </button>
+        <?php } ?>
+        <div class="sort">
+            <select class="nice-select" name="sort" id="sort">
+                <option value="ORDER BY id" selected>ID, 1-9</option>
+                <option value="ORDER BY id DESC">ID, 9-1</option>
+                <option value="ORDER BY name">Name, A-Z</option>
+                <option value="ORDER BY name DESC">Name, Z-A</option>
+                <option value="ORDER BY cat">Category, A-Z</option>
+                <option value="ORDER BY cat DESC">Category, Z-A</option>
+                <option value="ORDER BY subcat">Sub-Category, A-Z</option>
+                <option value="ORDER BY subcat DESC">Sub-Category, Z-A</option>
+            </select>
+        </div>
         <input type="text" class="search-bar" name="search" id="search" data-table="product" placeholder="Search...">
     </div>
 
@@ -31,8 +47,8 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                         <i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <form action="api/product.php" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="api/product.php" id="form" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group mb-3">
                             <label>Category: *</label>
@@ -64,140 +80,123 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                             <textarea required id="desc" name="desc" rows="3" class="form-control mb-3"> </textarea>
                         </div>
                         <div class="form-group">
-                            <label>Series: *</label>
-                            <input required id="price" name="price" type="text" class="form-control mb-3">
-                        </div>
-                        <div class="form-group">
                             <label>Price (₹): *</label>
-                            <input required id="price" name="price" type="text" class="form-control mb-3">
+                            <input required id="price" name="price" type="number" class="form-control mb-3">
                         </div>
                         <div class="form-group">
                             <label>Quantity: *</label>
-                            <input required id="qty" name="qty" type="text" class="form-control mb-3">
+                            <input required id="qty" name="qty" type="number" class="form-control mb-3">
                         </div>
                         <div class="form-group">
-                            <label>Image: </label>
+                            <label>Discount: *</label>
+                            <input required id="discount" name="discount" type="number" class="form-control mb-3">
+                        </div>
+                        <div class="form-group">
+                            <label>Image: *</label>
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" name="imgfile" id="imgfile" required multiple
-                                    accept=".png,.jpg,.jpeg">
+                                <input type="file" class="form-control" name="imgfile[]" id="imgfile" required multiple
+                                    accept=".png,.jpg,.jpeg,.webp">
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn" type="reset" data-bs-dismiss="modal">Cancel</button>
-                        <button name="btnSubmit" type="submit" class="btn" id="btnSubmit">Add</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" form="form" type="reset" data-bs-dismiss="modal">Cancel</button>
+                    <button name="btnSubmit" form="form" type="submit" class="btn" id="btnSubmit">Add</button>
+                </div>
 
             </div>
         </div>
     </div>
 
+    <!-- list of items -->
+    <div class="list row" id="list">
 
-    <?php
-    $table = "product";
-    $sql = "SELECT id, name,
-            (SELECT name FROM category WHERE category.id=product.cat_id) AS cat,
-            (SELECT name FROM subcat WHERE subcat.id=product.subcat_id) AS sub,
-            price, quantity, discount, img, description FROM product
-            ";
-    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    ?>
-    <div class="list row container-fluid">
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-            <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
-                <div class="card bg-black text-white">
-                    <img src="../global/assets/images/<?php echo $row["img"] ?>" alt="" class="card-img-top"
-                        style="object-fit: cover" height="300px">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <?php echo $row["id"] . ". " . $row["name"] ?>
-                        </h5>
-                        <p class="card-text line-clamp">
-                            <?php echo $row["description"] ?>
-                        </p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item bg-black text-white border-white">
-                                <b>Category:</b>
-                                <?php echo $row["cat"] ?>
-                            </li>
-                            <li class="list-group-item bg-black text-white border-white">
-                                <b>Sub-Category:</b>
-                                <?php echo $row["sub"] ?>
-                            </li>
-                            <li class="list-group-item bg-black text-white border-white">
-                                <b>Price:</b> ₹
-                                <?php echo $row["price"] ?>
-                            </li>
-                            <li class="list-group-item bg-black text-white border-white">
-                                <b>Discount:</b>
-                                <?php echo $row["discount"] ?>
-                            </li>
-                            <li class="list-group-item bg-black text-white border-white">
-                                <b>Quantity:</b>
-                                <?php echo $row["quantity"] ?>
-                            </li>
-                        </ul>
-                        <div class="btn-group w-100" role="group" aria-label="Actions">
-                            <button type="button" class="btn my-btn">View</button>
-                            <a id="<?php echo $row["id"] ?>" role="button" class="btn my-btn btn-edit">Edit</a>
-                            <a role="button" href="api/delete.php?table=<?php echo $table ?>&id=<?php echo $row['id'] ?>"
-                                class="btn my-btn">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
     </div>
+
 </div>
 <script>
+    // fetch before load
+    fetch_filter_sort()
+
     $(document).ready(function () {
 
-        $("#table").DataTable();
-
+        // change subcat on cat change
         $('#cat').change(function () {
             var id = $(this).val();
             fillsub(id);
         })
 
-
-        $('.btn-edit').click(function () {
+        // fetch and fill on edit - pre-appending
+        $('#list').on("click", "a.btn-edit", function () {
             var id = $(this).attr("id");
             $.ajax({
                 url: 'api/fetch.php',
                 method: 'POST',
                 data: {
-                    id: id,
-                    table: "product"
+                    query: "SELECT * FROM product WHERE id=" + id
                 },
                 dataType: "json",
                 success: function (data) {
-                    $("#id").val(data.id);
-                    $("#name").val(data.name);
-                    $('#desc').val(data.description);
-                    $('#price').val(data.price);
-                    $('#qty').val(data.quantity);
-                    $('#cat').val(data.cat_id);
+                    let parsedData = $.parseJSON(data[0]);
+                    $("#id").val(parsedData.id);
+                    $("#name").val(parsedData.name);
+                    $('#desc').val(parsedData.description);
+                    $('#price').val(parsedData.price);
+                    $('#qty').val(parsedData.quantity);
+                    $('#discount').val(parsedData.discount);
+                    $("#cat").val(parsedData.cat_id);
+                    $("#imgfile").attr("required", false);
                     $("#subcat").attr('disabled', false);
-                    fillsub(data.cat_id, data.subcat_id);
+                    fillsub(parsedData.cat_id, parsedData.subcat_id);
                     $("#mdlLabel").text("Edit Product");
                     $("#btnSubmit").text("Update");
                     $("#modal").modal('show');
                 }
             })
         })
+
+        //delete
+        $("#list").on("click", "a.btn-del", function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "api/delete.php",
+                method: "POST",
+                data: {
+                    table: "product",
+                    id: id
+                },
+                success: function (data) {
+                    fetch_filter_sort();
+                }
+            })
+        })
+
+        // sort
+        $("#sort").change(function () {
+            fetch_filter_sort();
+        });
+
+
+        // search
+        $("#search").keyup(function () {
+            fetch_filter_sort();
+        })
+
+        // reset form on add
         $('#btnAdd').click(function () {
             $("#id").val("");
             $("#name").val("");
             $("#desc").val("");
             $("#price").val("");
             $("#qty").val("");
+            $("#discount").val("");
             $("#cat").val(-1);
             $("#subcat").html("");
             $("#subcat").attr('disabled', true);
-            $("#imgfile").val("");
+            $("#imgfile")
+                .val("")
+                .attr("required", true);
             $("#mdlLabel").text("Add Product");
             $("#btnSubmit").text("Add");
         })
@@ -218,5 +217,132 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             })
         }
     })
+
+    function fetch_filter_sort() {
+        let params = "";
+        let search = $("#search").val();
+        let sort_by = $("#sort").val();
+        if (search != "") params += ` WHERE name LIKE '%${search}%' OR id LIKE '${search}%'`;
+        params += ` ${sort_by}`
+        $.ajax({
+            url: 'api/fetch.php',
+            method: 'POST',
+            data: {
+                query: `SELECT product.id, name,
+                (SELECT name FROM category WHERE category.id=product.cat_id) AS cat,
+                (SELECT name FROM subcat WHERE subcat.id=product.subcat_id) AS sub,
+                price, quantity, discount, description FROM product
+                ` + params
+            },
+            dataType: "json",
+            success: function (data) {
+                let content = ""
+                data.forEach(item => {
+                    let parsedItem = $.parseJSON(item);
+                    content += `
+                        <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
+                            <div class="card bg-black text-white">
+                                <div id="${parsedItem.id}" class="carousel slide">
+                                </div>
+                                
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    ${parsedItem.id}. ${parsedItem.name}
+                                    </h5>
+                                    <p class="card-text line-clamp">
+                                        ${parsedItem.description}
+                                    </p>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item bg-black text-white border-white">
+                                            <b>Category:</b>
+                                            ${parsedItem.cat}
+                                        </li>
+                                        <li class="list-group-item bg-black text-white border-white">
+                                            <b>Sub-Category:</b>
+                                            ${parsedItem.sub}
+                                        </li>
+                                        <li class="list-group-item bg-black text-white border-white">
+                                            <b>Price:</b> ₹
+                                            ${parsedItem.price}
+                                        </li>
+                                        <li class="list-group-item bg-black text-white border-white">
+                                            <b>Discount:</b>
+                                            ${parsedItem.discount}
+                                        </li>
+                                        <li class="list-group-item bg-black text-white border-white">
+                                            <b>Quantity:</b>
+                                            ${parsedItem.quantity}
+                                        </li>
+                                    </ul>
+                                    <?php if ($super) { ?>
+                                                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                                                            <!-- <button type="button" class="btn my-btn">View</button> -->
+                                                            <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                                            <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                })
+                $("#list").html(content)
+                $(".carousel").each(function (index, element) {
+                    let id = element.id;
+                    console.log(element.id)
+                    $.ajax({
+                        url: "api/fetch.php",
+                        method: 'POST',
+                        data: {
+                            query: "SELECT * FROM product_images WHERE product_id=" + id
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data.length)
+                            let content = `<div class="carousel-indicators">`
+                            let class_active = "";
+                            for (let i = 0; i < data.length; i++) {
+                                if (i == 0) class_active = 'active'
+                                else class_active = ""
+                                content += `<button type="button" data-bs-target="#${id}" data-bs-slide-to="${i}" class="${class_active}"
+                                        aria-current="true"></button>`
+                            }
+                            content += `</div><div class="carousel-inner">`
+
+                            data.forEach((item, index) => {
+                                let parsedItem = $.parseJSON(item);
+
+                                if (index == 0)
+                                    content += `<div class="carousel-item active">`
+                                else content += `<div class="carousel-item">`
+
+                                content += `<img src="../global/assets/images/${parsedItem.image}" alt="" class="card-img-top"
+                                    style="object-fit: cover" height="300px">
+                                </div>
+                                `
+                            })
+
+                            content += `
+                                </div><button class="carousel-control-prev" type="button" data-bs-target="#${id}"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#${id}"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            `
+                            $(element).html(content)
+                        }
+                    })
+                })
+            }
+        })
+
+    }
+
+
 </script>
 <?php include("template/footer.html") ?>

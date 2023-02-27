@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 include "global/api/conn.php";
+session_start();
 ?>
 
 <head>
@@ -33,6 +34,10 @@ include "global/api/conn.php";
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/memento.css" type="text/css">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -46,7 +51,13 @@ include "global/api/conn.php";
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
             <div class="offcanvas__links">
-                <a href="#">Sign in</a>
+                <?php
+                if (!isset($_SESSION['user'])) {
+                    ?>
+                    <a href="login.php">Sign in</a>
+                    <?php
+                }
+                ?>
                 <a href="#">FAQs</a>
                 <a href="#">Blog</a>
             </div>
@@ -77,7 +88,13 @@ include "global/api/conn.php";
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <a href="./login.php">Sign in</a>
+                                <?php
+                                if (!isset($_SESSION['user'])) {
+                                    ?>
+                                    <a href="login.php">Sign in</a>
+                                    <?php
+                                }
+                                ?>
                                 <a href="#">FAQs</a>
                                 <a href="./blog.php">Blog</a>
                             </div>
@@ -136,8 +153,28 @@ include "global/api/conn.php";
                 <div class="col-xl-4 col-lg-5">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <a href="wishlist.php"><i class="fa-regular fa-heart"></i></a>
-                        <a href="./shopping-cart.php"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
+                        <?php
+                        if (isset($_SESSION['user'])) {
+                            ?>
+                            <li>
+                                <ul class="dropdown-item">
+                                    <a href="#">
+                                        <?php echo $_SESSION['username'] ?>
+                                    </a>
+                                </ul>
+                                <!-- ya drop down mai aayega maybe class ka problem hai or li ka baad a use kar raha isliye new line mai leleta hai -->
+                                <ul class="dropdown-item-text"> <a href="api/logout.php">Logout</a></ul>
+                                <!-- <a href="#">My Profile</a>
+                                    <a href="#">Orders</a> -->
+                            </li>
+                            <?php
+                        } ?>
+                        <a href="wishlist.php?userid=<?php if (isset($_SESSION['user'])) {
+                            echo $_SESSION["user"];
+                        } ?>"><i class="fa-regular fa-heart"></i></a>
+                        <a href="./shopping-cart.php?userid=<?php if (isset($_SESSION['user'])) {
+                            echo $_SESSION["user"];
+                        } ?>"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
                         <div class="price">₹0.00</div>
                     </div>
                 </div>
