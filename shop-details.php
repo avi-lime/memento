@@ -150,7 +150,8 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                             <a href="#" class="primary-btn" id="<?php echo $detail['id'] ?>">add to cart</a>
                         </div>
                         <div class="product__details__btns__option">
-                            <a href="#" class="wishlist" id="<?php echo $detail['id'] ?>"><i class="fa fa-heart"></i> add to wishlist</a>
+                            <a href="#" class="wishlist" id="<?php echo $detail['id'] ?>"><i class="fa fa-heart"></i>
+                                add to wishlist</a>
                             <div class="product__details__last__option">
                                 <ul>
                                     <li><span>Categories:</span>
@@ -291,11 +292,16 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            <h5>₹<?php $originalprice = $relateditem['price'];$discountrate=$relateditem['discount'];
-                            $discountprice = $originalprice * ($discountrate / 100);
-                            $price = $originalprice - $discountprice;
-                            echo $price;
-                            ?><span >₹<?php echo $relateditem['price']?></span></h5>
+                            <h5>₹
+                                <?php $originalprice = $relateditem['price'];
+                                $discountrate = $relateditem['discount'];
+                                $discountprice = $originalprice * ($discountrate / 100);
+                                $price = $originalprice - $discountprice;
+                                echo $price;
+                                ?><span>₹
+                                    <?php echo $relateditem['price'] ?>
+                                </span>
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -304,6 +310,20 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
             ?>
         </div>
     </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Memento</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+
+            </div>
+        </div>
+    </div>
+
 </section>
 <!-- script -->
 <script>
@@ -312,29 +332,42 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
         let id = $(this).attr("id");
         $.ajax({
             url: "api/wishlist.php",
-            method:"post",
+            method: "post",
             data: {
                 id: id
             },
-            success : function(data){
-                console.log("product added to wishlist")//idher toast add kar dena merako nahi aa raha
+            success: function (data) {
+                console.log("product added to wishlist")//idher toast add kar dena merako nahi aa raha // thike bc
+
+                const toastLiveExample = document.getElementById('liveToast')
+
+                $(".toast-body").text("Product added to wishlist.")
+
+                const toast = new bootstrap.Toast($("#liveToast"))
+                toast.show()
             }
         })
     })
-    $(".primary-btn").click(function(){
-        let id= $(this).attr("id");
-        let quantity= $("#quantity").attr("id");
-        //radio ka value lena hai size wala
+    $(".primary-btn").click(function () {
+        let id = $(this).attr("id");
+        let quantity = $("#quantity").attr("id");
+        //radio ka value lena hai size wala // wo b mai karu?
         $.ajax({
-            url:"api/addtocart.php",
-            method:"post",
-            data:{
+            url: "api/addtocart.php",
+            method: "post",
+            data: {
                 id: id,
                 quantity: quantity
                 //radio
             },
-            success : function(data){
-                console.log("added to cart")//idher bhi 
+            success: function (data) {
+                console.log("added to cart")//idher bhi  // thik
+                const toastLiveExample = document.getElementById('liveToast')
+
+                $(".toast-body").text("Product added to cart.")
+
+                const toast = new bootstrap.Toast($("#liveToast"))
+                toast.show()
             }
 
         })
