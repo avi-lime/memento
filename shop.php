@@ -549,10 +549,20 @@
                                                                                                                 $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
                                                                                                                 $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                                                                                                                 echo $image['image'];
+                                                                                                                $checksql='SELECT * FROM wishlist WHERE user_id='.$_SESSION['user'].' AND product_id='.$prow['id'].'';
+                                                                                                                $check=mysqli_query($conn,$checksql);
+                                                                                                                $num=mysqli_num_rows($check);
+                                                                                                                if($num>0){
+                                                                                                                    $wishlist='<i style="color:red;" class="fa-solid fa-heart"></i>';
+                                                                                                                    $class="";
+                                                                                                                }else{
+                                                                                                                    $class="wishlist";
+                                                                                                                    $wishlist='<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                                                                                                }
                                                                                                                 ?>">
                                             <!-- <span class="label">Sale</span> -->
                                             <ul class="product__hover">
-                                                <li id="<?php echo $prow['id'] ?>" class="wishlist"><img src="img/icon/heart.png" alt=""></li>
+                                                <li id="<?php echo $prow['id'] ?>" class="<?php echo $class?>"><?php echo $wishlist ?></li>
                                             </ul>
                                         </div>
                                     </a>
@@ -596,6 +606,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Memento</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+
             </div>
         </div>
     </div>
