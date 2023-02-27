@@ -1,10 +1,8 @@
 <?php include("components/header.php");
-if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
+if ((isset($_REQUEST['product_id'])&&($id = $_REQUEST['product_id']))) {
     $sql = 'SELECT * FROM product WHERE id=' . $id . '';
     $result = mysqli_query($conn, $sql);
     $detail = mysqli_fetch_assoc($result);
-} else {
-}
 ?>
 
 <!-- Shop Details Section Begin -->
@@ -325,6 +323,37 @@ if (($id = $_REQUEST['product_id']) && (isset($_REQUEST['product_id']))) {
     </div>
 
 </section>
+<?php 
+    } else {
+        ?>
+        <section class="shop-details">
+    <div class="product__details__pic">
+        <div class="container">
+         <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__breadcrumb">
+                        <a href="./index.php">Home</a>
+                        <a href="./shop.php">Shop</a>
+                        <span>Where the heck am I</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product__details__content">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="product__details__text">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+        <?php
+}?>
 <!-- script -->
 <script>
     $(".wishlist").click(function (e) {
