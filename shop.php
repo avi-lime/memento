@@ -238,8 +238,7 @@
 </style>
 
 
-<button class="filter" id="btnfltr" onclick="openFil()"
-    style="background-color: #111827; border: 1px solid transparent; border-radius: .75rem; box-sizing: border-box; color: #FFFFFF; font-size: 25px; width: 200px; float: right; margin-top: 15px; margin-right: 15px;">filter</button>
+<button class="filter" id="btnfltr" onclick="openFil()" style="background-color: #111827; border: 1px solid transparent; border-radius: .75rem; box-sizing: border-box; color: #FFFFFF; font-size: 25px; width: 200px; float: right; margin-top: 15px; margin-right: 15px;">filter</button>
 
 
 <div id="mySidenav" class="sidenav">
@@ -261,15 +260,13 @@
             <summary class="cc-accordion-item__title filter-group__header">Availability</summary>
             <ul class="unstyled-list">
                 <li>
-                    <input type="checkbox" class="checkbox" id="filter-Availability-1" name="filter.v.availability"
-                        value="1">
+                    <input type="checkbox" class="checkbox" id="filter-Availability-1" name="filter.v.availability" value="1">
                     <label for="filter-Availability-1">
                         In stock (26)
                     </label>
                 </li>
                 <li>
-                    <input type="checkbox" class="checkbox" id="filter-Availability-2" name="filter.v.availability"
-                        value="0">
+                    <input type="checkbox" class="checkbox" id="filter-Availability-2" name="filter.v.availability" value="0">
                     <label for="filter-Availability-2">
                         Out of stock (25)
                     </label>
@@ -311,57 +308,49 @@
             <div class="cc-accordion-item__content">
                 <ul class="unstyled-list">
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-1" name="filter.p.product_type"
-                            value="Clothing Accessories">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-1" name="filter.p.product_type" value="Clothing Accessories">
                         <label for="filter-Product type-1">
                             Clothing Accessories (1)
                         </label>
                     </li>
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-2" name="filter.p.product_type"
-                            value="Gift Cards">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-2" name="filter.p.product_type" value="Gift Cards">
                         <label for="filter-Product type-2">
                             Gift Cards (1)
                         </label>
                     </li>
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-3" name="filter.p.product_type"
-                            value="Hats">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-3" name="filter.p.product_type" value="Hats">
                         <label for="filter-Product type-3">
                             Hats (5)
                         </label>
                     </li>
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-4" name="filter.p.product_type"
-                            value="Hoodies">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-4" name="filter.p.product_type" value="Hoodies">
                         <label for="filter-Product type-4">
                             Hoodies (8)
                         </label>
                     </li>
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-5" name="filter.p.product_type"
-                            value="Jackets">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-5" name="filter.p.product_type" value="Jackets">
                         <label for="filter-Product type-5">
                             Jackets (6)
                         </label>
                     </li>
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-6" name="filter.p.product_type"
-                            value="Joggers">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-6" name="filter.p.product_type" value="Joggers">
                         <label for="filter-Product type-6">
                             Joggers (10)
                         </label>
                     </li>
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-7" name="filter.p.product_type"
-                            value="Socks">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-7" name="filter.p.product_type" value="Socks">
                         <label for="filter-Product type-7">
                             Socks (3)
                         </label>
                     </li>
                     <li>
-                        <input type="checkbox" class="checkbox" id="filter-Product type-8" name="filter.p.product_type"
-                            value="Tees">
+                        <input type="checkbox" class="checkbox" id="filter-Product type-8" name="filter.p.product_type" value="Tees">
                         <label for="filter-Product type-8">
                             Tees (4)
                         </label>
@@ -457,22 +446,20 @@
                                                 $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
                                                 if ($result = mysqli_query($conn, $subquery)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        ?>
-                                                        <a
-                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
-                                                                  echo $row['name'] ?></a>
-                                                        <?php
+                                            ?>
+                                                        <a href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
+                                                                                                                                                echo $row['name'] ?></a>
+                                                    <?php
                                                     }
                                                 }
                                             } else {
                                                 $query = 'SELECT * FROM subcat';
                                                 if ($result = mysqli_query($conn, $query)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        ?>
-                                                        <a
-                                                            href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
-                                                                  echo $row['name'] ?></a>
-                                                        <?php
+                                                    ?>
+                                                        <a href="shop.php?cat_id=<?php echo $row['cat_id'] ?>&sub_id=<?php echo $row['id'] ?>"><?php
+                                                                                                                                                echo $row['name'] ?></a>
+                                            <?php
                                                     }
                                                 }
                                             }
@@ -535,7 +522,7 @@
                     <?php
 
                     if ($totalproduct['totalproduct'] < 1) {
-                        ?>
+                    ?>
                         <div class="box__description-container" style="padding-left: 250px">
                             <div class="box__description-title">Whoops!</div>
                             <div class="box__description-text">It seems like we don't have the product you were looking for
@@ -545,132 +532,58 @@
                     } else {
                         if ((isset($_REQUEST['sub_id'])) && ($subcat = $_REQUEST['sub_id'])) {
                             $pquery = 'SELECT * FROM product WHERE subcat_id=' . $subcat . '';
-                            if ($presult = mysqli_query($conn, $pquery)) {
-                                while ($prow = mysqli_fetch_assoc($presult)) {
-                                    ?>
-                                    <div class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item sale">
-                                            <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
-                                                <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
-                                                $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
-                                                $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                                                echo $image['image'];
-                                                ?>">
-                                                    <!-- <span class="label">Sale</span> -->
-                                                    <ul class="product__hover">
-                                                        <li id="<?php echo $prow['id'] ?>" class="wishlist"><img
-                                                                src="img/icon/heart.png" alt=""></li>
-                                                    </ul>
-                                                </div>
-                                            </a>
-                                            <div class="product__item__text">
-                                                <h6>
-                                                    <?php echo $prow['name']; ?>
-                                                </h6>
-                                                <a href="#" class="add-cart">+ Add To Cart</a>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <h5>₹
-                                                    <?php echo $prow['price']; ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php
-                                }
-                            }
+                            $presult = mysqli_query($conn, $pquery);
                         } else if ((isset($_REQUEST['cat_id'])) && ($catid = $_REQUEST['cat_id'])) {
                             $pquery = 'SELECT * FROM product WHERE cat_id=' . $catid . '';
-                            if ($presult = mysqli_query($conn, $pquery)) {
-                                while ($prow = mysqli_fetch_assoc($presult)) {
-                                    ?>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product__item sale">
-                                                <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
-                                                    <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
-                                                    $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
-                                                    $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                                                    echo $image['image'];
-                                                    ?>">
-                                                        <!-- <span class="label">Sale</span> -->
-                                                        <ul class="product__hover">
-                                                            <li id="<?php echo $prow['id'] ?>" class="wishlist"><img
-                                                                    src="img/icon/heart.png" alt=""></li>
-                                                        </ul>
-                                                    </div>
-                                                </a>
-                                                <div class="product__item__text">
-                                                    <h6>
-                                                    <?php echo $prow['name']; ?>
-                                                    </h6>
-                                                    <a href="#" class="add-cart">+ Add To Cart</a>
-                                                    <div class="rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                    <h5>₹
-                                                    <?php echo $prow['price']; ?>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php
-
-                                }
-                            }
+                            $presult = mysqli_query($conn, $pquery);
                         } else {
                             $pquery = 'SELECT * FROM product';
-                            if ($presult = mysqli_query($conn, $pquery)) {
-                                while ($prow = mysqli_fetch_assoc($presult)) {
-                                    ?>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product__item sale">
-                                                <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
-                                                    <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
-                                                    $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
-                                                    $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                                                    echo $image['image'];
-                                                    ?>">
-                                                        <!-- <span class="label">Sale</span> -->
-                                                        <ul class="product__hover">
-                                                            <li id="<?php echo $prow['id'] ?>" class="wishlist"><img
-                                                                    src="img/icon/heart.png" alt=""></li>
-                                                        </ul>
-                                                    </div>
-                                                </a>
-                                                <div class="product__item__text">
-                                                    <h6>
-                                                    <?php echo $prow['name']; ?>
-                                                    </h6>
-                                                    <a href="#" class="add-cart">+ Add To Cart</a>
-                                                    <div class="rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                    <h5>₹
-                                                    <?php echo $prow['price']; ?>
-                                                    </h5>
-                                                </div>
-                                            </div>
+                            $presult = mysqli_query($conn, $pquery);
+                        }
+                        while ($prow = mysqli_fetch_assoc($presult)) {
+                        ?>
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item sale">
+                                    <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
+                                        <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
+                                                                                                                $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
+                                                                                                                $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                                                                                                echo $image['image'];
+                                                                                                                ?>">
+                                            <!-- <span class="label">Sale</span> -->
+                                            <ul class="product__hover">
+                                                <li id="<?php echo $prow['id'] ?>" class="wishlist"><img src="img/icon/heart.png" alt=""></li>
+                                            </ul>
                                         </div>
-                                    <?php
-                                }
-                            }
+                                    </a>
+                                    <div class="product__item__text">
+                                        <h6>
+                                            <?php echo $prow['name']; ?>
+                                        </h6>
+                                        <a href="#" class="add-cart">+ Add To Cart</a>
+                                        <div class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <h5>₹
+                                            <?php $originalprice = $prow['price'];
+                                            $discountrate = $prow['discount'];
+                                            $discountprice = $originalprice * ($discountrate / 100);
+                                            $price = $originalprice - $discountprice;
+                                            echo $price;
+                                            ?><span>₹ <?php echo $prow['price']; ?></span>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                    <?php
                         }
                     }
                     ?>
-
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -734,8 +647,8 @@
 </script>
 <!-- Shop Section End -->
 <script>
-    $(document).ready(function () {
-        $('.wishlist').click(function (e) {
+    $(document).ready(function() {
+        $('.wishlist').click(function(e) {
             e.preventDefault();
             var id = $(this).attr("id");
             $.ajax({
@@ -744,8 +657,15 @@
                 data: {
                     id: id
                 },
-                success: function (data) {
-                    console.log("hehehe")
+                success: function(data) {
+                    console.log("hehehe");
+
+                    const toastLiveExample = document.getElementById('liveToast')
+
+                    $(".toast-body").text("Product added to wishlist.")
+
+                    const toast = new bootstrap.Toast($("#liveToast"))
+                    toast.show()
                 }
             })
         })
