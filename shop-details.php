@@ -3,6 +3,19 @@ if ((isset($_REQUEST['product_id'])&&($id = $_REQUEST['product_id']))) {
     $sql = 'SELECT * FROM product WHERE id=' . $id . '';
     $result = mysqli_query($conn, $sql);
     $detail = mysqli_fetch_assoc($result);
+    $class="wishlist";
+    $wishlist='<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+    $wishlisttext="ADD TO WISHLIST";
+    if(isset($_SESSION['user'])){
+    $checksql='SELECT * FROM wishlist WHERE user_id='.$_SESSION['user'].' AND product_id='.$detail['id'].'';
+    $check=mysqli_query($conn,$checksql);
+    $num=mysqli_num_rows($check);
+    if($num>0){
+        $wishlist='<i style="color:red;" class="fa-solid fa-heart"></i>';
+        $class="";
+        $wishlisttext="WISHLISTED";
+    }
+    }
 ?>
 
 <!-- Shop Details Section Begin -->
@@ -148,8 +161,8 @@ if ((isset($_REQUEST['product_id'])&&($id = $_REQUEST['product_id']))) {
                             <a href="#" class="primary-btn" id="<?php echo $detail['id'] ?>">add to cart</a>
                         </div>
                         <div class="product__details__btns__option">
-                            <a href="#" class="wishlist" id="<?php echo $detail['id'] ?>"><i class="fa fa-heart"></i>
-                                add to wishlist</a>
+                            <a href="#" class="<?php echo $class ?>" id="<?php echo $detail['id'] ?>"><?php echo $wishlist?>
+                                <?php echo $wishlisttext ?></a>
                             <div class="product__details__last__option">
                                 <ul>
                                     <li><span>Categories:</span>
@@ -270,11 +283,22 @@ if ((isset($_REQUEST['product_id'])&&($id = $_REQUEST['product_id']))) {
                             $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
                             $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                             echo $image['image'];
+                            $checksql='SELECT * FROM wishlist WHERE user_id='.$_SESSION['user'].' AND product_id='.$relateditem['id'].'';
+                            $check=mysqli_query($conn,$checksql);
+                            $num=mysqli_num_rows($check);
+                            if($num>0){
+                                $wishlist='<i style="color:red;" class="fa-solid fa-heart"></i>';
+                                $class="";
+                                $wishlisttext="WISHLISTED";
+                            }else{
+                                $class="wishlist";
+                                $wishlist='<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                $wishlisttext="ADD TO WISHLIST";
+                            }
                             ?>">
                                 <!-- <span class="label">New</span> -->
                                 <ul class="product__hover">
-                                    <li class="wishlist" id="<?php echo $relateditem['id'] ?>"><img src="img/icon/heart.png"
-                                            alt=""></li>
+                                    <li class="<?php echo $class?>" id="<?php echo $relateditem['id'] ?>"><?php echo $wishlist ?></li>
                                 </ul>
                             </div>
                         </a>
@@ -358,7 +382,7 @@ if ((isset($_REQUEST['product_id'])&&($id = $_REQUEST['product_id']))) {
 <script>
     $(".wishlist").click(function (e) {
         e.preventDefault();
-        let id = $(this).attr("id");
+        var id = $(this).attr("id");
         $.ajax({
             url: "api/wishlist.php",
             method: "post",
@@ -374,13 +398,15 @@ if ((isset($_REQUEST['product_id'])&&($id = $_REQUEST['product_id']))) {
 
                 const toast = new bootstrap.Toast($("#liveToast"))
                 toast.show()
+
+                $("#"+id).removeClass('wishlist');
             }
         })
     })
     $(".primary-btn").click(function () {
         let id = $(this).attr("id");
         let quantity = $("#quantity").attr("id");
-        //radio ka value lena hai size wala // wo b mai karu?
+        //radio ka value lena hai size wala // wo b mai karu?//nahi, mera karna ka mood nahi tha bass
         $.ajax({
             url: "api/addtocart.php", // saale addtocart.php kidhr h
             method: "post",
@@ -392,7 +418,7 @@ if ((isset($_REQUEST['product_id'])&&($id = $_REQUEST['product_id']))) {
             success: function (data) {
                 console.log("added to cart")//idher bhi  // thik
                 const toastLiveExample = document.getElementById('liveToast')
-
+                
                 $(".toast-body").text("Product added to cart.")
 
                 const toast = new bootstrap.Toast($("#liveToast"))
