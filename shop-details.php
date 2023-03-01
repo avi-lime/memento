@@ -134,27 +134,27 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
-                                    <label class="active" for="xl">xl
-                                        <input type="radio" id="xl">
+                                    <label for="xl">xl
+                                        <input type="radio" name="size" id="xl" value="xl" required>
                                     </label>
                                     <label for="l">l
-                                        <input type="radio" id="l">
+                                        <input type="radio" name="size" id="l" value="l">
                                     </label>
                                     <label for="m">m
-                                        <input type="radio" id="m">
+                                        <input type="radio" name="size" id="m" value="m">
                                     </label>
-                                    <label for="sm">s
-                                        <input type="radio" id="sm">
+                                    <label for="s">s
+                                        <input type="radio" name="size" id="s" value="s">
                                     </label>
                                 </div>
                             </div>
                             <div class="product__details__cart__option">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <input type="text" id="quantity" value="1">
+                                        <input type="text" name="quantity" id="quantity" value="1">
                                     </div>
                                 </div>
-                                <a href="#" class="primary-btn" id="<?php echo $detail['id'] ?>">add to cart</a>
+                                <li class="primary-btn" id="<?php echo $detail['id'] ?>">add to cart</li>
                             </div>
                             <div class="product__details__btns__option">
                                 <a href="#" class="<?php echo $class ?>" id="<?php echo $detail['id'] ?>"><?php echo $wishlist ?>
@@ -286,11 +286,11 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                                                                                             if ($num > 0) {
                                                                                                                 $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
                                                                                                                 $class = "";
-                                                                                                            }else {
+                                                                                                            } else {
                                                                                                                 $class = "wishlist";
                                                                                                                 $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                             }
-                                                                                                        }else{
+                                                                                                        } else {
                                                                                                             $class = "login";
                                                                                                             $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                         }
@@ -398,25 +398,32 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 const toast = new bootstrap.Toast($("#liveToast"))
                 toast.show()
 
-                $("#" + id).removeClass('wishlist');
+                $("#" + id).removeClass('wishlist');//yaad rakh loda
             }
         })
     })
-    $(".login").click(function(e){
+    $(".login").click(function(e) {
         e.preventDefault();
-        window.location.href="login.php";
+        window.location.href = "login.php";
     })
     $(".primary-btn").click(function() {
         let id = $(this).attr("id");
-        let quantity = $("#quantity").attr("id");
-        //radio ka value lena hai size wala // wo b mai karu?//nahi, mera karna ka mood nahi tha bass
+        let quantity = $("#quantity").val();
+        console.log(id,quantity);
+        if ($("input[name='size']").is(":checked")) {
+        } else {
+            alert("select size");
+            return false;
+        }
+        let size = $("input[name='size']:checked").val();
+        console.log(size);
         $.ajax({
             url: "api/addtocart.php", // saale addtocart.php kidhr h
             method: "post",
             data: {
                 id: id,
-                quantity: quantity
-                //radio
+                quantity: quantity,
+                size: size
             },
             success: function(data) {
                 console.log("added to cart") //idher bhi  // thik
