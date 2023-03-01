@@ -63,7 +63,15 @@ if (isset($_SESSION['user'])) {
                                             </div>
                                         </td>
                                         <td>
-                                        <div class="product__cart__item__text"><?php echo strtoupper($details['size']); ?></div>
+                                            <div class="product__cart__item__text">
+                                                <div class="sort">
+                                                    <select class="nice-select" name="sort" id="sort">
+                                                        <option value="s" <?php if ($details['size'] == 's') echo ' selected="selected"'; ?>>S</option>
+                                                        <option value="m"<?php if ($details['size'] == 'm') echo ' selected="selected"'; ?>>M</option>
+                                                        <option value="l"<?php if ($details['size'] == 'l') echo ' selected="selected"'; ?>>L</option>
+                                                    </select>
+                                                </div><?php // echo strtoupper($details['size']); ?>
+                                            </div>
                                         </td>
                                         <td class="quantity__item">
                                             <div class="quantity">
@@ -72,8 +80,10 @@ if (isset($_SESSION['user'])) {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="cart__price">₹<?php $quantity=$details['quantity'];$total=$price*$quantity;echo $total; ?></td>
-                                        <td class="cart__close" id="<?php echo $details['id'] ?>" ><i class="fa fa-close"></i></td>
+                                        <td class="cart__price">₹<?php $quantity = $details['quantity'];
+                                                                    $total = $price * $quantity;
+                                                                    echo $total; ?></td>
+                                        <td class="cart__close" id="<?php echo $details['id'] ?>"><i class="fa fa-close"></i></td>
                                     </tr>
                                 <?php
                                 }
@@ -148,10 +158,10 @@ if (isset($_SESSION['user'])) {
 ?>
 <script>
     $(".cart__close").click(function(e) {
-        let id= $(this).attr("id");
+        let id = $(this).attr("id");
         console.log(id);
         $.ajax({
-            url: "api/addtocart.php", 
+            url: "api/addtocart.php",
             method: "post",
             data: {
                 cartid: id
@@ -161,7 +171,6 @@ if (isset($_SESSION['user'])) {
             }
         })
     })
-
 </script>
 <!-- Shopping Cart Section End -->
 <?php include("components/footer.php"); ?>
