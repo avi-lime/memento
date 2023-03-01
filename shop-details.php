@@ -154,7 +154,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                         <input type="text" name="quantity" id="quantity" value="1">
                                     </div>
                                 </div>
-                                <li class="primary-btn" id="<?php echo $detail['id'] ?>">add to cart</li>
+                                <input type="button" class="primary-btn" id="<?php echo $detail['id'] ?>" value="add to cart">
+                                <a href="shopping-cart.php"><input type="button"  class="primary-btn" id="<?php echo $detail['id'] ?>" value="Buy Now" ></a>
                             </div>
                             <div class="product__details__btns__option">
                                 <a href="#" class="<?php echo $class ?>" id="<?php echo $detail['id'] ?>"><?php echo $wishlist ?>
@@ -429,7 +430,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 console.log("added to cart") //idher bhi  // thik
                 const toastLiveExample = document.getElementById('liveToast')
 
-                $(".toast-body").text("Product added to cart.")
+                $(".toast-body").text(data)
 
                 const toast = new bootstrap.Toast($("#liveToast"))
                 toast.show()
