@@ -2368,6 +2368,7 @@ ol {
 	font-weight: 700;
 	text-transform: uppercase;
 	padding-bottom: 25px;
+	padding-right: 50px;
 }
 
 .shopping__cart__table table tbody tr {
@@ -2403,6 +2404,13 @@ ol {
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 {
 	color: #0d0d0d;
 	font-weight: 700;
+}
+.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 span {
+	color: #b7b7b7;
+    font-size: 15px;
+    font-weight: 400;
+    margin-left: 10px;
+    text-decoration: line-through;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item {
