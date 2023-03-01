@@ -4,7 +4,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     $result = mysqli_query($conn, $sql);
     $detail = mysqli_fetch_assoc($result);
     $class = "wishlist";
-    $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+    $wishlist = '<i class="fa-solid fa-heart"></i>';
     $wishlisttext = "ADD TO WISHLIST";
     if (isset($_SESSION['user'])) {
         $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $detail['id'] . '';
@@ -84,7 +84,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 <?php
                                 } else {
                                 ?>
-                                    <div class="tab-pane" id="tabs-<?php echo $count; ?>" role="tabpanel">
+                                    <div class="tab-pane " id="tabs-<?php echo $count; ?>" role="tabpanel">
                                         <div class="product__details__pic__item">
                                             <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
                                         </div>
@@ -289,11 +289,11 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                                                                                                 $class = "";
                                                                                                             } else {
                                                                                                                 $class = "wishlist";
-                                                                                                                $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                                                                                                $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                             }
                                                                                                         } else {
                                                                                                             $class = "login";
-                                                                                                            $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                                                                                            $wishlist = '<i style=" color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                         }
                                                                                                         ?>">
                                     <!-- <span class="label">New</span> -->
@@ -405,7 +405,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     })
     $(".login").click(function(e) {
         e.preventDefault();
-        window.location.href = "login.php";
+        document.location.href = "login.php";
     })
     $(".primary-btn").click(function() {
         let id = $(this).attr("id");
