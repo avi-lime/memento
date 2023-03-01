@@ -68,10 +68,6 @@
 				?>
  		</div>
  	</div>
-
- </body>
- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  <script>
 	    $(".delete").click(function(e) {
         e.preventDefault();
@@ -84,10 +80,10 @@
                 wishlistid: id
             },
             success: function(data) {
-                console.log("product added to wishlist") //idher toast add kar dena merako nahi aa raha // thike bc
+                console.log("product added to wishlist")
+				document.location.reload();
             }
         })
     })
  </script>
- </html>
  <?php include("components/footer.php"); ?>
