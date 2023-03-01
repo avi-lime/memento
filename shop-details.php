@@ -44,22 +44,13 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 <li class="nav-item">
                                     <?php
                                     $count++;
-                                    if ($count == 1) {
+                                    if ($count == 1) $class = "active";
+                                    else $class = "";
                                     ?>
-                                        <a class="nav-link active" data-toggle="tab" href="#tabs-<?php echo $count; ?>" role="tab">
-                                            <div class="product__thumb__pic set-bg" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
+                                        <a class="nav-link <?php echo $class ?>" data-bs-toggle="tab" data-bs-target="#tabs-<?php echo $count; ?>" role="tab">
+                                            <div class="product__thumb__pic set-bg img-cover" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
                                             </div>
                                         </a>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <a class="nav-link" data-toggle="tab" href="#tabs-<?php echo $count; ?>" role="tab">
-                                            <div class="product__thumb__pic set-bg" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
-                                            </div>
-                                        </a>
-                                    <?php
-                                    }
-                                    ?>
                                 </li>
                             <?php
                             }
@@ -74,25 +65,16 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             $count = 0;
                             while (($image = mysqli_fetch_assoc($imageresult))) {
                                 $count++;
-                                if ($count == 1) {
+                                if ($count == 1) $class = "active";
+                                else $class = "";
                             ?>
-                                    <div class="tab-pane active" id="tabs-<?php echo $count; ?>" role="tabpanel">
+                                    <div class="tab-pane  <?php echo $class ?>" id="tabs-<?php echo $count; ?>" role="tabpanel">
                                         <div class="product__details__pic__item">
                                             <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
                                         </div>
                                     </div>
                                 <?php
-                                } else {
-                                ?>
-                                    <div class="tab-pane " id="tabs-<?php echo $count; ?>" role="tabpanel">
-                                        <div class="product__details__pic__item">
-                                            <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
-                                        </div>
-                                    </div>
-                            <?php
-                                }
-                            }
-                            ?>
+                            } ?>
                         </div>
                     </div>
                 </div>
@@ -183,14 +165,14 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                         <div class="product__details__tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Description</a>
+                                    <a class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#tabs-5">Description</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer
+                                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tabs-6" role="tab">Customer
                                         Reviews(5)</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional
+                                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tabs-7" role="tab">Additional
                                         information</a>
                                 </li>
                             </ul>
@@ -276,27 +258,28 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="product__item">
                             <a href="shop-details.php?product_id=<?php echo $relateditem['id']; ?>">
-                                <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
-                                                                                                        $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
-                                                                                                        $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                                                                                                        echo $image['image'];
-                                                                                                        if (isset($_SESSION['user'])) {
-                                                                                                            $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $relateditem['id'] . '';
-                                                                                                            $check = mysqli_query($conn, $checksql);
-                                                                                                            $num = mysqli_num_rows($check);
-                                                                                                            if ($num > 0) {
-                                                                                                                $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
-                                                                                                                $class = "";
-                                                                                                            } else {
-                                                                                                                $class = "wishlist";
-                                                                                                                $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
-                                                                                                            }
-                                                                                                        } else {
-                                                                                                            $class = "login";
-                                                                                                            $wishlist = '<i style=" color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
-                                                                                                        }
-                                                                                                        ?>">
-                                    <!-- <span class="label">New</span> -->
+                                <div class="product__item__pic set-bg"
+                                 data-setbg="global/assets/images/<?php
+                                        $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
+                                        $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                        echo $image['image'];
+                                        if (isset($_SESSION['user'])) {
+                                            $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $relateditem['id'] . '';
+                                            $check = mysqli_query($conn, $checksql);
+                                            $num = mysqli_num_rows($check);
+                                            if ($num > 0) {
+                                                $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
+                                                $class = "";
+                                            } else {
+                                                $class = "wishlist";
+                                                $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                            }
+                                        } else {
+                                            $class = "login";
+                                            $wishlist = '<i style=" color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                        }
+                                        ?>">
+                                        <!-- <span class="label">New</span> -->
                                     <ul class="product__hover">
                                         <li class="<?php echo $class ?>" id="<?php echo $relateditem['id'] ?>"><?php echo $wishlist ?></li>
                                     </ul>
