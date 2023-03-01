@@ -45,7 +45,7 @@
 							" style="height: 350px;" alt="<?php echo $wishlistdetails['name'] ?>">
 							</a>
  							<div class="card-img-overlay">
- 								<a href="#" class="card-link"><i class="fa fa-trash" aria-hidden="true"></i></a>
+ 								<a href="" style="color:grey" class="delete" id="<?php echo $wishlist['id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
  							</div>
  							<ul class="list-group list-group-flush">
  								<li class="list-group-item" style="border:none"><?php echo $wishlistdetails['name'] ?></li>
@@ -58,7 +58,7 @@
 										?><span style="color: #b7b7b7;font-size: 15px;font-weight: 400;margin-left: 10px;text-decoration: line-through">₹<?php echo $wishlistdetails['price'] ?></span></li>
  							</ul>
  							<div class="card-body">
- 								<a href="index.php" class="card-link">Add To Bag</a>
+ 								<a href="shopping-cart.php" style="color:#ff3e6c;text-decoration: none" class="addtobag">Add To Bag</a>
  							</div>
  						</div>
  					</div>
@@ -72,6 +72,22 @@
  </body>
  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+ <script>
+	    $(".delete").click(function(e) {
+        e.preventDefault();
+        var id = $(this).attr("id");
+		console.log(id);
+        $.ajax({
+            url: "api/wishlist.php",
+            method: "post",
+            data: {
+                wishlistid: id
+            },
+            success: function(data) {
+                console.log("product added to wishlist") //idher toast add kar dena merako nahi aa raha // thike bc
+            }
+        })
+    })
+ </script>
  </html>
  <?php include("components/footer.php"); ?>
