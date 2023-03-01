@@ -16,7 +16,8 @@
                                 <!--<a href=""><i class="fa-brands fa-facebook"></i></a>-->
                                 <!--<a href="#"><i class="fa-brands fa-twitter"></i></a>-->
                                 <!--<a href="#"><i class="fa-brands fa-pinterest"></i></a>-->
-                                <a href="https://www.instagram.com/memento.couture/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://www.instagram.com/memento.couture/" target="_blank"><i
+                                        class="fa-brands fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -39,7 +40,8 @@
                                     <a href="#"><i class="fa-brands fa-twitter"></i></a>
                                     <a href="#"><i class="fa-brands fa-pinterest"></i></a>
                                 -->
-                                <a href="https://www.instagram.com/memento.couture/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://www.instagram.com/memento.couture/" target="_blank"><i
+                                        class="fa-brands fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -92,24 +94,7 @@
 </section>
 <!-- Banner Section End -->
 
-<!-- Product Section Begin -->
-<section class="product spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <ul class="filter__controls">
-                    <li class="active" data-filter="*">Best Sellers</li>
-                    <li data-filter=".new-arrivals">New Arrivals</li>
-                    <li data-filter=".hot-sales">Hot Sales</li>
-                </ul>
-            </div>
-        </div>
 
-
-
-    </div>
-</section>
-<!-- Product Section End -->
 
 <!-- Instagram Section Begin -->
 
@@ -131,15 +116,78 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
 
+        <div class="row">
+            <?php
+            $relateditemsql = 'SELECT * FROM product';
+            $result = mysqli_query($conn, $relateditemsql);
+            while ($relateditem = mysqli_fetch_assoc($result)) {
+                ?>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <a href="shop-details.php?product_id=<?php echo $relateditem['id']; ?>">
+                            <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
+                            $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
+                            $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                            echo $image['image'];
+                            // $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $relateditem['id'] . '';
+                            // $check = mysqli_query($conn, $checksql);
+                            // $num = mysqli_num_rows($check);
+                            // if ($num > 0) {
+                            //     $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
+                            //     $class = "";
+                            //     $wishlisttext = "WISHLISTED";
+                            // } else {
+                            //     $class = "wishlist";
+                            //     $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                            //     $wishlisttext = "ADD TO WISHLIST";
+                            // }
+                            ?>">
+                                <!-- <span class="label">New</span> -->
+                                <ul class="product__hover">
+                                    <li class="<?php // echo $class ?>" id="<?php echo $relateditem['id'] ?>"><?php //echo $wishlist ?></li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="product__item__text">
+                            <h6>
+                                <?php echo $relateditem['name'] ?>
+                            </h6>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>₹
+                                <?php $originalprice = $relateditem['price'];
+                                $discountrate = $relateditem['discount'];
+                                $discountprice = $originalprice * ($discountrate / 100);
+                                $price = $originalprice - $discountprice;
+                                echo $price;
+                                ?><span>₹
+                                    <?php echo $relateditem['price'] ?>
+                                </span>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+
         <?php
         while ($row = mysqli_fetch_assoc($result)) {
-        ?>
+            ?>
 
             <div class="row product__filter">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                     <div class="product__item">
                         <div class="product__item__pic set-bg">
-                            <img src="../global/assets/images/<?php echo $row["img"] ?>" alt="" class="card-img-top" style="object-fit: cover" height="300px">
+                            <img src="../global/assets/images/<?php echo $row["img"] ?>" alt="" class="card-img-top"
+                                style="object-fit: cover" height="300px">
                             <span class="label">New</span>
                             <ul class="product__hover">
                                 <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
@@ -177,7 +225,7 @@ $result = mysqli_query($conn, $sql);
                 </div>
             </div>
 
-        <?php
+            <?php
         }
         ?>
 
