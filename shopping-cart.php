@@ -73,7 +73,7 @@ if (isset($_SESSION['user'])) {
                                             </div>
                                         </td>
                                         <td class="cart__price">₹<?php $quantity=$details['quantity'];$total=$price*$quantity;echo $total; ?></td>
-                                        <td class="cart__close"><i class="fa fa-close"></i></td>
+                                        <td class="cart__close" id="<?php echo $details['id'] ?>" ><i class="fa fa-close"></i></td>
                                     </tr>
                                 <?php
                                 }
@@ -84,7 +84,7 @@ if (isset($_SESSION['user'])) {
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn">
-                                <a href="#">Continue Shopping</a>
+                                <a href="shop.php">Continue Shopping</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -146,6 +146,22 @@ if (isset($_SESSION['user'])) {
 <?php
 }
 ?>
+<script>
+    $(".cart__close").click(function(e) {
+        let id= $(this).attr("id");
+        console.log(id);
+        $.ajax({
+            url: "api/addtocart.php", 
+            method: "post",
+            data: {
+                cartid: id
+            },
+            success: function(data) {
+                document.location.reload();
+            }
+        })
+    })
 
+</script>
 <!-- Shopping Cart Section End -->
 <?php include("components/footer.php"); ?>
