@@ -100,6 +100,10 @@ textarea:focus {
 	outline: none;
 }
 
+a {
+	text-decoration: none;
+}
+
 a:hover,
 a:focus {
 	text-decoration: none;
@@ -1102,12 +1106,13 @@ ol {
 	color: #0d0d0d;
 	font-weight: 700;
 }
+
 .product__item__text h5 span {
 	color: #b7b7b7;
-    font-size: 15px;
-    font-weight: 400;
-    margin-left: 10px;
-    text-decoration: line-through;
+	font-size: 15px;
+	font-weight: 400;
+	margin-left: 10px;
+	text-decoration: line-through;
 }
 
 .product__item__text .product__color__select {
@@ -4030,9 +4035,10 @@ ol {
 		height: 250px;
 	}
 }
+
 .card-img-overlay {
-	top:auto;
+	top: auto;
 	right: auto;
-    bottom: auto;
-    left: auto;
+	bottom: auto;
+	left: auto;
 }
