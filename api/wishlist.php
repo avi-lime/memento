@@ -10,6 +10,6 @@ if (isset($_REQUEST['id'])) {
     $wishlist = $_REQUEST['wishlistid'];
     $sql = 'DELETE FROM wishlist WHERE id='.$wishlist.'';
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("Refresh:0");
+    header("Location:../wishlist.php");
 }
 ?>
