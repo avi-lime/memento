@@ -1,9 +1,9 @@
 <?php 
 include ("../global/api/conn.php");
 session_start();
+$userid=$_SESSION['user'];
 if(isset($_REQUEST['id']) && isset($_REQUEST['quantity']) && isset($_REQUEST['size'])){
     $id=$_REQUEST['id'];
-    $userid=$_SESSION['user'];
     $quantity=(int)$_REQUEST['quantity'];
     $size=$_REQUEST['size'];
     $check='SELECT * FROM cart WHERE user_id='.$userid.' AND product_id='.$id.' AND size="'.$size.'"';
@@ -18,6 +18,11 @@ if(isset($_REQUEST['id']) && isset($_REQUEST['quantity']) && isset($_REQUEST['si
         mysqli_query($conn,$sql) or die(mysqli_error($conn));
         $message="Product added to cart.";    
     }
+}else if(isset($_REQUEST['cartid'])){
+    $cartid=$_REQUEST['cartid'];
+    $sql="DELETE FROM cart WHERE id=$cartid";
+    mysqli_query($conn,$sql)or die(mysqli_error($conn));
 }
+
 echo $message;
 ?>
