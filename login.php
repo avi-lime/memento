@@ -91,7 +91,7 @@ if (isset($_REQUEST["btn_signin"])) {
                         <div class="actual-form">
                             <div class="input-wrap">
                                 <input type="text" id="email_signin" name="email_signin" class="input-field" required />
-                                <label>Email</label>
+                                <label>Email or Phone Number</label>
                             </div>
                             <div class="input-wrap">
                                 <input type="password" id="pass_signin" name="pass_signin" class="input-field"
