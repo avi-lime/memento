@@ -549,24 +549,25 @@
                                                                                                                 $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
                                                                                                                 $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                                                                                                                 echo $image['image'];
-                                                                                                                $class="";
-                                                                                                                $wishlist='<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
-                                                                                                                if(isset($_SESSION['user'])){
-                                                                                                                    $checksql='SELECT * FROM wishlist WHERE user_id='.$_SESSION['user'].' AND product_id='.$prow['id'].'';
-                                                                                                                    $check=mysqli_query($conn,$checksql);
-                                                                                                                    $num=mysqli_num_rows($check);
-                                                                                                                    if($num>0){
-                                                                                                                        $wishlist='<i style="color:red;" class="fa-solid fa-heart"></i>';
-                                                                                                                        $class="";
-                                                                                                                    }else{
-                                                                                                                        $class="wishlist";
-                                                                                                                        $wishlist='<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                                                                                                if (isset($_SESSION['user'])) {
+                                                                                                                    $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $prow['id'] . '';
+                                                                                                                    $check = mysqli_query($conn, $checksql);
+                                                                                                                    $num = mysqli_num_rows($check);
+                                                                                                                    if ($num > 0) {
+                                                                                                                        $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
+                                                                                                                        $class = "";
+                                                                                                                    } else {
+                                                                                                                        $class = "wishlist";
+                                                                                                                        $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                                     }
+                                                                                                                } else {
+                                                                                                                    $class = "login";
+                                                                                                                    $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                                 }
                                                                                                                 ?>">
                                             <!-- <span class="label">Sale</span> -->
                                             <ul class="product__hover">
-                                                <li id="<?php echo $prow['id'] ?>" class="<?php echo $class?>"><?php echo $wishlist ?></li>
+                                                <li id="<?php echo $prow['id'] ?>" class="<?php echo $class ?>"><?php echo $wishlist ?></li>
                                             </ul>
                                         </div>
                                     </a>
@@ -694,6 +695,16 @@
                     toast.show()
                 }
             })
+        })
+        $('.login').click(function(e) {
+            e.preventDefault();
+            const toastLiveExample = document.getElementById('liveToast')
+            // document.getElementsByClassName(".toast-body").innerHTML="  "
+
+            $(".toast-body").text("<a href='login.php'> Signin</a>to add product in wishlist.")//inder insertafter ya fir inserthtml wala karka kar dena ..
+
+            const toast = new bootstrap.Toast($("#liveToast"))
+            toast.show()
         })
     })
 </script>
