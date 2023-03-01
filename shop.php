@@ -558,11 +558,11 @@
                                                                                                                         $class = "";
                                                                                                                     } else {
                                                                                                                         $class = "wishlist";
-                                                                                                                        $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                                                                                                        $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                                     }
                                                                                                                 } else {
                                                                                                                     $class = "login";
-                                                                                                                    $wishlist = '<i style=" text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                                                                                                    $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
                                                                                                                 }
                                                                                                                 ?>">
                                             <!-- <span class="label">Sale</span> -->
@@ -698,13 +698,7 @@
         })
         $('.login').click(function(e) {
             e.preventDefault();
-            const toastLiveExample = document.getElementById('liveToast')
-            // document.getElementsByClassName(".toast-body").innerHTML="  "
-
-            $(".toast-body").text("<a href='login.php'> Signin</a>to add product in wishlist.")//inder insertafter ya fir inserthtml wala karka kar dena ..
-
-            const toast = new bootstrap.Toast($("#liveToast"))
-            toast.show()
+            document.location.href="login.php";
         })
     })
 </script>
