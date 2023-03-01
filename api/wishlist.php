@@ -11,8 +11,5 @@ if (isset($_REQUEST['id'])) {
     $sql = 'DELETE FROM wishlist WHERE id='.$wishlist.'';
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
     header("Refresh:0");
-    ?>
-    <script> location.reload();</script>
-    <?php
 }
 ?>
