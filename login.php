@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memento Sign in & Sign up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/login.css">
     <link rel="icon" type="image/x-icon" href="img/mxm-white.png" sizes="any">
     <link rel="shortcut icon" href="img/mxm-white.ico" type="image/x-icon">
@@ -76,7 +78,7 @@ if (isset($_REQUEST["btn_signin"])) {
     <main>
         <div class="box">
             <div class="inner-box">
-                <div class="forms-wrap">
+                <div class="forms-wrap col-md-6">
                     <form action="" method="POST" class="sign-in-form">
                         <div class="logo">
                             <img src="img/mxm-black.png" alt="Clothing" />
@@ -106,7 +108,6 @@ if (isset($_REQUEST["btn_signin"])) {
                     <form action="" method="POST" class="sign-up-form">
                         <div class="logo">
                             <img src="img/mxm-black.png" alt="Clothing" />
-                            <h3>Clothing</h3>
                         </div>
                         <div class="heading">
                             <h2>Get started</h2>
@@ -142,33 +143,13 @@ if (isset($_REQUEST["btn_signin"])) {
                     </form>
                 </div>
 
-                <div class="carousel">
-                    <div class="images-wrapper">
-                        <img src="img/login/cloth1.jpg" class="image img-1 show" alt="" />
-                        <img src="img/login/image2.webp" class="image img-2" alt="" />
-                        <img src="img/login/cloth3.jpg" class="image img-3" alt="" />
-                    </div>
-
-                    <div class="text-slider">
-                        <div class="text-wrap">
-                            <div class="text-group">
-                                <h2>Create your own style</h2>
-                                <h2>Prepare your twinning hoddies</h2>
-                                <h2>Customize as you like</h2>
-                            </div>
-                        </div>
-
-                        <div class="bullets">
-                            <span class="active" data-value="1"></span>
-                            <span data-value="2"></span>
-                            <span data-value="3"></span>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-md-6 d-none d-md-flex bg-image carousel"></div>
             </div>
         </div>
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
     <script>
         const inputs = document.querySelectorAll(".input-field");
         const toggle_btn = document.querySelectorAll(".toggle");
