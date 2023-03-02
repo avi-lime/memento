@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 24, 2023 at 04:01 PM
+-- Generation Time: Mar 02, 2023 at 07:53 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -30,12 +30,12 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `addressname` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `city` varchar(255) NOT NULL,
   `state` varchar(255) NOT NULL,
-  `landmark` text NOT NULL,
-  `locality` varchar(255) NOT NULL,
+  `country` text NOT NULL,
   `pincode` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_addresss_user` (`user_id`)
@@ -82,7 +82,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`),
   KEY `FK_cart_product` (`product_id`),
   KEY `FK_card_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `product_id`, `quantity`, `size`, `user_id`) VALUES
+(19, 1, 1, 'l', 2);
 
 -- --------------------------------------------------------
 
@@ -123,8 +130,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `amount` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `date` int(11) NOT NULL,
-  `extra_expenses` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
+  `size` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
@@ -207,6 +214,22 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `size`
+--
+
+DROP TABLE IF EXISTS `size`;
+CREATE TABLE IF NOT EXISTS `size` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `small` int(11) NOT NULL,
+  `medium` int(11) NOT NULL,
+  `large` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `slider`
 --
 
@@ -264,19 +287,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `mobileno` varchar(10) DEFAULT NULL,
-  `state` int(11) DEFAULT NULL,
-  `city` int(11) DEFAULT NULL,
-  `image` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `mobileno`, `state`, `city`, `image`) VALUES
-(1, 'Avi', 'sa3198154@gmail.com', '$2y$10$Zk6ThOmwRDgv5UtLSrMqk.bm9p9vHKaSymjMEBqCWG1BaamcblXHO', NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `name`, `email`, `password`, `mobileno`) VALUES
+(1, 'Avi', 'sa3198154@gmail.com', '$2y$10$Zk6ThOmwRDgv5UtLSrMqk.bm9p9vHKaSymjMEBqCWG1BaamcblXHO', '9727445634'),
+(2, 'Jigyasu', 'jigyasu@gmail.com', '$2y$10$oLG6ihhookEykYD8bo.a9uxEqVqVC6HilvlOaqpl/05typUs1t1bm', '7405263599');
 
 -- --------------------------------------------------------
 
@@ -292,7 +313,14 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
+(19, 2, 1);
 
 --
 -- Constraints for dumped tables
