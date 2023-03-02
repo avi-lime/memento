@@ -178,16 +178,28 @@
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
+            // Max quantity 10
+            if (oldValue == 10) {
+                return;
+            }
             var newVal = parseFloat(oldValue) + 1;
         } else {
             // Don't allow decrementing below zero
-            if (oldValue > 0) {
+            if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
-        $button.parent().find('input').val(newVal);
+
+        let inputVar = $button.parent().find('input');
+        inputVar.val(newVal);
+
+        let id = inputVar.data("id");
+
+        let currPrice = ($(`#price-${id}`).text().split(/ +/)[1]);
+        $(`#total-${id}`).text(`₹ ${(currPrice * newVal).toFixed(2)}`);
+        inputVar.change();
     });
 
     /*------------------

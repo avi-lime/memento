@@ -2,7 +2,7 @@
 if (isset($_SESSION['user'])) {
     $sql = 'SELECT * FROM cart WHERE user_id=' . $_SESSION['user'] . '';
     $result = mysqli_query($conn, $sql);
-?>
+    ?>
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
         <div class="container">
@@ -49,47 +49,69 @@ if (isset($_SESSION['user'])) {
                                     $imageresult = mysqli_query($conn, $imagesql);
                                     $product = mysqli_fetch_assoc($productresult);
                                     $image = mysqli_fetch_assoc($imageresult);
-                                ?>
+                                    ?>
                                     <tr>
                                         <td class="product__cart__item">
                                             <div class="product__cart__item__pic">
-                                                <img src="global/assets/images/<?php echo $image['image']  ?>" style="width: 90px;height: 90px;" alt="">
+                                                <img src="global/assets/images/<?php echo $image['image'] ?>"
+                                                    style="width: 90px;height: 160px; object-fit: cover" alt="">
                                             </div>
                                             <div class="product__cart__item__text">
-                                                <h6><?php echo $product['name'] ?></h6>
-                                                <h5>₹<?php $originalprice = $product['price'];
-                                                        $discountrate = $product['discount'];
-                                                        $discountprice = $originalprice * ($discountrate / 100);
-                                                        $price = $originalprice - $discountprice;
-                                                        echo $price; ?><span>₹<?php echo $product['price']; ?></span></h5>
+                                                <h6>
+                                                    <?php echo $product['name'] ?>
+                                                </h6>
+                                                <h5 id="price-<?php echo $details["id"] ?>">₹
+                                                    <?php $originalprice = $product['price'];
+                                                    $discountrate = $product['discount'];
+                                                    $discountprice = $originalprice * ($discountrate / 100);
+                                                    $price = $originalprice - $discountprice;
+                                                    echo $price; ?><span> ₹
+                                                        <?php echo $product['price']; ?>
+                                                    </span>
+                                                </h5>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="product__cart__item__text">
-                                                <div class="sort">
-                                                    <select class="nice-select" name="size" id="size">
-                                                        <option value="s" <?php if ($details['size'] == 's') echo ' selected="selected"'; ?>>S</option>
-                                                        <option value="m" <?php if ($details['size'] == 'm') echo ' selected="selected"'; ?>>M</option>
-                                                        <option value="l" <?php if ($details['size'] == 'l') echo ' selected="selected"'; ?>>L</option>
+                                                <div class="size">
+                                                    <select class="nice-select" name="size"
+                                                        id="size-<?php echo $details["id"] ?>"
+                                                        data-id="<?php echo $details["id"] ?>">
+                                                        <option value="s" <?php if ($details['size'] == 's')
+                                                            echo ' selected="selected"'; ?>>S</option>
+                                                        <option value="m" <?php if ($details['size'] == 'm')
+                                                            echo ' selected="selected"'; ?>>M</option>
+                                                        <option value="l" <?php if ($details['size'] == 'l')
+                                                            echo ' selected="selected"'; ?>>L</option>
+                                                        <option value="xl" <?php if ($details['size'] == 'xl')
+                                                            echo ' selected="selected"'; ?>>XL</option>
                                                     </select>
-                                                </div><?php // echo strtoupper($details['size']); 
+                                                </div>
+                                                <?php // echo strtoupper($details['size']); 
                                                         ?>
                                             </div>
                                         </td>
                                         <td class="quantity__item">
                                             <div class="quantity">
                                                 <div class="pro-qty-2">
-                                                    <input type="text" id="quantity" name="quantity" value="<?php echo $details['quantity'] ?>">
+                                                    <input max="10" type="number" class="product-quantity" name="quantity"
+                                                        id="qty-<?php echo $details["id"] ?>"
+                                                        data-id="<?php echo $details['id'] ?>"
+                                                        value="<?php echo $details['quantity'] ?>">
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="cart__price">₹<?php $quantity = $details['quantity'];
-                                                                    $total = $price * $quantity;
-                                                                    $prototal += $total;
-                                                                    echo $total; ?></td>
-                                        <td class="cart__close" id="<?php echo $details['id'] ?>"><i class="fa fa-close"></i></td>
+                                        <td class="cart__price" id="total-<?php echo $details["id"] ?>">₹
+                                            <?php $quantity = $details['quantity'];
+                                            $total = $price * $quantity;
+                                            $prototal += $total;
+                                            echo $total; ?>
+                                        </td>
+                                        <td role="button" class="cart__close" id="<?php echo $details['id'] ?>"><i
+                                                class="fa fa-close"></i>
+                                        </td>
                                     </tr>
-                                <?php
+                                    <?php
                                 }
                                 ?>
                             </tbody>
@@ -103,7 +125,7 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="" class="update_Cart"><i class="fa fa-spinner"></i> Update cart</a>
+                                <a href="" id="empty_cart"><i class="fa fa-trash"></i> Empty cart</a>
                             </div>
                         </div>
                     </div>
@@ -119,16 +141,23 @@ if (isset($_SESSION['user'])) {
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>₹<?php echo $prototal;
-                                                $charges = 0 ?></span></li>
+                            <li>Subtotal <span>₹
+                                    <?php echo $prototal;
+                                    $charges = 0 ?>
+                                </span></li>
                             <?php if ($prototal < 749) { ?>
-                                <li>Delivery Charges <span>₹<?php $charges = 50;
-                                                            echo $charges ?></span></li>
-                            <?php }else{ ?>
+                                <li>Delivery Charges <span>₹
+                                        <?php $charges = 50;
+                                        echo $charges ?>
+                                    </span></li>
+                            <?php } else { ?>
                                 <li>Delivery Charges <span>Free Free Free</span></li>
-                            <?php
-                            } ?><li>Total <span>₹ <?php $alltotal = $prototal + $charges;
-                                                        echo $alltotal ?></span></li>
+                                <?php
+                            } ?>
+                            <li>Total <span>₹
+                                    <?php $alltotal = $prototal + $charges;
+                                    echo $alltotal ?>
+                                </span></li>
                         </ul>
                         <a href="./checkout.php" class="primary-btn">Proceed to checkout</a>
                     </div>
@@ -136,9 +165,21 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </section>
-<?php
-    } else {
-?>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Memento</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+
+            </div>
+        </div>
+    </div>
+    <?php
+} else {
+    ?>
     <section class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -164,54 +205,57 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </section>
-<?php
+    <?php
 }
 ?>
 <script>
-    $(".cart__close").click(function(e) {
-        let id = $(this).attr("id");
-        console.log(id);
-        $.ajax({
-            url: "api/addtocart.php",
-            method: "post",
-            data: {
-                cartid: id
-            },
-            success: function(data) {
-                document.location.reload();
-            }
+    $(document).ready(function () {
+
+        // Delete from cart
+        $(".cart__close, #empty_cart").click(function (e) {
+            let id = $(this).attr("id");
+            $.ajax({
+                url: "api/addtocart.php",
+                method: "post",
+                data: {
+                    cartid: id
+                },
+                success: function (data) {
+                    document.location.reload();
+                }
+            })
+        })
+
+
+
+        // Update on change of value
+        $("input.product-quantity, .nice-select").change(function (e) {
+            let id = $(this).data("id");
+            let quantity = $(`#qty-${id}`).val();
+            let size = $(`#size-${id}`).val();
+            $.ajax({
+                url: "api/addtocart.php",
+                method: "post",
+                data: {
+                    update: true,
+                    id: id,
+                    quantity: quantity,
+                    size: size
+                },
+                success: function (data) {
+                    const toastLiveExample = document.getElementById('liveToast')
+
+                    $(".toast-body").text(data)
+
+                    const toast = new bootstrap.Toast($("#liveToast"))
+                    toast.show()
+
+
+                }
+            })
         })
     })
-    $(".update_Cart").click(function() {
-        let id = $(this).attr("id");
-        let quantity = $("#quantity").val();
-        console.log(id, quantity);
-        if ($("input[name='size']").is(":checked")) {} else {
-            alert("select size");
-            return false;
-        }
-        let size = $("input[name='size']:checked").val();
-        console.log(size);
-        $.ajax({
-            url: "api/addtocart.php", // saale addtocart.php kidhr h
-            method: "post",
-            data: {
-                id: id,
-                quantity: quantity,
-                size: size
-            },
-            success: function(data) {
-                console.log("added to cart") //idher bhi  // thik
-                const toastLiveExample = document.getElementById('liveToast')
 
-                $(".toast-body").text(data)
-
-                const toast = new bootstrap.Toast($("#liveToast"))
-                toast.show()
-            }
-
-        })
-    })
 </script>
 <!-- Shopping Cart Section End -->
 <?php include("components/footer.php"); ?>
