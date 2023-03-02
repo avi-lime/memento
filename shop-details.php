@@ -47,7 +47,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     if ($count == 1) $class = "active";
                                     else $class = "";
                                     ?>
-                                        <a class="nav-link <?php echo $class ?>" data-bs-toggle="tab" data-bs-target="#tabs-<?php echo $count; ?>" role="tab">
+                                        <a class="nav-link <?php echo $class ?>" data-bs-toggle="tab" href="#tabs-<?php echo $count; ?>" data-bs-target="#tabs-<?php echo $count; ?>" role="tab">
                                             <div class="product__thumb__pic set-bg img-cover" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
                                             </div>
                                         </a>
@@ -68,9 +68,9 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 if ($count == 1) $class = "active";
                                 else $class = "";
                             ?>
-                                    <div class="tab-pane  <?php echo $class ?>" id="tabs-<?php echo $count; ?>" role="tabpanel">
+                                    <div class="tab-pane  <?php echo $class ?>" href="" id="tabs-<?php echo $count; ?>" role="tabpanel">
                                         <div class="product__details__pic__item">
-                                            <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;" alt="">
+                                            <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;object-fit: cover" alt="">
                                         </div>
                                     </div>
                                 <?php
@@ -89,16 +89,6 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             <h4>
                                 <?php echo $detail['name']; ?>
                             </h4>
-                            <!-- rating -->
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-full"></i>
-                                <span> - 10 Reviews</span>
-                            </div>
-                            <!-- rating -->
                             <h3><span>(-
                                     <?php $discountrate = $detail['discount'];
                                     echo $discountrate
@@ -116,17 +106,17 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
-                                    <label for="xl">xl
-                                        <input type="radio" name="size" id="xl" value="xl" required>
-                                    </label>
-                                    <label for="l">l
-                                        <input type="radio" name="size" id="l" value="l">
+                                    <label for="s">s
+                                        <input type="radio" name="size" id="s" value="s">
                                     </label>
                                     <label for="m">m
                                         <input type="radio" name="size" id="m" value="m">
                                     </label>
-                                    <label for="s">s
-                                        <input type="radio" name="size" id="s" value="s">
+                                    <label for="l">l
+                                        <input type="radio" name="size" id="l" value="l">
+                                    </label>
+                                    <label for="xl">xl
+                                        <input type="radio" name="size" id="xl" value="xl" required>
                                     </label>
                                 </div>
                             </div>
@@ -165,14 +155,14 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                         <div class="product__details__tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#tabs-5">Description</a>
+                                    <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#tabs-5" data-bs-target="#tabs-5">Description</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tabs-6" role="tab">Customer
+                                    <a class="nav-link" data-bs-toggle="tab" href="#tabs-5" data-bs-target="#tabs-6" role="tab">Customer
                                         Reviews(5)</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tabs-7" role="tab">Additional
+                                    <a class="nav-link" data-bs-toggle="tab" href="#tabs-5" data-bs-target="#tabs-7" role="tab">Additional
                                         information</a>
                                 </li>
                             </ul>
@@ -290,13 +280,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     <?php echo $relateditem['name'] ?>
                                 </h6>
                                 <a href="" class="add-cart" data-bs-toggle="modal" data-bs-target="#modal">+ Add To Cart</a>
-                                <div class="rating">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
+                                
                                 <h5>₹
                                     <?php $originalprice = $relateditem['price'];
                                     $discountrate = $relateditem['discount'];
@@ -329,6 +313,23 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             </div>
         </div>
 
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </section>
 <?php
 } else {
@@ -359,23 +360,6 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             </div>
         </div>
     </section>
-    <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 <?php
 } ?>
 <!-- script -->
@@ -418,7 +402,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
         let size = $("input[name='size']:checked").val();
         console.log(size);
         $.ajax({
-            url: "api/addtocart.php", // saale addtocart.php kidhr h
+            url: "api/addtocart.php",
             method: "post",
             data: {
                 id: id,
@@ -426,11 +410,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 size: size
             },
             success: function(data) {
-                console.log("added to cart") //idher bhi  // thik
                 const toastLiveExample = document.getElementById('liveToast')
-
                 $(".toast-body").text(data)
-
                 const toast = new bootstrap.Toast($("#liveToast"))
                 toast.show()
             }
