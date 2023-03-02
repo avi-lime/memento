@@ -137,7 +137,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     </div>
                                 </div>
                                 <input type="button" class="primary-btn" id="<?php echo $detail['id'] ?>" value="add to cart">
-                                <a href="shopping-cart.php"><input type="button"  class="primary-btn" id="<?php echo $detail['id'] ?>" value="Buy Now" ></a>
+                                <a href="shopping-cart.php"><input type="button" class="primary-btn" id="<?php echo $detail['id'] ?>" value="Buy Now"></a>
                             </div>
                             <div class="product__details__btns__option">
                                 <a href="#" class="<?php echo $class ?>" id="<?php echo $detail['id'] ?>"><?php echo $wishlist ?>
@@ -289,7 +289,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 <h6>
                                     <?php echo $relateditem['name'] ?>
                                 </h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
+                                <a href="" class="add-cart" data-bs-toggle="modal" data-bs-target="#modal">+ Add To Cart</a>
                                 <div class="rating">
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
@@ -359,6 +359,23 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             </div>
         </div>
     </section>
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php
 } ?>
 <!-- script -->
@@ -382,7 +399,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 const toast = new bootstrap.Toast($("#liveToast"))
                 toast.show()
 
-                $("#" + id).removeClass('wishlist');//yaad rakh loda
+                $("#" + id).removeClass('wishlist'); //yaad rakh loda
             }
         })
     })
@@ -393,9 +410,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     $(".primary-btn").click(function() {
         let id = $(this).attr("id");
         let quantity = $("#quantity").val();
-        console.log(id,quantity);
-        if ($("input[name='size']").is(":checked")) {
-        } else {
+        console.log(id, quantity);
+        if ($("input[name='size']").is(":checked")) {} else {
             alert("select size");
             return false;
         }

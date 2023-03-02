@@ -40,6 +40,8 @@ if (isset($_SESSION['user'])) {
                             </thead>
                             <tbody>
                                 <?php
+                                $prototal = 0;
+                                $alltotal = 0;
                                 while ($details = mysqli_fetch_assoc($result)) {
                                     $productsql = 'SELECT * FROM product WHERE id=' . $details['product_id'] . '';
                                     $imagesql = 'SELECT * FROM product_images WHERE product_id=' . $details['product_id'] . ' LIMIT 1 ';
@@ -65,23 +67,25 @@ if (isset($_SESSION['user'])) {
                                         <td>
                                             <div class="product__cart__item__text">
                                                 <div class="sort">
-                                                    <select class="nice-select" name="sort" id="sort">
+                                                    <select class="nice-select" name="size" id="size">
                                                         <option value="s" <?php if ($details['size'] == 's') echo ' selected="selected"'; ?>>S</option>
-                                                        <option value="m"<?php if ($details['size'] == 'm') echo ' selected="selected"'; ?>>M</option>
-                                                        <option value="l"<?php if ($details['size'] == 'l') echo ' selected="selected"'; ?>>L</option>
+                                                        <option value="m" <?php if ($details['size'] == 'm') echo ' selected="selected"'; ?>>M</option>
+                                                        <option value="l" <?php if ($details['size'] == 'l') echo ' selected="selected"'; ?>>L</option>
                                                     </select>
-                                                </div><?php // echo strtoupper($details['size']); ?>
+                                                </div><?php // echo strtoupper($details['size']); 
+                                                        ?>
                                             </div>
                                         </td>
                                         <td class="quantity__item">
                                             <div class="quantity">
                                                 <div class="pro-qty-2">
-                                                    <input type="text" value="<?php echo $details['quantity'] ?>">
+                                                    <input type="text" id="quantity" name="quantity" value="<?php echo $details['quantity'] ?>">
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="cart__price">₹<?php $quantity = $details['quantity'];
                                                                     $total = $price * $quantity;
+                                                                    $prototal += $total;
                                                                     echo $total; ?></td>
                                         <td class="cart__close" id="<?php echo $details['id'] ?>"><i class="fa fa-close"></i></td>
                                     </tr>
@@ -99,7 +103,7 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                                <a href="" class="update_Cart"><i class="fa fa-spinner"></i> Update cart</a>
                             </div>
                         </div>
                     </div>
@@ -115,8 +119,16 @@ if (isset($_SESSION['user'])) {
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ 169.50</span></li>
-                            <li>Total <span>$ 169.50</span></li>
+                            <li>Subtotal <span>₹<?php echo $prototal;
+                                                $charges = 0 ?></span></li>
+                            <?php if ($prototal < 749) { ?>
+                                <li>Delivery Charges <span>₹<?php $charges = 50;
+                                                            echo $charges ?></span></li>
+                            <?php }else{ ?>
+                                <li>Delivery Charges <span>Free Free Free</span></li>
+                            <?php
+                            } ?><li>Total <span>₹ <?php $alltotal = $prototal + $charges;
+                                                        echo $alltotal ?></span></li>
                         </ul>
                         <a href="./checkout.php" class="primary-btn">Proceed to checkout</a>
                     </div>
@@ -125,9 +137,8 @@ if (isset($_SESSION['user'])) {
         </div>
     </section>
 <?php
-} else {
+    } else {
 ?>
-
     <section class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -169,6 +180,36 @@ if (isset($_SESSION['user'])) {
             success: function(data) {
                 document.location.reload();
             }
+        })
+    })
+    $(".update_Cart").click(function() {
+        let id = $(this).attr("id");
+        let quantity = $("#quantity").val();
+        console.log(id, quantity);
+        if ($("input[name='size']").is(":checked")) {} else {
+            alert("select size");
+            return false;
+        }
+        let size = $("input[name='size']:checked").val();
+        console.log(size);
+        $.ajax({
+            url: "api/addtocart.php", // saale addtocart.php kidhr h
+            method: "post",
+            data: {
+                id: id,
+                quantity: quantity,
+                size: size
+            },
+            success: function(data) {
+                console.log("added to cart") //idher bhi  // thik
+                const toastLiveExample = document.getElementById('liveToast')
+
+                $(".toast-body").text(data)
+
+                const toast = new bootstrap.Toast($("#liveToast"))
+                toast.show()
+            }
+
         })
     })
 </script>
