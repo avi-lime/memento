@@ -1,9 +1,9 @@
+<?php
+session_start();
+include "global/api/conn.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
-<?php
-include "global/api/conn.php";
-session_start();
-?>
 
 <head>
     <meta charset="UTF-8">
@@ -57,6 +57,10 @@ session_start();
                     ?>
                     <a href="login.php">Sign in</a>
                     <?php
+                } else {
+                    ?>
+                    <a href="api/logout.php">Sign out</a>
+                    <?php
                 }
                 ?>
                 <a href="#">FAQs</a>
@@ -66,8 +70,7 @@ session_start();
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><i class="fa-solid fa-magnifying-glass"></i></a>
             <a href="./wishlist.php"><i class="fa-regular fa-heart"></i></a>
-            <a href="./cart.php"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
-            <div class="price">₹0.00</div>
+            <a href="./cart.php"><i class="fa-solid fa-bag-shopping"></i></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
@@ -93,6 +96,10 @@ session_start();
                                 if (!isset($_SESSION['user'])) {
                                     ?>
                                     <a href="login.php">Sign in</a>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <a href="api/logout.php">Sign out</a>
                                     <?php
                                 }
                                 ?>
@@ -157,17 +164,7 @@ session_start();
                         <?php
                         if (isset($_SESSION['user'])) {
                             ?>
-                            <li>
-                                <ul class="dropdown-item">
-                                    <a href="#">
-                                        <?php echo $_SESSION['username'] ?>
-                                    </a>
-                                </ul>
-                                <!-- ya drop down mai aayega maybe class ka problem hai or li ka baad a use kar raha isliye new line mai leleta hai -->
-                                <ul class="dropdown-item-text"> <a href="api/logout.php">Logout</a></ul>
-                                <!-- <a href="#">My Profile</a>
-                                        <a href="#">Orders</a> -->
-                            </li>
+                            <a href="user.php"><i class="fa-solid fa-user"></i></a>
                             <?php
                         } ?>
                         <a href="wishlist.php?userid=<?php if (isset($_SESSION['user'])) {
@@ -175,8 +172,7 @@ session_start();
                         } ?>"><i class="fa-regular fa-heart"></i></a>
                         <a href="./shopping-cart.php?userid=<?php if (isset($_SESSION['user'])) {
                             echo $_SESSION["user"];
-                        } ?>"><i class="fa-solid fa-bag-shopping"></i><span>0</span></a>
-                        <div class="price">₹0.00</div>
+                        } ?>"><i class="fa-solid fa-bag-shopping"></i></a>
                     </div>
                 </div>
             </div>
