@@ -545,26 +545,27 @@
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item sale">
                                     <a href="shop-details.php?product_id=<?php echo $prow['id']; ?>">
-                                        <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
-                                                                                                                $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
-                                                                                                                $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                                                                                                                echo $image['image'];
-                                                                                                                if (isset($_SESSION['user'])) {
-                                                                                                                    $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $prow['id'] . '';
-                                                                                                                    $check = mysqli_query($conn, $checksql);
-                                                                                                                    $num = mysqli_num_rows($check);
-                                                                                                                    if ($num > 0) {
-                                                                                                                        $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
-                                                                                                                        $class = "";
-                                                                                                                    } else {
-                                                                                                                        $class = "wishlist";
-                                                                                                                        $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
-                                                                                                                    }
-                                                                                                                } else {
-                                                                                                                    $class = "login";
-                                                                                                                    $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
-                                                                                                                }
-                                                                                                                ?>">
+                                        <div class="product__item__pic set-bg" 
+                                        data-setbg="global/assets/images/<?php
+                                        $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
+                                        $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                        echo $image['image'];
+                                        if (isset($_SESSION['user'])) {
+                                            $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $prow['id'] . '';
+                                            $check = mysqli_query($conn, $checksql);
+                                            $num = mysqli_num_rows($check);
+                                            if ($num > 0) {
+                                                $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
+                                                $class = "delete";
+                                            } else {
+                                                $class = "wishlist";
+                                                $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
+                                            }
+                                        } else {
+                                            $class = "login";
+                                            $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
+                                        }
+                                        ?>">
                                             <!-- <span class="label">Sale</span> -->
                                             <ul class="product__hover">
                                                 <li id="<?php echo $prow['id'] ?>" class="<?php echo $class ?>"><?php echo $wishlist ?></li>
@@ -675,27 +676,33 @@
 <!-- Shop Section End -->
 <script>
     $(document).ready(function() {
-        $('.wishlist').click(function(e) {
+        $('.wishlist, .delete').click(function(e) {
             e.preventDefault();
             var id = $(this).attr("id");
+            let action = $(this).attr("class");
+            console.log(action)
             $.ajax({
                 url: 'api/wishlist.php',
                 method: 'POST',
                 data: {
-                    id: id
+                    id: id,
+                    action: action
                 },
                 success: function(data) {
-                    console.log("hehehe");
-
                     const toastLiveExample = document.getElementById('liveToast')
 
-                    $(".toast-body").text("Product added to wishlist.")
+                    $(".toast-body").text(data)
 
                     const toast = new bootstrap.Toast($("#liveToast"))
                     toast.show()
+                    
+                    $(`#${id}`).toggleClass("wishlist").toggleClass("delete")
+                    $(`#${id}`).children("i.fa-heart").toggleClass("white-heart").toggleClass("red-heart")
                 }
             })
         })
+        $("")
+
         $('.login').click(function(e) {
             e.preventDefault();
             document.location.href="login.php";
