@@ -11,7 +11,7 @@ if (isset($_REQUEST['id']) && isset($_REQUEST["action"]) && $_REQUEST["action"] 
     if (isset($_REQUEST['wishlistid'])) {
         $wishlist = $_REQUEST['wishlistid'];
         $sql = 'DELETE FROM wishlist WHERE id=' . $wishlist . '';
-        header("Location:../wishlist.php");
+        redirect("../wishlist.php");
     } else {
         $id = $_REQUEST["id"];
         $sql = 'DELETE FROM wishlist WHERE product_id=' . $id . '';

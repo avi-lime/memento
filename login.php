@@ -35,7 +35,7 @@ if (isset($_REQUEST["btn_signin"])) {
             $_SESSION["user"] = $user["id"];
             $_SESSION["username"] = $user["name"];
             $_SESSION['expire'] = time() + (60 * 60);
-            header('location: index.php');
+            redirect('index.php');
         } else {
             $error = "E-mail and Password don't match.";
         }
@@ -72,6 +72,22 @@ if (isset($_REQUEST["btn_signin"])) {
     } else {
         $sql = "INSERT INTO user (name,email,password) VALUES ('$sanitized_name','$sanitized_email', '$hashed_password')";
         mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    }
+}
+
+function redirect($url)
+{
+    if (!headers_sent()) {
+        header('Location: ' . $url);
+        exit;
+    } else {
+        echo '<script type="text/javascript">';
+        echo 'window.location.href="' . $url . '";';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url=' . $url . '" />';
+        echo '</noscript>';
+        exit;
     }
 }
 ?>

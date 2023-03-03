@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST["name"]) || !isset($_POST["email"]) || !isset($_POST["password"])) {
-    header("Location: ../admin.php");
+    redirect("../admin.php");
 } else {
 
     include("../../global/api/conn.php");
@@ -22,5 +22,5 @@ if (!isset($_POST["name"]) || !isset($_POST["email"]) || !isset($_POST["password
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("Location: ../admin.php");
+    redirect("../admin.php");
 }

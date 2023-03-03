@@ -1,5 +1,17 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["admin"]) || $_SESSION["admin"] == null) {
+    redirect("login.php");
+}
+
+if (time() > $_SESSION['expire']) {
+    session_unset();
+    session_destroy();
+    redirect("login.php");
+}
+session_abort();
+
 require_once("global/api/conn.php");
 ?>
 <!DOCTYPE html>
@@ -31,18 +43,6 @@ require_once("global/api/conn.php");
 </head>
 
 <body>
-    <?php
-    if (!isset($_SESSION["admin"]) || $_SESSION["admin"] == null) {
-        header("location: login.php");
-    }
-
-    if (time() > $_SESSION['expire']) {
-        session_unset();
-        session_destroy();
-        header("location: login.php");
-    }
-    session_abort();
-    ?>
     <div class="hero">
         <div class="sidebar active">
             <div class="brand">

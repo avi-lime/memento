@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION["admin"])) {
+    redirect("./login.php");
+}
 include("template/header.php");
 include("../global/api/conn.php");
 ?>
@@ -7,13 +10,8 @@ include("../global/api/conn.php");
         <h1>Settings</h1>
         <hr style="color: white">
         <form id="form1" action="" method="post" enctype="multipart/form-data">
-            <input type="hidden" name='id' id="id" value="<?php
-            if (!isset($_SESSION["admin"])) {
-                header("location: ./login.php");
-            } else
-                echo $_SESSION["admin"]
-                    ?>">
-                <?php
+            <input type="hidden" name='id' id="id" value="<?php echo $_SESSION["admin"] ?>">
+            <?php
             $query = "SELECT * FROM admin WHERE id=" . $_SESSION["admin"];
             $result = mysqli_query($conn, $query);
             while ($row = mysqli_fetch_assoc($result)) {

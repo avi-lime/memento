@@ -21,4 +21,4 @@ while ($row = mysqli_fetch_assoc($result)) {
 $sql = "DELETE FROM $table WHERE id=$id";
 mysqli_query($conn, $sql) or die(mysqli_error($conn));
 mysqli_close($conn);
-header("location: ../$table");
+redirect("../$table");

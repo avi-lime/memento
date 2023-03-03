@@ -25,6 +25,7 @@ if (isset($_SESSION['user'])) {
     <!-- Shopping Cart Section Begin -->
     <section class="shopping-cart spad">
         <div class="container">
+            <input type="hidden" id="user-id">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="shopping__cart__table">
@@ -94,7 +95,7 @@ if (isset($_SESSION['user'])) {
                                         <td class="quantity__item">
                                             <div class="quantity">
                                                 <div class="pro-qty-2">
-                                                    <input max="10" type="number" class="product-quantity" name="quantity"
+                                                    <input disabled type="text" class="product-quantity" name="quantity"
                                                         id="qty-<?php echo $details["id"] ?>"
                                                         data-id="<?php echo $details['id'] ?>"
                                                         value="<?php echo $details['quantity'] ?>">
@@ -145,14 +146,16 @@ if (isset($_SESSION['user'])) {
                                     <?php echo $prototal;
                                     $charges = 0 ?>
                                 </span></li>
-                            <?php if ($prototal < 749) { ?>
-                                <li>Delivery Charges <span>₹
-                                        <?php $charges = 50;
-                                        echo $charges ?>
-                                    </span></li>
-                            <?php } else { ?>
-                                <li>Delivery Charges <span>Free Free Free</span></li>
-                                <?php
+                            <?php if ($prototal > 0) {
+                                if ($prototal < 749) { ?>
+                                    <li>Delivery Charges <span>₹
+                                            <?php $charges = 50;
+                                            echo $charges ?>
+                                        </span></li>
+                                <?php } else { ?>
+                                    <li>Delivery Charges <span>Free</span></li>
+                                    <?php
+                                }
                             } ?>
                             <li>Total <span>₹
                                     <?php $alltotal = $prototal + $charges;
@@ -249,12 +252,36 @@ if (isset($_SESSION['user'])) {
 
                     const toast = new bootstrap.Toast($("#liveToast"))
                     toast.show()
-
-
                 }
             })
         })
     })
+
+    function fetch_filter_sort(table) {
+        let params = "";
+        let search = $("#search").val();
+        let sort_by = $("#sort").val();
+        if (search != "") params += ` WHERE name LIKE '%${search}%' OR id LIKE '${search}%'`;
+        params += ` ${sort_by}`
+        $.ajax({
+            url: 'api/fetch.php',
+            method: 'POST',
+            data: {
+                query: `SELECT id, name, image, (SELECT name FROM category WHERE category.id=subcat.cat_id) AS cat FROM subcat ` + params
+            },
+            dataType: "json",
+            success: function (data) {
+                let content = ""
+                data.forEach(item => {
+                    let parsedItem = $.parseJSON(item);
+                    content += `
+                        
+                        `;
+                })
+                $("#list").html(content)
+            }
+        })
+    }
 
 </script>
 <!-- Shopping Cart Section End -->

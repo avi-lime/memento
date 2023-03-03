@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST["name"]) || !isset($_POST["cat"])) {
-    header("Location: ../subcat.php");
+    redirect("../subcat.php");
 } else {
 
     include("../../global/api/conn.php");
@@ -41,5 +41,5 @@ if (!isset($_POST["name"]) || !isset($_POST["cat"])) {
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("Location: ../subcat.php");
-} 
+    redirect("../subcat.php");
+}

@@ -45,7 +45,7 @@ require_once("global/api/conn.php");
                 $_SESSION["admin"] = $admin["id"];
                 $_SESSION["super"] = $admin["superadmin"];
                 $_SESSION['expire'] = time() + (60 * 60);
-                header("location: dashboard.php");
+                redirect("dashboard.php");
             } else {
                 $error = "E-mail and Password don't match.";
             }
@@ -63,6 +63,21 @@ require_once("global/api/conn.php");
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php
+        }
+    }
+    function redirect($url)
+    {
+        if (!headers_sent()) {
+            header('Location: ' . $url);
+            exit;
+        } else {
+            echo '<script type="text/javascript">';
+            echo 'window.location.href="' . $url . '";';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="0;url=' . $url . '" />';
+            echo '</noscript>';
+            exit;
         }
     }
     ?>
