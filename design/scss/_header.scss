@@ -1,0 +1,40 @@
+/* Header */
+
+.navbar {
+
+    padding-inline: 4rem;
+
+    height: 100px;
+
+    * {
+        text-transform: uppercase;
+    }
+
+    .navbar-brand {
+        font-size: 28px;
+    }
+
+    .nav-link:not(.nav-link:first-child) {
+        margin-left: 2rem;
+    }
+
+    button {
+        background-color: transparent;
+        color: $white;
+
+        &:hover {
+            color: $background;
+            background-color: $white;
+        }
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        background-color: #333;
+        bottom: 0;
+        left: 5%;
+        width: 90%;
+        height: 1px;
+    }
+}

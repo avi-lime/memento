@@ -1,0 +1,72 @@
+/*
+1. Header
+2. Home
+
+
+
+*/
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-color: #151515;
+  color: #fff;
+}
+
+/* Header */
+.navbar {
+  padding-inline: 4rem;
+  height: 100px;
+}
+.navbar * {
+  text-transform: uppercase;
+}
+.navbar .navbar-brand {
+  font-size: 28px;
+}
+.navbar .nav-link:not(.nav-link:first-child) {
+  margin-left: 2rem;
+}
+.navbar button {
+  background-color: transparent;
+  color: #fff;
+}
+.navbar button:hover {
+  color: #151515;
+  background-color: #fff;
+}
+.navbar::before {
+  content: "";
+  position: absolute;
+  background-color: #333;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 1px;
+}
+
+@media only screen and (min-width: 991px) and (max-width: 1199px) {
+  .navbar {
+    padding-inline: 2rem;
+  }
+  .navbar .nav-link:not(.nav-link:first-child) {
+    margin-left: 1rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .navbar {
+    padding-inline: 1rem;
+  }
+  .navbar .nav-link:not(.nav-link:first-child) {
+    margin-left: 10px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .navbar {
+    padding-inline: 1rem;
+  }
+  .navbar .nav-link:not(.nav-link:first-child) {
+    margin-left: 1rem;
+  }
+}/*# sourceMappingURL=style.css.map */

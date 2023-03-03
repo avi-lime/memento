@@ -1,0 +1,32 @@
+@media only screen and (min-width: 991px) and (max-width: 1199px) {
+    .navbar {
+
+        padding-inline: 2rem;
+
+        .nav-link:not(.nav-link:first-child) {
+            margin-left: 1rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .navbar {
+
+        padding-inline: 1rem;
+
+        .nav-link:not(.nav-link:first-child) {
+            margin-left: 10px;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .navbar {
+
+        padding-inline: 1rem;
+
+        .nav-link:not(.nav-link:first-child) {
+            margin-left: 1rem;
+        }
+    }
+}
