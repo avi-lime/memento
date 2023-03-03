@@ -4,14 +4,14 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     $result = mysqli_query($conn, $sql);
     $detail = mysqli_fetch_assoc($result);
     $class = "wishlist";
-    $wishlist = '<i class="fa-solid fa-heart"></i>';
+    $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
     $wishlisttext = "ADD TO WISHLIST";
     if (isset($_SESSION['user'])) {
         $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $detail['id'] . '';
         $check = mysqli_query($conn, $checksql);
         $num = mysqli_num_rows($check);
         if ($num > 0) {
-            $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
+            $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
             $class = "";
             $wishlisttext = "WISHLISTED";
         }
@@ -97,7 +97,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 <?php $originalprice = $detail['price'];
                                 $discountprice = $originalprice * ($discountrate / 100);
                                 $price = $originalprice - $discountprice;
-                                echo $price;
+                                echo (int)$price;
                                 ?><span>₹
                                     <?php echo $detail['price']; ?>
                                 </span>
@@ -157,10 +157,10 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 <li class="nav-item">
                                     <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#tabs-5" data-bs-target="#tabs-5">Description</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#tabs-5" data-bs-target="#tabs-6" role="tab">Customer
                                         Reviews(5)</a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#tabs-5" data-bs-target="#tabs-7" role="tab">Additional
                                         information</a>
@@ -169,21 +169,16 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                     <div class="product__details__tab__content">
-                                        <div class="product__details__tab__content__item">
-                                            <h5>Product Details:</h5>
-                                            <h5 style="font-size: medium;">Material used:</h5>
-                                            <p>100% Cotton</br>
-                                                Machine Wash</p>
-                                        </div>
+                                        
                                         <div class="product__details__tab__content__item">
                                             <h5>Products Description:</h5>
                                             <p>
-                                                <?php echo $detail['description']; ?>
+                                                <?php echo nl2br($detail['description']); ?>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="tabs-6" role="tabpanel">
+                                <!-- <div class="tab-pane" id="tabs-6" role="tabpanel">
                                     <div class="product__details__tab__content">
                                         <div class="product__details__tab__content__item">
                                             <h5>Products Infomation</h5>
@@ -197,7 +192,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                         </div>
                                         <div class="product__details__tab__content__item">
                                             <h5>Material used</h5>
-                                            <!-- Review area -->
+                                             Review area 
                                             <p>Polyester is deemed lower quality due to its none natural quality’s. Made
                                                 from synthetic materials, not natural like wool. Polyester suits become
                                                 creased easily and are known for not being breathable. Polyester suits
@@ -206,19 +201,21 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                                 breathable. Velvet is a great choice for dinner party jacket and can be
                                                 worn all year round.</p>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> 
+                                </div>  -->
                                 <div class="tab-pane" id="tabs-7" role="tabpanel">
                                     <div class="product__details__tab__content">
                                         <div class="product__details__tab__content__item">
+                                            <h5>Product Details:</h5>
+                                            <h5 style="font-size: medium;">Material used:</h5>
+                                            <p>100% Cotton</br>
+                                                Machine Wash</p>
+                                            </div>
+                                            <div class="product__details__tab__content__item">
                                             <h5>Products Infomation</h5>
                                             <p>Country of Origin: India (and proud)</br>
                                                 Manufactured & Sold By:</br>
-                                                The Souled Store Pvt. Ltd.</br>
-                                                224, Tantia Jogani Industrial Premises</br>
-                                                J.R. Boricha Marg</br>
-                                                Lower Parel (E)</br>
-                                                Mumbai - 11</p>
+                                                Memento Couture</br>
                                         </div>
                                     </div>
                                 </div>
@@ -235,8 +232,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     <section class="related spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <h3 class="related-title">Related Product</h3>
+                <div class="col-lg-12" >
+                    <h3 class="related-title"style="text-align: left">Related Products</h3>
                 </div>
             </div>
             <div class="row">
@@ -253,20 +250,21 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                         $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
                                         $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                                         echo $image['image'];
+
                                         if (isset($_SESSION['user'])) {
                                             $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $relateditem['id'] . '';
                                             $check = mysqli_query($conn, $checksql);
                                             $num = mysqli_num_rows($check);
                                             if ($num > 0) {
-                                                $wishlist = '<i style="color:red;" class="fa-solid fa-heart"></i>';
-                                                $class = "";
+                                                $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
+                                                $class = "delete";
                                             } else {
                                                 $class = "wishlist";
-                                                $wishlist = '<i style=" color: white;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                                $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
                                             }
                                         } else {
                                             $class = "login";
-                                            $wishlist = '<i style=" color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;" class="fa-solid fa-heart"></i>';
+                                            $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
                                         }
                                         ?>">
                                         <!-- <span class="label">New</span> -->
@@ -286,7 +284,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     $discountrate = $relateditem['discount'];
                                     $discountprice = $originalprice * ($discountrate / 100);
                                     $price = $originalprice - $discountprice;
-                                    echo $price;
+                                    echo (int)$price;
                                     ?><span>₹
                                         <?php echo $relateditem['price'] ?>
                                     </span>
@@ -364,58 +362,63 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
 } ?>
 <!-- script -->
 <script>
-    $(".wishlist").click(function(e) {
-        e.preventDefault();
-        var id = $(this).attr("id");
-        $.ajax({
-            url: "api/wishlist.php",
-            method: "post",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                console.log("product added to wishlist") //idher toast add kar dena merako nahi aa raha // thike bc
-
-                const toastLiveExample = document.getElementById('liveToast')
-
-                $(".toast-body").text("Product added to wishlist.")
-
-                const toast = new bootstrap.Toast($("#liveToast"))
-                toast.show()
-
-                $("#" + id).removeClass('wishlist'); //yaad rakh loda
-            }
+    $(document).ready(function() {
+        $(".wishlist, .delete").click(function(e) {
+            e.preventDefault();
+            var id = $(this).attr("id");
+            let action = ($(this).hasClass("wishlist")) ? "wishlist" : "delete";
+            $.ajax({
+                url: "api/wishlist.php",
+                method: "post",
+                data: {
+                    id: id,
+                    action: action
+                },
+                success: function(data) {
+                    console.log("product added to wishlist") //idher toast add kar dena merako nahi aa raha // thike bc
+    
+                    const toastLiveExample = document.getElementById('liveToast')
+    
+                    $(".toast-body").text(data)
+    
+                    const toast = new bootstrap.Toast($("#liveToast"))
+                    toast.show()
+    
+                    $(`#${id}`).toggleClass("wishlist").toggleClass("delete")
+                    $(`#${id}`).children("i.fa-heart").toggleClass("white-heart").toggleClass("red-heart")
+                }
+            })
         })
-    })
-    $(".login").click(function(e) {
-        e.preventDefault();
-        document.location.href = "login.php";
-    })
-    $(".primary-btn").click(function() {
-        let id = $(this).attr("id");
-        let quantity = $("#quantity").val();
-        console.log(id, quantity);
-        if ($("input[name='size']").is(":checked")) {} else {
-            alert("select size");
-            return false;
-        }
-        let size = $("input[name='size']:checked").val();
-        console.log(size);
-        $.ajax({
-            url: "api/addtocart.php",
-            method: "post",
-            data: {
-                id: id,
-                quantity: quantity,
-                size: size
-            },
-            success: function(data) {
-                const toastLiveExample = document.getElementById('liveToast')
-                $(".toast-body").text(data)
-                const toast = new bootstrap.Toast($("#liveToast"))
-                toast.show()
+        $(".login").click(function(e) {
+            e.preventDefault();
+            document.location.href = "login.php";
+        })
+        $(".primary-btn").click(function() {
+            let id = $(this).attr("id");
+            let quantity = $("#quantity").val();
+            console.log(id, quantity);
+            if ($("input[name='size']").is(":checked")) {} else {
+                alert("select size");
+                return false;
             }
-
+            let size = $("input[name='size']:checked").val();
+            console.log(size);
+            $.ajax({
+                url: "api/addtocart.php",
+                method: "post",
+                data: {
+                    id: id,
+                    quantity: quantity,
+                    size: size
+                },
+                success: function(data) {
+                    const toastLiveExample = document.getElementById('liveToast')
+                    $(".toast-body").text(data)
+                    const toast = new bootstrap.Toast($("#liveToast"))
+                    toast.show()
+                }
+    
+            })
         })
     })
 </script>
