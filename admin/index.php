@@ -1,1 +1,1 @@
-<?php redirect("dashboard.php"); ?>
+<?php header("location: dashboard.php"); ?>
