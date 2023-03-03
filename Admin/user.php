@@ -19,7 +19,6 @@ include("../global/api/conn.php");
             . '<th>ID</th>'
             . '<th>Name</th>'
             . '<th>Email</th>'
-            . '<th>Image</th>'
             . '<th>Action</th>'
             . '</tr>'
             . '</thead>'
@@ -29,7 +28,6 @@ include("../global/api/conn.php");
                 . '<th scope="row">' . $row['id'] . '</td>'
                 . '<td>' . $row['name'] . '</td>'
                 . '<td>' . $row['email'] . '</td>'
-                . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../global/assets/images/" . $row['image'] . "'></td>"
                 . '<td>'
                 . '<a role="button" href="api/delete.php?table=' . $table . '&id=' . $row['id'] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
                 . '</td>'

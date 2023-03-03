@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("global/api/conn.php");
+require_once("../global/api/conn.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

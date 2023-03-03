@@ -1,9 +1,10 @@
 <?php
+include("template/header.php");
+include("../global/api/conn.php");
+
 if (!isset($_SESSION["admin"])) {
     redirect("./login.php");
 }
-include("template/header.php");
-include("../global/api/conn.php");
 ?>
 <div class="card">
     <div class="container row">
