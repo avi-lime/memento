@@ -2,14 +2,22 @@
 include("../global/api/conn.php");
 session_start();
 $userid = $_SESSION['user'];
-if (isset($_REQUEST['id'])) {
+if (isset($_REQUEST['id']) && isset($_REQUEST["action"]) && $_REQUEST["action"] == "wishlist") {
     $id = $_REQUEST['id'];
     $sql = 'INSERT INTO wishlist(user_id,product_id) VALUES(' . $userid . ',' . $id . ')';
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-} elseif (isset($_REQUEST['wishlistid'])) {
-    $wishlist = $_REQUEST['wishlistid'];
-    $sql = 'DELETE FROM wishlist WHERE id='.$wishlist.'';
+    $message = "Product added to wishlist!";
+} elseif (isset($_REQUEST["action"]) && $_REQUEST["action"] == "delete") {
+    if (isset($_REQUEST['wishlistid'])) {
+        $wishlist = $_REQUEST['wishlistid'];
+        $sql = 'DELETE FROM wishlist WHERE id=' . $wishlist . '';
+        header("Location:../wishlist.php");
+    } else {
+        $id = $_REQUEST["id"];
+        $sql = 'DELETE FROM wishlist WHERE product_id=' . $id . '';
+    }
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("Location:../wishlist.php");
+    $message = "Product removed from wishlist!";
 }
+echo $message;
 ?>
