@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 02, 2023 at 07:53 PM
+-- Generation Time: Mar 03, 2023 at 07:20 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `superadmin` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -64,7 +64,8 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 INSERT INTO `admin` (`id`, `email`, `password`, `username`, `superadmin`) VALUES
 (3, 'admin@admin.com', '$2y$10$p1hI3LduLkki2cIIsH1WmeHI.dmygMs3mGHNkhWIg/WSlAlERJQBG', 'admin', 1),
-(4, 'allahhuakbar911@boomboom.com', '$2y$10$8MWn2jmfEz5BkAGgR6NSqel7gmEtLIZM.EurMbCp9VxY4mNtgMiN.', 'allah hu akbar', 0);
+(4, 'allahhuakbar911@boomboom.com', '$2y$10$8MWn2jmfEz5BkAGgR6NSqel7gmEtLIZM.EurMbCp9VxY4mNtgMiN.', 'allah hu akbar', 0),
+(6, 'sa3198154+admin@gmail.com', '$2y$10$xnoWTawUw7cOUgDDNfXqa.au9NX1asVTMrLOfsxFIHrCH/HcaSLsO', 'avi', 0);
 
 -- --------------------------------------------------------
 
@@ -82,14 +83,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`),
   KEY `FK_cart_product` (`product_id`),
   KEY `FK_card_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`id`, `product_id`, `quantity`, `size`, `user_id`) VALUES
-(19, 1, 1, 'l', 2);
+(25, 3, 3, 'm', 1);
 
 -- --------------------------------------------------------
 
@@ -111,9 +112,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `image`) VALUES
-(11, 'Active wear', '1677211695.png'),
-(12, 'Casual wear', '1677211700.jpg'),
-(13, 'Professional wear', '1677211728.png');
+(12, 'Casual wear', '1677211700.jpg');
 
 -- --------------------------------------------------------
 
@@ -174,15 +173,26 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `FK_product_cat` (`cat_id`),
   KEY `FK_product_sub` (`subcat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discount`, `cat_id`, `subcat_id`) VALUES
-(1, 'Kamal Morrison', 404, 403, 'Odio fugiat ea sint', 77, 11, 10),
-(2, 'Willa Thompson', 942, 37, 'Nulla molestias est ', 9, 11, 10);
+(3, 'Coding', 499, 40, 'Eat, Sleep, Code, Repeat!\r\n\r\nNo Errors here.', 30, 12, 11),
+(4, 'Real Lies', 699, 30, 'Real eyes\r\nRealize\r\nReal lies\r\n\r\n', 21, 12, 13),
+(5, 'Spider Sense', 999, 20, 'Your Friendly Neighborhood Spider-Man\r\n\r\nP.S. Don\'t forget the hyphen!\r\n\r\n', 25, 12, 14),
+(6, 'Itachi\'s Genjutsu', 999, 20, 'Itachi Uchiha\r\n\r\nYou\'re already under his genjutsu', 25, 12, 14),
+(7, 'Dust Brick BVM', 999, 30, 'One of our first and favorite Hoodies.\r\n\r\nFrom the collaboration and exhibition done at BVM college', 25, 12, 14),
+(8, 'Illusion', 999, 10, 'One\'s reality is another\'s illusion\r\n\r\nLimited Edition, Memento Blue Hoodie\r\n\r\n', 25, 12, 14),
+(9, 'F.R.I.E.N.D.S', 499, 30, 'A twist on the classic FRIENDS t-shirt where you can put a photo of your friends in the photo frame available at the front!\r\nCustomizations available soon! :D', 20, 12, 11),
+(10, 'Wanted!', 699, 30, 'One Piece Wanted Poster!\r\nFor all the straw hats out there\r\nOversized for extra air flow when you sail through the seas', 21, 12, 13),
+(11, 'Spotify', 699, 30, 'For all the music lovers out there\r\n\r\nIdea: You can also get the name of your favourite song printed on the back!\r\nCustomization available soon! ', 21, 12, 13),
+(12, 'Human\'s Cry', 999, 15, 'We cry, we love,\r\nBut we do whatever we do, in style!\r\nLimited Edition, so grab it before it\'s gone!!', 25, 12, 14),
+(13, 'Work is Worship', 499, 25, 'Cool yet Classy!\r\nAnother one from the BVM Collaboration.\r\nLimited stock.\r\n', 30, 12, 11),
+(14, 'BVM White', 499, 15, 'White T-Shirt with a cool design made for the collab with BVM University\r\n', 30, 12, 11),
+(15, 'BVM Beige', 499, 15, 'Beige T-Shirt from our BVM T-Shirt collection\r\n\r\nFrom our collab with BVM University', 30, 12, 11);
 
 -- --------------------------------------------------------
 
@@ -197,19 +207,39 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_images`
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
-(1, 1, '16772509150.png'),
-(2, 1, '16772509151.png'),
-(3, 1, '16772509152.png'),
-(4, 2, '16772540800.png'),
-(5, 2, '16772540801.png'),
-(6, 2, '16772540802.png');
+(9, 4, '16778027110.JPG'),
+(10, 4, '16778027111.JPG'),
+(13, 5, '16778033460.JPG'),
+(14, 5, '16778033461.JPG'),
+(15, 6, '16778034270.JPG'),
+(16, 6, '16778034271.JPG'),
+(17, 7, '16778035830.JPG'),
+(18, 7, '16778035831.JPG'),
+(21, 9, '16778048000.JPG'),
+(22, 9, '16778048001.JPG'),
+(23, 10, '16778049700.JPG'),
+(24, 10, '16778049701.JPG'),
+(25, 11, '16778051260.JPG'),
+(26, 11, '16778051261.JPG'),
+(27, 8, '16778051540.JPG'),
+(28, 8, '16778051541.JPG'),
+(29, 12, '16778053400.JPG'),
+(30, 12, '16778053401.JPG'),
+(31, 13, '16778054620.JPG'),
+(32, 13, '16778054621.JPG'),
+(33, 3, '16778250240.JPG'),
+(34, 3, '16778250241.JPG'),
+(43, 14, '16778699720.JPG'),
+(44, 14, '16778699721.JPG'),
+(45, 15, '16778704780.JPG'),
+(46, 15, '16778704781.JPG');
 
 -- --------------------------------------------------------
 
@@ -263,16 +293,16 @@ CREATE TABLE IF NOT EXISTS `subcat` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `FK_sub_cat` (`cat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subcat`
 --
 
 INSERT INTO `subcat` (`id`, `name`, `cat_id`, `image`) VALUES
-(10, 'Mandarin shirt', 11, '1677212957.png'),
 (11, 'T-Shirts', 12, '1677212967.png'),
-(12, 'Blazers', 13, '1677212978.png');
+(13, 'Oversized Tees', 12, '1677802580.jpg'),
+(14, 'Hoodies', 12, '1677802602.jpg');
 
 -- --------------------------------------------------------
 
@@ -313,14 +343,14 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wishlist`
 --
 
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
-(19, 2, 1);
+(63, 1, 13);
 
 --
 -- Constraints for dumped tables
@@ -356,8 +386,8 @@ ALTER TABLE `payment`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `FK_product_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_product_sub` FOREIGN KEY (`subcat_id`) REFERENCES `subcat` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_product_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_product_sub` FOREIGN KEY (`subcat_id`) REFERENCES `subcat` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product_images`
@@ -369,14 +399,14 @@ ALTER TABLE `product_images`
 -- Constraints for table `subcat`
 --
 ALTER TABLE `subcat`
-  ADD CONSTRAINT `FK_sub_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_sub_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
-  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
