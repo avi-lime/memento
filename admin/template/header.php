@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once("global/api/conn.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +32,6 @@
 
 <body>
     <?php
-    include("../global/api/conn.php");
-    session_start();
     if (!isset($_SESSION["admin"]) || $_SESSION["admin"] == null) {
         header("location: login.php");
     }

@@ -1,6 +1,6 @@
 <?php
-include("../global/api/conn.php");
 session_start();
+include("../global/api/conn.php");
 $userid = $_SESSION['user'];
 if (isset($_REQUEST['id']) && isset($_REQUEST["action"]) && $_REQUEST["action"] == "wishlist") {
     $id = $_REQUEST['id'];

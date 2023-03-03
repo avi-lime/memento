@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once("global/api/conn.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +18,6 @@
     <link rel="apple-touch-icon" href="img/mxm-white.png">
 </head>
 <?php
-require_once("global/api/conn.php");
-session_start();
 if (isset($_REQUEST["btn_signin"])) {
     $email = $_REQUEST["email_signin"];
     $password = $_REQUEST["pass_signin"];

@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once("global/api/conn.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,8 +27,6 @@
 
 <body class="login_body">
     <?php
-    require_once("../global/api/conn.php");
-    session_start();
     if (isset($_REQUEST["submit"])) {
         $email = $_REQUEST["email"];
         $password = $_REQUEST["password"];
