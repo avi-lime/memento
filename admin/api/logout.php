@@ -3,6 +3,6 @@ session_start();
 if (isset($_REQUEST['btnLogout'])) {
     session_unset();
     session_destroy();
-    redirect("../login.php");
+    header("location: ../login.php");
 }
 ?>

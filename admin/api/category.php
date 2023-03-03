@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST["name"])) {
-    redirect("../category.php");
+    header("location: ../category.php");
 } else {
 
     include("../../global/api/conn.php");
@@ -41,5 +41,7 @@ if (!isset($_POST["name"])) {
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    redirect("../category.php");
+    header("location: ../category.php");
 }
+
+?>

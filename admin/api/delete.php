@@ -9,16 +9,17 @@ if ($table == "product")
 else
     $select_query = "SELECT image FROM $table WHERE id=" . $id;
 
-$result = mysqli_query($conn, $select_query);
+if ($result = mysqli_query($conn, $select_query)) {
 
-while ($row = mysqli_fetch_assoc($result)) {
-    if ($row['image']) {
-        $oldPicture = "../../global/assets/images/" . $row["image"];
-        unlink($oldPicture);
+    while ($row = mysqli_fetch_assoc($result)) {
+        if ($row['image']) {
+            $oldPicture = "../../global/assets/images/" . $row["image"];
+            unlink($oldPicture);
+        }
     }
 }
 
 $sql = "DELETE FROM $table WHERE id=$id";
 mysqli_query($conn, $sql) or die(mysqli_error($conn));
-mysqli_close($conn);
-redirect("../$table");
+header("location: ../$table");
+?>

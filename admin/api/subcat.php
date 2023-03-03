@@ -41,5 +41,5 @@ if (!isset($_POST["name"]) || !isset($_POST["cat"])) {
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    redirect("../subcat.php");
+    header("location: ../subcat.php");
 }

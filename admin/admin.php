@@ -73,7 +73,6 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
             . '<th>ID</th>'
             . '<th>Name</th>'
             . '<th>Email</th>'
-            // . '<th>Image</th>'
             . '<th>Action</th>'
             . '</tr>'
             . '</thead>'
@@ -83,10 +82,9 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 . '<th scope="row">' . $row['id'] . '</td>'
                 . '<td>' . $row['username'] . '</td>'
                 . '<td>' . $row['email'] . '</td>'
-                // . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../assets/images/" . $row['image'] . "'></td>"
                 . '<td>'
                 . '<a class="me-2 btn-edit" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-pen"></i></a>'
-                . '<a role="button" href="api/delete.php?table=' . $table . '&id=' . $row['id'] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
+                . '<a class="btn-del" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
                 . '</td>'
                 . '</tr>';
         }
@@ -122,6 +120,22 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 }
             })
         })
+
+        $("#table").on("click", "a.btn-del", function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "api/delete.php",
+                method: "POST",
+                data: {
+                    table: "admin",
+                    id: id
+                },
+                success: function (data) {
+                    location.reload();
+                }
+            })
+        })
+
         $('#btnAdd').click(function () {
             $("#id").val("");
             $("#name").val("");

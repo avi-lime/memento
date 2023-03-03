@@ -41,5 +41,5 @@ if (!isset($_POST["name"])) {
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    redirect("../slider.php");
+    header("location: ../slider.php");
 }
