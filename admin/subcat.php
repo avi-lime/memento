@@ -47,7 +47,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 </div>
 
                 <div class="modal-body">
-                    <form action="api/subcat.php" method="post" enctype="multipart/form-data">
+                    <form id="form" action="api/subcat.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group mb-3">
                             <label>Category: *</label>
@@ -193,11 +193,11 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                         </li>
                                     </ul>
                                     <?php if ($super) { ?>
-                                                <div class="btn-group w-100" role="group" aria-label="Actions">
-                                                    <!-- <button type="button" class="btn my-btn">View</button> -->
-                                                    <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
-                                                    <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
-                                                </div>
+                                                    <div class="btn-group w-100" role="group" aria-label="Actions">
+                                                        <!-- <button type="button" class="btn my-btn">View</button> -->
+                                                        <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                                        <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                                    </div>
                                     <?php } ?>
                                 </div>
                             </div>
