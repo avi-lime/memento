@@ -108,7 +108,7 @@ $userid = $_SESSION['user'];
                                     <li>Delivery Charges <span>Free Free Free</span></li>
                                 <?php } ?>
                                 <li>Total <span>₹ <?php $totalprice = $proprice + $charges;
-                                                    echo $totalprice ?></span></li>
+                                                   $_SESSION['price']=$totalprice ;echo $totalprice ?></span></li>
                             </ul>
                             <button type="button" name="btnnet" id="rzp-button1" class="site-btn">NetBanking</button></br>
                             <button type="button" name="btncod" id="site-btn" class="site-btn">COD</button>

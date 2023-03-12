@@ -8,7 +8,7 @@ $keySecret="kEKh6CGaqXhMcxNkkZkp1Lrn";
 $user_id=$_SESSION['user'];
 $api = new Api($keyId,$keySecret);
 
-$actual_amount="399";
+$actual_amount=$_SESSION['price'];
 $currency="INR";
 $receipt=str_replace('.','',microtime(true)).rand(1,10000).$user_id;
 
