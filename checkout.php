@@ -1,10 +1,6 @@
 <?php include("components/header.php");
 if (!isset($_SESSION['user'])) {
-?>
-    <script>
-        document.location.href = "shopping-cart.php";
-    </script>
-<?php
+    redirect("shopping-cart.php");
 }
 $userid = $_SESSION['user'];
 ?>
@@ -40,7 +36,7 @@ $userid = $_SESSION['user'];
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Fist Name<span>*</span></p>
-                                    <input type="text" id="firstname" name="firstname"required>
+                                    <input type="text" id="firstname" name="firstname" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -52,23 +48,24 @@ $userid = $_SESSION['user'];
                         </div>
                         <div class="checkout__input">
                             <p>Country<span>*</span></p>
-                            <input type="text" id="country" name="country"required>
+                            <input type="text" id="country" name="country" required>
                         </div>
                         <div class="checkout__input">
                             <p>Address<span>*</span></p>
-                            <input type="text" placeholder="Street Address"required id="address" name="address" class="checkout__input__add">
+                            <input type="text" placeholder="Street Address" required id="address" name="address"
+                                class="checkout__input__add">
                         </div>
                         <div class="checkout__input">
                             <p>Town/City<span>*</span></p>
-                            <input type="text" id="city" name="city"required>
+                            <input type="text" id="city" name="city" required>
                         </div>
                         <div class="checkout__input">
                             <p>State<span>*</span></p>
-                            <input type="text" id="state" name="state"required>
+                            <input type="text" id="state" name="state" required>
                         </div>
                         <div class="checkout__input">
                             <p>Postcode / ZIP<span>*</span></p>
-                            <input type="text" id="pincode" name="pincode"required>
+                            <input type="text" id="pincode" name="pincode" required>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -93,24 +90,37 @@ $userid = $_SESSION['user'];
                                     $quantity = $details['quantity'];
                                     $saleprice = ($Originalprice - $discountamount) * $quantity;
                                     $proprice += $saleprice;
-                                ?>
-                                    <li><?php echo $count . ".  " . $product['name'] . "(" . strtoupper($details['size']) . ")x" . $quantity; ?> <span>₹<?php echo $saleprice ?></span></li>
-                                <?php
+                                    ?>
+                                    <li>
+                                        <?= $count . ".  " . $product['name'] . "(" . strtoupper($details['size']) . ")x" . $quantity; ?>
+                                        <span>₹
+                                            <?= $saleprice ?>
+                                        </span>
+                                    </li>
+                                    <?php
                                     $count++;
                                 } ?>
                             </ul>
                             <ul class="checkout__total__all">
-                                <li>Subtotal <span>₹<?php echo $proprice; ?></span></li>
+                                <li>Subtotal <span>₹
+                                        <?= $proprice; ?>
+                                    </span></li>
                                 <?php if ($proprice < 749) { ?>
-                                    <li>Delivery Charges <span>₹<?php $charges = 50;
-                                                                echo $charges ?></span></li>
+                                    <li>Delivery Charges <span>₹
+                                            <?php $charges = 50;
+                                            echo $charges ?>
+                                        </span></li>
                                 <?php } else { ?>
                                     <li>Delivery Charges <span>Free Free Free</span></li>
                                 <?php } ?>
-                                <li>Total <span>₹ <?php $totalprice = $proprice + $charges;
-                                                   $_SESSION['price']=$totalprice ;echo $totalprice ?></span></li>
+                                <li>Total <span>₹
+                                        <?php $totalprice = $proprice + $charges;
+                                        $_SESSION['price'] = $totalprice;
+                                        echo $totalprice ?>
+                                    </span></li>
                             </ul>
-                            <button type="button" name="btnnet" id="rzp-button1" class="site-btn">NetBanking</button></br>
+                            <button type="button" name="btnnet" id="rzp-button1"
+                                class="site-btn">NetBanking</button></br>
                             <button type="button" name="btncod" id="site-btn" class="site-btn">COD</button>
                         </div>
                     </div>
@@ -121,34 +131,34 @@ $userid = $_SESSION['user'];
 </section>
 <!-- Checkout Section End -->
 <script>
-    $("#site-btn").click(function(){
+    $("#site-btn").click(function () {
         let firstname = $("#firstname").val();
         let lastName = $("#lastname").val();
-        let addressname = firstname.concat(" ",lastName);
+        let addressname = firstname.concat(" ", lastName);
         let country = $("#country").val();
         let address = $("#address").val();
         let city = $("#city").val();
         let state = $("#state").val();
         let pincode = $("#pincode").val();
-        console.log(firstname);
         $.ajax({
-            url:"api/order.php",
-            method:"post",
-            data:{
-                addressname:addressname,
-                country:country,
-                address:address,
-                city:city,
-                state:state,
-                pincode:pincode
+            url: "api/order.php",
+            method: "post",
+            data: {
+                addressname: addressname,
+                country: country,
+                address: address,
+                city: city,
+                state: state,
+                pincode: pincode
             },
-            success:function(data){
+            success: function (data) {
 
             }
         })
     })
-    $("#rzp-button1").click(function(){
-        document.location.href="global/api/page.php";
+
+    $("#rzp-button1").click(function () {
+        location.href = "payment";
     })
 </script>
 <?php include("components/footer.php"); ?>

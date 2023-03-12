@@ -11,7 +11,7 @@ if (!isset($_SESSION["admin"])) {
         <h1>Settings</h1>
         <hr style="color: white">
         <form id="form1" action="" method="post" enctype="multipart/form-data">
-            <input type="hidden" name='id' id="id" value="<?php echo $_SESSION["admin"] ?>">
+            <input type="hidden" name='id' id="id" value="<?= $_SESSION["admin"] ?>">
             <?php
             $query = "SELECT * FROM admin WHERE id=" . $_SESSION["admin"];
             $result = mysqli_query($conn, $query);
@@ -20,12 +20,11 @@ if (!isset($_SESSION["admin"])) {
                 <div class=" form-group">
                     <label>Username </label>
                     <input name="username" id="username" type="text" class="form-control mb-3"
-                        value="<?php echo $row["username"] ?>">
+                        value="<?= $row["username"] ?>">
                 </div>
                 <div class="form-group">
                     <label>Email </label>
-                    <input name="email" id="email" type="email" class="form-control mb-3"
-                        value="<?php echo $row["email"] ?>">
+                    <input name="email" id="email" type="email" class="form-control mb-3" value="<?= $row["email"] ?>">
                 </div>
                 <div class="form-group">
                     <label>Change Password </label>

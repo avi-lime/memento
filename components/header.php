@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "global/api/conn.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,8 +127,8 @@ include "global/api/conn.php";
                                             ?>
                                             <div class="list">
                                                 <li class="dropdown-item-m"><a
-                                                        href="shop.php?sub_id=&cat_id=<?php echo $row["id"] ?>">
-                                                        <?php echo $row['name'] ?>
+                                                        href="shop.php?sub_id=&cat_id=<?= $row["id"] ?>">
+                                                        <?= $row['name'] ?>
                                                     </a></li>
                                                 <ul class="sub-dropdown">
                                                     <?php
@@ -136,8 +137,8 @@ include "global/api/conn.php";
                                                         while ($subrow = mysqli_fetch_assoc($subresult)) {
                                                             ?>
                                                             <li class="sub-dropdown-item"><a
-                                                                    href="shop.php?cat_id=<?php echo $subrow["cat_id"] ?>&sub_id=<?php echo $subrow["id"] ?>">
-                                                                    <?php echo $subrow['name'] ?>
+                                                                    href="shop.php?cat_id=<?= $subrow["cat_id"] ?>&sub_id=<?= $subrow["id"] ?>">
+                                                                    <?= $subrow['name'] ?>
                                                                 </a></li>
                                                             <?php
                                                         }

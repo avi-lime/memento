@@ -54,20 +54,20 @@ if (isset($_SESSION['user'])) {
                                     <tr>
                                         <td class="product__cart__item">
                                             <div class="product__cart__item__pic">
-                                                <img src="global/assets/images/<?php echo $image['image'] ?>"
+                                                <img src="global/assets/images/<?= $image['image'] ?>"
                                                     style="width: 90px;height: 160px; object-fit: cover" alt="">
                                             </div>
                                             <div class="product__cart__item__text">
                                                 <h6>
-                                                    <?php echo $product['name'] ?>
+                                                    <?= $product['name'] ?>
                                                 </h6>
-                                                <h5 id="price-<?php echo $details["id"] ?>">₹
+                                                <h5 id="price-<?= $details["id"] ?>">₹
                                                     <?php $originalprice = $product['price'];
                                                     $discountrate = $product['discount'];
                                                     $discountprice = $originalprice * ($discountrate / 100);
                                                     $price = $originalprice - $discountprice;
                                                     echo $price; ?><span> ₹
-                                                        <?php echo $product['price']; ?>
+                                                        <?= $product['price']; ?>
                                                     </span>
                                                 </h5>
                                             </div>
@@ -75,9 +75,8 @@ if (isset($_SESSION['user'])) {
                                         <td>
                                             <div class="product__cart__item__text">
                                                 <div class="size">
-                                                    <select class="nice-select" name="size"
-                                                        id="size-<?php echo $details["id"] ?>"
-                                                        data-id="<?php echo $details["id"] ?>">
+                                                    <select class="nice-select" name="size" id="size-<?= $details["id"] ?>"
+                                                        data-id="<?= $details["id"] ?>">
                                                         <option value="s" <?php if ($details['size'] == 's')
                                                             echo ' selected="selected"'; ?>>S</option>
                                                         <option value="m" <?php if ($details['size'] == 'm')
@@ -96,19 +95,18 @@ if (isset($_SESSION['user'])) {
                                             <div class="quantity">
                                                 <div class="pro-qty-2">
                                                     <input disabled type="text" class="product-quantity" name="quantity"
-                                                        id="qty-<?php echo $details["id"] ?>"
-                                                        data-id="<?php echo $details['id'] ?>"
-                                                        value="<?php echo $details['quantity'] ?>">
+                                                        id="qty-<?= $details["id"] ?>" data-id="<?= $details['id'] ?>"
+                                                        value="<?= $details['quantity'] ?>">
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="cart__price" id="total-<?php echo $details["id"] ?>">₹
+                                        <td class="cart__price" id="total-<?= $details["id"] ?>">₹
                                             <?php $quantity = $details['quantity'];
                                             $total = $price * $quantity;
                                             $prototal += $total;
                                             echo $total; ?>
                                         </td>
-                                        <td role="button" class="cart__close" id="<?php echo $details['id'] ?>"><i
+                                        <td role="button" class="cart__close" id="<?= $details['id'] ?>"><i
                                                 class="fa fa-close"></i>
                                         </td>
                                     </tr>
@@ -143,7 +141,7 @@ if (isset($_SESSION['user'])) {
                         <h6>Cart total</h6>
                         <ul>
                             <li>Subtotal <span>₹
-                                    <?php echo $prototal;
+                                    <?= $prototal;
                                     $charges = 0 ?>
                                 </span></li>
                             <?php if ($prototal > 0) {

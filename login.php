@@ -49,7 +49,7 @@ if (isset($_REQUEST["btn_signin"])) {
         <div class="mb-4 alert alert-danger d-flex align-items-center gap-2 alert-dismissible fade show" role="alert">
             <i class="fa-solid fa-circle-exclamation"></i>
             <div>
-                <?php echo $error ?>
+                <?= $error ?>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

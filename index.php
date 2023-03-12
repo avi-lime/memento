@@ -124,7 +124,7 @@ $result = mysqli_query($conn, $sql);
                 ?>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="product__item">
-                        <a href="shop-details.php?product_id=<?php echo $relateditem['id']; ?>">
+                        <a href="shop-details.php?product_id=<?= $relateditem['id']; ?>">
                             <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                             $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
                             $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
@@ -144,13 +144,13 @@ $result = mysqli_query($conn, $sql);
                             ?>">
                                 <!-- <span class="label">New</span> -->
                                 <ul class="product__hover">
-                                    <li class="<?php // echo $class ?>" id="<?php echo $relateditem['id'] ?>"><?php //echo $wishlist ?></li>
+                                    <li class="<?php // echo $class ?>" id="<?= $relateditem['id'] ?>"><?php //echo $wishlist ?></li>
                                 </ul>
                             </div>
                         </a>
                         <div class="product__item__text">
                             <h6>
-                                <?php echo $relateditem['name'] ?>
+                                <?= $relateditem['name'] ?>
                             </h6>
                             <a href="#" class="add-cart">+ Add To Cart</a>
                             <h5>₹
@@ -160,7 +160,7 @@ $result = mysqli_query($conn, $sql);
                                 $price = $originalprice - $discountprice;
                                 echo $price;
                                 ?><span>₹
-                                    <?php echo $relateditem['price'] ?>
+                                    <?= $relateditem['price'] ?>
                                 </span>
                             </h5>
                         </div>

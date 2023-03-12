@@ -16,7 +16,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             $wishlisttext = "WISHLISTED";
         }
     }
-?>
+    ?>
 
     <!-- Shop Details Section Begin -->
     <section class="shop-details">
@@ -40,19 +40,23 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             $imageresult = mysqli_query($conn, $sqlimage);
                             $count = 0;
                             while ($image = mysqli_fetch_assoc($imageresult)) {
-                            ?>
+                                ?>
                                 <li class="nav-item">
                                     <?php
                                     $count++;
-                                    if ($count == 1) $class = "active";
-                                    else $class = "";
+                                    if ($count == 1)
+                                        $class = "active";
+                                    else
+                                        $class = "";
                                     ?>
-                                        <a class="nav-link <?php echo $class ?>" data-bs-toggle="tab" href="#tabs-<?php echo $count; ?>" data-bs-target="#tabs-<?php echo $count; ?>" role="tab">
-                                            <div class="product__thumb__pic set-bg img-cover" data-setbg="global/assets/images/<?php echo $image['image'] ?>">
-                                            </div>
-                                        </a>
+                                    <a class="nav-link <?= $class ?>" data-bs-toggle="tab" href="#tabs-<?= $count; ?>"
+                                        data-bs-target="#tabs-<?= $count; ?>" role="tab">
+                                        <div class="product__thumb__pic set-bg img-cover"
+                                            data-setbg="global/assets/images/<?= $image['image'] ?>">
+                                        </div>
+                                    </a>
                                 </li>
-                            <?php
+                                <?php
                             }
                             ?>
                         </ul>
@@ -65,14 +69,17 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             $count = 0;
                             while (($image = mysqli_fetch_assoc($imageresult))) {
                                 $count++;
-                                if ($count == 1) $class = "active";
-                                else $class = "";
-                            ?>
-                                    <div class="tab-pane  <?php echo $class ?>" href="" id="tabs-<?php echo $count; ?>" role="tabpanel">
-                                        <div class="product__details__pic__item">
-                                            <img src="global/assets/images/<?php echo $image['image'] ?>" style="width: 450px; height: 600px;object-fit: cover" alt="">
-                                        </div>
+                                if ($count == 1)
+                                    $class = "active";
+                                else
+                                    $class = "";
+                                ?>
+                                <div class="tab-pane  <?= $class ?>" href="" id="tabs-<?= $count; ?>" role="tabpanel">
+                                    <div class="product__details__pic__item">
+                                        <img src="global/assets/images/<?= $image['image'] ?>"
+                                            style="width: 450px; height: 600px;object-fit: cover" alt="">
                                     </div>
+                                </div>
                                 <?php
                             } ?>
                         </div>
@@ -87,19 +94,19 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                     <div class="col-lg-8">
                         <div class="product__details__text">
                             <h4>
-                                <?php echo $detail['name']; ?>
+                                <?= $detail['name']; ?>
                             </h4>
                             <h3><span>(-
                                     <?php $discountrate = $detail['discount'];
                                     echo $discountrate
-                                    ?>% OFF)
+                                        ?>% OFF)
                                 </span>₹
                                 <?php $originalprice = $detail['price'];
                                 $discountprice = $originalprice * ($discountrate / 100);
                                 $price = $originalprice - $discountprice;
-                                echo (int)$price;
+                                echo (int) $price;
                                 ?><span>₹
-                                    <?php echo $detail['price']; ?>
+                                    <?= $detail['price']; ?>
                                 </span>
                             </h3>
                             <h5 style="font-weight: lighter; padding-bottom:10px">Please Select a Size</h5>
@@ -126,12 +133,13 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                         <input type="text" name="quantity" id="quantity" value="1">
                                     </div>
                                 </div>
-                                <input type="button" class="primary-btn" id="<?php echo $detail['id'] ?>" value="add to cart">
-                                <a href="shopping-cart.php"><input type="button" class="primary-btn" id="<?php echo $detail['id'] ?>" value="Buy Now"></a>
+                                <input type="button" class="primary-btn" id="<?= $detail['id'] ?>" value="add to cart">
+                                <a href="shopping-cart.php"><input type="button" class="primary-btn"
+                                        id="<?= $detail['id'] ?>" value="Buy Now"></a>
                             </div>
                             <div class="product__details__btns__option">
-                                <a href="#" class="<?php echo $class ?>" id="<?php echo $detail['id'] ?>"><?php echo $wishlist ?>
-                                    <?php echo $wishlisttext ?></a>
+                                <a href="#" class="<?= $class ?>" id="<?= $detail['id'] ?>"><?= $wishlist ?>
+                                    <?= $wishlisttext ?></a>
                                 <div class="product__details__last__option">
                                     <ul>
                                         <li><span>Categories:</span>
@@ -155,25 +163,27 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                         <div class="product__details__tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#tabs-5" data-bs-target="#tabs-5">Description</a>
+                                    <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#tabs-5"
+                                        data-bs-target="#tabs-5">Description</a>
                                 </li>
                                 <!-- <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#tabs-5" data-bs-target="#tabs-6" role="tab">Customer
                                         Reviews(5)</a>
                                 </li> -->
                                 <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#tabs-5" data-bs-target="#tabs-7" role="tab">Additional
+                                    <a class="nav-link" data-bs-toggle="tab" href="#tabs-5" data-bs-target="#tabs-7"
+                                        role="tab">Additional
                                         information</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                     <div class="product__details__tab__content">
-                                        
+
                                         <div class="product__details__tab__content__item">
                                             <h5>Products Description:</h5>
                                             <p>
-                                                <?php echo nl2br($detail['description']); ?>
+                                                <?= nl2br($detail['description']); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -210,8 +220,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                             <h5 style="font-size: medium;">Material used:</h5>
                                             <p>100% Cotton</br>
                                                 Machine Wash</p>
-                                            </div>
-                                            <div class="product__details__tab__content__item">
+                                        </div>
+                                        <div class="product__details__tab__content__item">
                                             <h5>Products Infomation</h5>
                                             <p>Country of Origin: India (and proud)</br>
                                                 Manufactured & Sold By:</br>
@@ -232,8 +242,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     <section class="related spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12" >
-                    <h3 class="related-title"style="text-align: left">Related Products</h3>
+                <div class="col-lg-12">
+                    <h3 class="related-title" style="text-align: left">Related Products</h3>
                 </div>
             </div>
             <div class="row">
@@ -241,58 +251,57 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 $relateditemsql = 'SELECT * FROM product WHERE cat_id=' . $detail['cat_id'] . ' AND NOT id=' . $id . ' ORDER BY id DESC';
                 $result = mysqli_query($conn, $relateditemsql);
                 while ($relateditem = mysqli_fetch_assoc($result)) {
-                ?>
+                    ?>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <a href="shop-details.php?product_id=<?php echo $relateditem['id']; ?>">
-                                <div class="product__item__pic set-bg"
-                                 data-setbg="global/assets/images/<?php
-                                        $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
-                                        $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                                        echo $image['image'];
+                            <a href="shop-details.php?product_id=<?= $relateditem['id']; ?>">
+                                <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
+                                $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
+                                $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                echo $image['image'];
 
-                                        if (isset($_SESSION['user'])) {
-                                            $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $relateditem['id'] . '';
-                                            $check = mysqli_query($conn, $checksql);
-                                            $num = mysqli_num_rows($check);
-                                            if ($num > 0) {
-                                                $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
-                                                $class = "delete";
-                                            } else {
-                                                $class = "wishlist";
-                                                $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
-                                            }
-                                        } else {
-                                            $class = "login";
-                                            $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
-                                        }
-                                        ?>">
-                                        <!-- <span class="label">New</span> -->
+                                if (isset($_SESSION['user'])) {
+                                    $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $relateditem['id'] . '';
+                                    $check = mysqli_query($conn, $checksql);
+                                    $num = mysqli_num_rows($check);
+                                    if ($num > 0) {
+                                        $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
+                                        $class = "delete";
+                                    } else {
+                                        $class = "wishlist";
+                                        $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
+                                    }
+                                } else {
+                                    $class = "login";
+                                    $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
+                                }
+                                ?>">
+                                    <!-- <span class="label">New</span> -->
                                     <ul class="product__hover">
-                                        <li class="<?php echo $class ?>" id="<?php echo $relateditem['id'] ?>"><?php echo $wishlist ?></li>
+                                        <li class="<?= $class ?>" id="<?= $relateditem['id'] ?>"><?= $wishlist ?></li>
                                     </ul>
                                 </div>
                             </a>
                             <div class="product__item__text">
                                 <h6>
-                                    <?php echo $relateditem['name'] ?>
+                                    <?= $relateditem['name'] ?>
                                 </h6>
                                 <a href="" class="add-cart" data-bs-toggle="modal" data-bs-target="#modal">+ Add To Cart</a>
-                                
+
                                 <h5>₹
                                     <?php $originalprice = $relateditem['price'];
                                     $discountrate = $relateditem['discount'];
                                     $discountprice = $originalprice * ($discountrate / 100);
                                     $price = $originalprice - $discountprice;
-                                    echo (int)$price;
+                                    echo (int) $price;
                                     ?><span>₹
-                                        <?php echo $relateditem['price'] ?>
+                                        <?= $relateditem['price'] ?>
                                     </span>
                                 </h5>
                             </div>
                         </div>
                     </div>
-                <?php
+                    <?php
                 }
                 ?>
             </div>
@@ -311,27 +320,27 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             </div>
         </div>
 
-    <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </section>
-<?php
+    <?php
 } else {
-?>
+    ?>
     <section class="shop-details">
         <div class="product__details__pic">
             <div class="container">
@@ -358,12 +367,12 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             </div>
         </div>
     </section>
-<?php
+    <?php
 } ?>
 <!-- script -->
 <script>
-    $(document).ready(function() {
-        $(".wishlist, .delete").click(function(e) {
+    $(document).ready(function () {
+        $(".wishlist, .delete").click(function (e) {
             e.preventDefault();
             var id = $(this).attr("id");
             let action = ($(this).hasClass("wishlist")) ? "wishlist" : "delete";
@@ -374,30 +383,30 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                     id: id,
                     action: action
                 },
-                success: function(data) {
+                success: function (data) {
                     console.log("product added to wishlist") //idher toast add kar dena merako nahi aa raha // thike bc
-    
+
                     const toastLiveExample = document.getElementById('liveToast')
-    
+
                     $(".toast-body").text(data)
-    
+
                     const toast = new bootstrap.Toast($("#liveToast"))
                     toast.show()
-    
+
                     $(`#${id}`).toggleClass("wishlist").toggleClass("delete")
                     $(`#${id}`).children("i.fa-heart").toggleClass("white-heart").toggleClass("red-heart")
                 }
             })
         })
-        $(".login").click(function(e) {
+        $(".login").click(function (e) {
             e.preventDefault();
             document.location.href = "login.php";
         })
-        $(".primary-btn").click(function() {
+        $(".primary-btn").click(function () {
             let id = $(this).attr("id");
             let quantity = $("#quantity").val();
             console.log(id, quantity);
-            if ($("input[name='size']").is(":checked")) {} else {
+            if ($("input[name='size']").is(":checked")) { } else {
                 alert("select size");
                 return false;
             }
@@ -411,13 +420,13 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                     quantity: quantity,
                     size: size
                 },
-                success: function(data) {
+                success: function (data) {
                     const toastLiveExample = document.getElementById('liveToast')
                     $(".toast-body").text(data)
                     const toast = new bootstrap.Toast($("#liveToast"))
                     toast.show()
                 }
-    
+
             })
         })
     })
