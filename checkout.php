@@ -32,7 +32,7 @@ $userid = $_SESSION['user'];
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
-            <form action="#">
+            <form action="" method="Post">
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <h6 class="checkout__title">Billing Details</h6>
@@ -110,11 +110,8 @@ $userid = $_SESSION['user'];
                                 <li>Total <span>₹ <?php $totalprice = $proprice + $charges;
                                                     echo $totalprice ?></span></li>
                             </ul>
-                            <input type="radio" id="NetBanking" name="payment" value="NetBanking" disabled required>
-                            <label for="html">NetBanking(on process)</label><br>
-                            <input type="radio" id="COD" name="payment" value="Cash On Delivery">
-                            <label for="javascript">COD</label>
-                            <button type="submit" name="btnlogin" class="site-btn">PLACE ORDER</button>
+                            <button type="button" name="btnnet" id="rzp-button1" class="site-btn">NetBanking</button></br>
+                            <button type="button" name="btncod" id="site-btn" class="site-btn">COD</button>
                         </div>
                     </div>
                 </div>
@@ -124,8 +121,7 @@ $userid = $_SESSION['user'];
 </section>
 <!-- Checkout Section End -->
 <script>
-    $(".site-btn").click(function(){
-        let paymentmethod=$( "input[type=radio][name=payment]:checked" ).attr("id");
+    $("#site-btn").click(function(){
         let firstname = $("#firstname").val();
         let lastName = $("#lastname").val();
         let addressname = firstname.concat(" ",lastName);
@@ -134,24 +130,25 @@ $userid = $_SESSION['user'];
         let city = $("#city").val();
         let state = $("#state").val();
         let pincode = $("#pincode").val();
-        console.log(paymentmethod);
+        console.log(firstname);
         $.ajax({
             url:"api/order.php",
             method:"post",
             data:{
-                payment:paymentmethod,
                 addressname:addressname,
                 country:country,
                 address:address,
                 city:city,
                 state:state,
                 pincode:pincode
-
             },
             success:function(data){
 
             }
         })
+    })
+    $("#rzp-button1").click(function(){
+        document.location.href="global/api/page.php";
     })
 </script>
 <?php include("components/footer.php"); ?>
