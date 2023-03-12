@@ -45,6 +45,11 @@ $_SESSION['razorpay_order_id'] = $order_id;
         "handler": function (response) {
             location.href = "../shopping-cart.php";
         },
+        "modal": {
+            "ondismiss": function () {
+                location.href = "../checkout.php"
+            }
+        },
         "notes": {
             "address": "Mera Ghar"
         },
@@ -65,4 +70,5 @@ $_SESSION['razorpay_order_id'] = $order_id;
         alert(response.error.metadata.order_id);
         alert(response.error.metadata.payment_id);
     });
+
 </script>
