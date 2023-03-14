@@ -248,7 +248,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             </div>
             <div class="row">
                 <?php
-                $relateditemsql = 'SELECT * FROM product WHERE cat_id=' . $detail['cat_id'] . ' AND NOT id=' . $id . ' ORDER BY id DESC';
+                $relateditemsql = 'SELECT * FROM product WHERE cat_id=' . $detail['cat_id'] . ' AND NOT id=' . $id . ' ORDER BY id DESC LIMIT 4';
                 $result = mysqli_query($conn, $relateditemsql);
                 while ($relateditem = mysqli_fetch_assoc($result)) {
                     ?>
