@@ -63,7 +63,7 @@ function redirect($url)
         <div class="sidebar active">
             <div class="brand">
                 <a href="index.php" class="brand-link">
-                    <i class="fa-brands fa-steam"></i>
+                    <i class="fa-solid fa-shirt"></i>
                 </a>
                 <a href="index.php" class="brand-link">
                     <span class="brand_name">MEMENTO</span>

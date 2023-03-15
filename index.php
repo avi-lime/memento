@@ -94,16 +94,6 @@
 </section>
 <!-- Banner Section End -->
 
-
-
-<!-- Instagram Section Begin -->
-
-<?php
-$table = "product";
-$sql = "SELECT * FROM product";
-$result = mysqli_query($conn, $sql);
-?>
-
 <section class="product spad">
     <div class="container">
         <div class="row">
@@ -295,7 +285,7 @@ $result = mysqli_query($conn, $sql);
 </section>
 
 <!-- Instagram Section Begin -->
-<section class="instagram spad">
+<section class="instagram spad" style="padding-bottom: 100px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">

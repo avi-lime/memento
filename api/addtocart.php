@@ -14,7 +14,7 @@ if (isset($_REQUEST['id']) && isset($_REQUEST['quantity']) && isset($_REQUEST['s
     if ($rows > 0) {
         $sql = "UPDATE cart SET quantity=quantity + $quantity WHERE user_id=$userid AND product_id=$id AND size='$size' ";
         mysqli_query($conn, $sql) or die(mysqli_errno($conn));
-        $message = "Item ince by 1";
+        $message = "Item increased by 1";
     } else {
         $sql = 'INSERT INTO cart(product_id,quantity,size,user_id) VALUES(' . $id . ',' . $quantity . ',"' . $size . '",' . $userid . ')';
         mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -38,7 +38,8 @@ if (isset($_REQUEST['id']) && isset($_REQUEST['quantity']) && isset($_REQUEST['s
     $size = $_REQUEST['size'];
     $sql = "UPDATE cart SET quantity=$quantity, size='$size' WHERE id=$id";
     mysqli_query($conn, $sql) or die(mysqli_errno($conn));
-    $message = "Cart Updated!";
+    $message = "Cart updated";
+
 }
 
 echo $message;
