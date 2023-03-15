@@ -25,8 +25,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product__details__breadcrumb">
-                            <a href="./index.php">Home</a>
-                            <a href="./shop.php">Shop</a>
+                            <a href="./index">Home</a>
+                            <a href="./shop">Shop</a>
                             <span>Product Details</span>
                         </div>
                     </div>
@@ -134,7 +134,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     </div>
                                 </div>
                                 <input type="button" class="primary-btn" id="<?= $detail['id'] ?>" value="add to cart">
-                                <a href="shopping-cart.php"><input type="button" class="primary-btn"
+                                <a href="shopping-cart"><input type="button" class="primary-btn"
                                         id="<?= $detail['id'] ?>" value="Buy Now"></a>
                             </div>
                             <div class="product__details__btns__option">
@@ -254,7 +254,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                     ?>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <a href="shop-details.php?product_id=<?= $relateditem['id']; ?>">
+                            <a href="shop-details?product_id=<?= $relateditem['id']; ?>">
                                 <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                                 $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
                                 $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
@@ -347,8 +347,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product__details__breadcrumb">
-                            <a href="./index.php">Home</a>
-                            <a href="./shop.php">Shop</a>
+                            <a href="./index">Home</a>
+                            <a href="./shop">Shop</a>
                             <span>Where the heck am I</span>
                         </div>
                     </div>
@@ -400,7 +400,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
         })
         $(".login").click(function (e) {
             e.preventDefault();
-            document.location.href = "login.php";
+            document.location.href = "login";
         })
         $(".primary-btn").click(function () {
             let id = $(this).attr("id");

@@ -56,11 +56,11 @@ include "global/api/conn.php";
                 <?php
                 if (!isset($_SESSION['user'])) {
                     ?>
-                    <a href="login.php">Sign in</a>
+                    <a href="login">Sign in</a>
                     <?php
                 } else {
                     ?>
-                    <a href="api/logout.php">Sign out</a>
+                    <a href="api/logout">Sign out</a>
                     <?php
                 }
                 ?>
@@ -70,8 +70,8 @@ include "global/api/conn.php";
         </div>
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><i class="fa-solid fa-magnifying-glass"></i></a>
-            <a href="./wishlist.php"><i class="fa-regular fa-heart"></i></a>
-            <a href="./cart.php"><i class="fa-solid fa-bag-shopping"></i></a>
+            <a href="./wishlist"><i class="fa-regular fa-heart"></i></a>
+            <a href="./cart"><i class="fa-solid fa-bag-shopping"></i></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
@@ -96,7 +96,7 @@ include "global/api/conn.php";
                                 <?php
                                 if (!isset($_SESSION['user'])) {
                                     ?>
-                                    <a href="login.php">Sign in</a>
+                                    <a href="login">Sign in</a>
                                     <?php
                                 } else {
                                     ?>
@@ -105,7 +105,7 @@ include "global/api/conn.php";
                                 }
                                 ?>
                                 <a href="#">FAQs</a>
-                                <a href="./blog.php">Blog</a>
+                                <a href="./blog">Blog</a>
                             </div>
                         </div>
                     </div>
@@ -117,8 +117,8 @@ include "global/api/conn.php";
                 <div class="col-xl-4 col-lg-5">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li class="active"><a href="./index.php">Home</a></li>
-                            <li><a href="./shop.php?sub_id=&cat_id=">Category</a>
+                            <li class="active"><a href="./index">Home</a></li>
+                            <li><a href="./shop?sub_id=&cat_id=">Category</a>
                                 <ul class="dropdown">
                                     <?php
                                     $query = "SELECT * FROM category";
@@ -126,8 +126,7 @@ include "global/api/conn.php";
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             ?>
                                             <div class="list">
-                                                <li class="dropdown-item-m"><a
-                                                        href="shop.php?sub_id=&cat_id=<?= $row["id"] ?>">
+                                                <li class="dropdown-item-m"><a href="shop?sub_id=&cat_id=<?= $row["id"] ?>">
                                                         <?= $row['name'] ?>
                                                     </a></li>
                                                 <ul class="sub-dropdown">
@@ -137,7 +136,7 @@ include "global/api/conn.php";
                                                         while ($subrow = mysqli_fetch_assoc($subresult)) {
                                                             ?>
                                                             <li class="sub-dropdown-item"><a
-                                                                    href="shop.php?cat_id=<?= $subrow["cat_id"] ?>&sub_id=<?= $subrow["id"] ?>">
+                                                                    href="shop?cat_id=<?= $subrow["cat_id"] ?>&sub_id=<?= $subrow["id"] ?>">
                                                                     <?= $subrow['name'] ?>
                                                                 </a></li>
                                                             <?php
@@ -149,14 +148,14 @@ include "global/api/conn.php";
                                     ?>
                                         </ul>
                             </li>
-                            <li><a href="./contact.php">Contact Us</a></li>
-                            <li><a href="./about.php">About Us</a></li>
+                            <li><a href="./contact">Contact Us</a></li>
+                            <li><a href="./about">About Us</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-xl-4 col-lg-2 text-center">
                     <div class="header__logo">
-                        <a href="./index.php"><img height="84px" src="img/mxm-white.png" alt=""></a>
+                        <a href="./index"><img height="84px" src="img/mxm-white.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-5">
@@ -165,13 +164,13 @@ include "global/api/conn.php";
                         <?php
                         if (isset($_SESSION['user'])) {
                             ?>
-                            <a href="user.php"><i class="fa-solid fa-user"></i></a>
+                            <a href="account"><i class="fa-solid fa-user"></i></a>
                             <?php
                         } ?>
-                        <a href="wishlist.php?userid=<?php if (isset($_SESSION['user'])) {
+                        <a href="wishlist?userid=<?php if (isset($_SESSION['user'])) {
                             echo $_SESSION["user"];
                         } ?>"><i class="fa-regular fa-heart"></i></a>
-                        <a href="./shopping-cart.php?userid=<?php if (isset($_SESSION['user'])) {
+                        <a href="./shopping-cart?userid=<?php if (isset($_SESSION['user'])) {
                             echo $_SESSION["user"];
                         } ?>"><i class="fa-solid fa-bag-shopping"></i></a>
                     </div>

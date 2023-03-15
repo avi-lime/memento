@@ -35,7 +35,7 @@ if (isset($_REQUEST["btn_signin"])) {
             $_SESSION["user"] = $user["id"];
             $_SESSION["username"] = $user["name"];
             $_SESSION['expire'] = time() + (60 * 60);
-            redirect('index.php');
+            redirect('index');
         } else {
             $error = "E-mail and Password don't match.";
         }

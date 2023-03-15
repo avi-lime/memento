@@ -11,8 +11,8 @@ if (isset($_SESSION['user'])) {
                     <div class="breadcrumb__text">
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.php">Home</a>
-                            <a href="./shop.php">Shop</a>
+                            <a href="./index">Home</a>
+                            <a href="./shop">Shop</a>
                             <span>Shopping Cart</span>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ if (isset($_SESSION['user'])) {
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn">
-                                <a href="shop.php">Continue Shopping</a>
+                                <a href="shop">Continue Shopping</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -160,7 +160,7 @@ if (isset($_SESSION['user'])) {
                                     echo $alltotal ?>
                                 </span></li>
                         </ul>
-                        <a href="./checkout.php" class="primary-btn">Proceed to checkout</a>
+                        <a href="./checkout" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
@@ -188,8 +188,8 @@ if (isset($_SESSION['user'])) {
                     <div class="breadcrumb__text">
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.php">Home</a>
-                            <a href="./shop.php">Shop</a>
+                            <a href="./index">Home</a>
+                            <a href="./shop">Shop</a>
                             <span>Where the heck am I</span>
                         </div>
                     </div>

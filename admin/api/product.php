@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST["name"]) || !isset($_POST["desc"])) {
-    header("location: ../product.php");
+    header("location: ../product");
 } else {
     include("../../global/api/conn.php");
 
@@ -56,5 +56,5 @@ if (!isset($_POST["name"]) || !isset($_POST["desc"])) {
         }
     }
 
-    header("location: ../product.php");
+    header("location: ../product");
 }

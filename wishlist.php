@@ -14,7 +14,7 @@ $userid = $_REQUEST['userid'] ?>
 					<div class="breadcrumb__text">
 						<h4>Shop</h4>
 						<div class="breadcrumb__links">
-							<a href="./index.php">Home</a>
+							<a href="./index">Home</a>
 							<span>Shop</span>
 						</div>
 					</div>
@@ -36,12 +36,12 @@ $userid = $_REQUEST['userid'] ?>
 						?>
 					<div class="col-md-3 pb-2 d-flex" style="gap: 8px">
 						<div class="card" style="width: 18rem; ">
-							<a href="shop-details.php?product_id=<?= $wishlistdetails['id'] ?>">
+							<a href="shop-details?product_id=<?= $wishlistdetails['id'] ?>">
 								<img class="card-img-top" src="global/assets/images/
-											<?php
-											$sql = 'SELECT image FROM product_images WHERE product_id = "' . $wishlist['product_id'] . '" LIMIT 1';
-											$image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-											echo $image['image']; ?>
+															<?php
+															$sql = 'SELECT image FROM product_images WHERE product_id = "' . $wishlist['product_id'] . '" LIMIT 1';
+															$image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+															echo $image['image']; ?>
 									" alt="<?= $wishlistdetails['name'] ?>" />
 							</a>
 							<div class="card-img-overlay">
@@ -64,7 +64,7 @@ $userid = $_REQUEST['userid'] ?>
 								</li>
 							</ul>
 							<div class="card-body">
-								<a href="shopping-cart.php" style="color:#ff3e6c;text-decoration: none" class="addtobag">Add To
+								<a href="shopping-cart" style="color:#ff3e6c;text-decoration: none" class="addtobag">Add To
 									Bag</a>
 							</div>
 						</div>

@@ -43,11 +43,11 @@ $_SESSION['razorpay_order_id'] = $order_id;
         "image": "../img/mxm-black.png",
         "order_id": "<?= $order_id ?>",
         "handler": function (response) {
-            location.href = "../shopping-cart.php";
+            location.href = "../shopping-cart";
         },
         "modal": {
             "ondismiss": function () {
-                location.href = "../checkout.php"
+                location.href = "../checkout"
             }
         },
         "notes": {

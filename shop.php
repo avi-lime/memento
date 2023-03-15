@@ -8,7 +8,7 @@
                 <div class="breadcrumb__text">
                     <h2>Shop</h2>
                     <div class="breadcrumb__links">
-                        <a href="./index.php">Home</a>
+                        <a href="./index">Home</a>
                         <span>Shop</span>
                     </div>
                 </div>
@@ -458,7 +458,7 @@
                                                 if ($result = mysqli_query($conn, $subquery)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
                                                         ?>
-                                                        <a href="shop.php?cat_id=<?= $row['cat_id'] ?>&sub_id=<?= $row['id'] ?>"><?php
+                                                        <a href="shop?cat_id=<?= $row['cat_id'] ?>&sub_id=<?= $row['id'] ?>"><?php
                                                             echo $row['name'] ?></a>
                                                         <?php
                                                     }
@@ -468,7 +468,7 @@
                                                 if ($result = mysqli_query($conn, $query)) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
                                                         ?>
-                                                        <a href="shop.php?cat_id=<?= $row['cat_id'] ?>&sub_id=<?= $row['id'] ?>"><?php
+                                                        <a href="shop?cat_id=<?= $row['cat_id'] ?>&sub_id=<?= $row['id'] ?>"><?php
                                                             echo $row['name'] ?></a>
                                                         <?php
                                                     }
@@ -555,7 +555,7 @@
                             ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item sale">
-                                    <a href="shop-details.php?product_id=<?= $prow['id']; ?>">
+                                    <a href="shop-details?product_id=<?= $prow['id']; ?>">
                                         <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                                         $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
                                         $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
@@ -717,7 +717,7 @@
 
         $('.login').click(function (e) {
             e.preventDefault();
-            document.location.href = "login.php";
+            document.location.href = "login";
         })
     })
 </script>

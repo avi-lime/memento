@@ -1,6 +1,6 @@
 <?php include("components/header.php");
 if (!isset($_SESSION['user'])) {
-    redirect("shopping-cart.php");
+    redirect("login");
 }
 $userid = $_SESSION['user'];
 ?>
@@ -13,8 +13,8 @@ $userid = $_SESSION['user'];
                 <div class="breadcrumb__text">
                     <h4>Check Out</h4>
                     <div class="breadcrumb__links">
-                        <a href="./index.php">Home</a>
-                        <a href="./shop.php">Shop</a>
+                        <a href="./index">Home</a>
+                        <a href="./shop">Shop</a>
                         <span>Check Out</span>
                     </div>
                 </div>

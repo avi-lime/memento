@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST["name"]) || !isset($_POST["cat"])) {
-    redirect("../subcat.php");
+    header("location: ../subcat");
 } else {
 
     include("../../global/api/conn.php");

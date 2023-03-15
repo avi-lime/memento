@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST["name"])) {
-    header("location: ../category.php");
+    header("location: ../category");
 } else {
 
     include("../../global/api/conn.php");
@@ -41,7 +41,7 @@ if (!isset($_POST["name"])) {
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("location: ../category.php");
+    header("location: ../category");
 }
 
 ?>

@@ -8,7 +8,7 @@
                 <div class="breadcrumb__text">
                     <h4>About Us</h4>
                     <div class="breadcrumb__links">
-                        <a href="./index.php">Home</a>
+                        <a href="./index">Home</a>
                         <span>About Us</span>
                     </div>
                 </div>

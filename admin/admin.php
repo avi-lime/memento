@@ -3,7 +3,7 @@ include("template/header.php");
 include("../global/api/conn.php");
 
 if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
-    redirect("dashboard.php");
+    redirect("dashboard");
 }
 
 ?>

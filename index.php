@@ -111,7 +111,7 @@
                 ?>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="product__item">
-                        <a href="shop-details.php?product_id=<?= $relateditem['id']; ?>">
+                        <a href="shop-details?product_id=<?= $relateditem['id']; ?>">
                             <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                             $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
                             $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
@@ -172,7 +172,7 @@
                 ?>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="product__item">
-                        <a href="shop-details.php?product_id=<?= $relateditem['id']; ?>">
+                        <a href="shop-details?product_id=<?= $relateditem['id']; ?>">
                             <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                             $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
                             $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
@@ -233,7 +233,7 @@
                 ?>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="product__item">
-                        <a href="shop-details.php?product_id=<?= $relateditem['id']; ?>">
+                        <a href="shop-details?product_id=<?= $relateditem['id']; ?>">
                             <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
                             $sql = 'SELECT image FROM product_images WHERE product_id = "' . $relateditem['id'] . '" LIMIT 1';
                             $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));

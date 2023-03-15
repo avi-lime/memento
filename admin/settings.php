@@ -3,7 +3,7 @@ include("template/header.php");
 include("../global/api/conn.php");
 
 if (!isset($_SESSION["admin"])) {
-    redirect("./login.php");
+    redirect("./login");
 }
 ?>
 <div class="card">

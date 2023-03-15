@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST["name"])) {
-    redirect("../category.php");
+    header("location: ../slider");
 } else {
 
     include("../../global/api/conn.php");
@@ -41,5 +41,5 @@ if (!isset($_POST["name"])) {
     }
 
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("location: ../slider.php");
+    header("location: ../slider");
 }

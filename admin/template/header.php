@@ -2,13 +2,13 @@
 session_start();
 
 if (!isset($_SESSION["admin"]) || $_SESSION["admin"] == null) {
-    redirect("login.php");
+    redirect("login");
 }
 
 if (time() > $_SESSION['expire']) {
     session_unset();
     session_destroy();
-    redirect("login.php");
+    redirect("login");
 }
 session_abort();
 
@@ -62,17 +62,17 @@ function redirect($url)
     <div class="hero">
         <div class="sidebar active">
             <div class="brand">
-                <a href="index.php" class="brand-link">
+                <a href="index" class="brand-link">
                     <i class="fa-solid fa-shirt"></i>
                 </a>
-                <a href="index.php" class="brand-link">
+                <a href="index" class="brand-link">
                     <span class="brand_name">MEMENTO</span>
                 </a>
             </div>
             <div class="navigation">
                 <ul class="items-list">
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Dashboard" data-bs-placement="right">
-                        <a href="dashboard.php">
+                        <a href="dashboard">
                             <i class="fa-solid fa-house"></i>
                             <span class="links_name">Dashboard</span>
                         </a>
@@ -81,7 +81,7 @@ function redirect($url)
                     if (isset($_SESSION["super"]) && $_SESSION["super"] == 1) {
                         ?>
                         <li class="item" data-bs-toggle="tooltip" data-bs-title="Admins" data-bs-placement="right">
-                            <a href="admin.php">
+                            <a href="admin">
                                 <i class="fa-solid fa-id-badge"></i>
                                 <span class="links_name">Admins</span>
                             </a>
@@ -90,37 +90,37 @@ function redirect($url)
                     }
                     ?>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Categories" data-bs-placement="right">
-                        <a href="category.php">
+                        <a href="category">
                             <i class="fa-solid fa-shapes"></i>
                             <span class="links_name">Categories</span>
                         </a>
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Sub-Categories" data-bs-placement="right">
-                        <a href="subcat.php">
+                        <a href="subcat">
                             <i class="fas fa-folder"></i>
                             <span class="links_name">Sub-Categories</span>
                         </a>
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Products" data-bs-placement="right">
-                        <a href="product.php">
+                        <a href="product">
                             <i class="fa-solid fa-clipboard-list"></i>
                             <span class="links_name">Products</span>
                         </a>
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Users" data-bs-placement="right">
-                        <a href="user.php">
+                        <a href="user">
                             <i class="fa-solid fa-users"></i>
                             <span class="links_name">Users</span>
                         </a>
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="Orders" data-bs-placement="right">
-                        <a href="order.php">
+                        <a href="order">
                             <i class="fa-solid fa-box"></i>
                             <span class="links_name">Orders</span>
                         </a>
                     </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="slider" data-bs-placement="right">
-                        <a href="slider.php">
+                        <a href="slider">
                             <i class="fa-regular fa-images"></i>
                             <span class="links_name">Slider</span>
                         </a>
@@ -139,7 +139,7 @@ function redirect($url)
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
                     <li>
-                        <a class="dropdown-item" href="settings.php">
+                        <a class="dropdown-item" href="settings">
                             Message
                         </a>
                     </li>
@@ -166,7 +166,7 @@ function redirect($url)
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
                     <li>
-                        <a class="dropdown-item" href="settings.php">
+                        <a class="dropdown-item" href="settings">
                             <i class="fa-solid fa-cog"></i>&nbsp;&nbsp;Settings
                         </a>
                     </li>
