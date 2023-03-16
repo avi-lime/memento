@@ -111,15 +111,16 @@ function redirect($url)
                                 <input type="text" id="email_signin" name="email_signin" class="input-field" required />
                                 <label>Email or Phone Number</label>
                             </div>
-                            <div class="input-wrap">
+                            <div class="input-wrap" style="margin-bottom:10px">
                                 <input type="password" id="pass_signin" name="pass_signin" class="input-field"
                                     required />
                                 <label>Password</label>
                             </div>
+                            <a href="forgotpassword.php" style="margin-left:230px;text-decoration:none;color:#9c95ae; font-size:15px;"> Forgot Password</a>
                             <input type="submit" value="Sign In" id="btn_signin" name="btn_signin" class="sign-btn" />
                             <p class="text">
                                 Forgotten your password or your login details?
-                                <a href="#">Get help</a> signing in
+                                <a href="contact.php">Get help</a> signing in
                             </p>
                         </div>
                     </form>
@@ -150,7 +151,6 @@ function redirect($url)
                                     class="input-field" required />
                                 <label>Password</label>
                             </div>
-
                             <input type="submit" value="Sign Up" id="btn_signup" name="btn_signup" class="sign-btn" />
 
                             <p class="text">
