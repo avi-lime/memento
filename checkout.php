@@ -119,9 +119,11 @@ $userid = $_SESSION['user'];
                                         echo $totalprice ?>
                                     </span></li>
                             </ul>
-                            <button type="button" name="btnnet" id="rzp-button1"
-                                class="site-btn">NetBanking</button></br>
-                            <button type="button" name="btncod" id="site-btn" class="site-btn">COD</button>
+                            <button type="button" name="btnnet" id="rzp-button1" class="primary-btn mb-2 w-100">pay
+                                online</button></br>
+                            <button type="button" name="btncod" id="site-btn" class="primary-btn mb-2 w-100">pay on
+                                delivery *</button>
+                            <p>* (+50₹) when using pay on delivery</p>
                         </div>
                     </div>
                 </div>
