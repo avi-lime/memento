@@ -1,4 +1,12 @@
-<?php include("components/header.php"); ?>
+<?php
+include("components/header.php");
+
+if (!isset($_SESSION["user"])) {
+    redirect("login");
+} else
+    $userid = $_SESSION["user"];
+
+?>
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
@@ -23,41 +31,52 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h2>Account Details</h2>
+                <h2>Personal Details</h2>
                 <hr>
                 <div class="checkout__form">
-                    <form action="" method="Post">
-                        <div class="">
+                    <?php
+                    $result = mysqli_query($conn, "SELECT * FROM user WHERE id=$userid");
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <form action="" method="Post">
                             <div class="">
-                                <div class="checkout__input">
-                                    <p>E-Mail</p>
-                                    <input type="email" id="email" name="email" required disabled>
-                                </div>
-                                <div class="checkout__input">
-                                    <p>Phone Number:</p>
-                                    <input type="tel" required id="phno" name="phno" disabled>
+                                <div class="">
+                                    <div class="checkout__input">
+                                        <p>Name</p>
+                                        <input type="text" id="name" name="name" value="<?= $row['name'] ?>" required
+                                            disabled>
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>E-Mail</p>
+                                        <input type="email" id="email" name="email" value="<?= $row['email'] ?>" required
+                                            disabled>
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Phone Number:</p>
+                                        <input type="tel" required id="phno" name="phno" value="<?= $row['mobileno'] ?>"
+                                            pattern="[0-9]{10}" disabled>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                    <button class="primary-btn" id="btnEdit" onclick="edit();">EDIT</button>
-                    <button class="primary-btn" id="btnEdit" onclick="edit();">change password</button>
+                        </form>
+                    <?php } ?>
+                    <button class="primary-btn btnEdit" id="<?= $userid ?>" onclick="edit(this);">EDIT</button>
+                    <button class="primary-btn" id="btnPass">change password</button>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="card mb-3" role="button">
                     <div class="card-body">
-                        <div class="card-title h4">
-                            MY ORDERS
+                        <div class="card-title h4 d-flex">
+                            MY ORDERS <i class="fa-solid fa-boxes-stacked ms-auto me-2"></i>
                         </div>
                         <p>View, Track or Manage Orders</p>
                     </div>
                 </div>
                 <div class="card" role="button">
                     <div class="card-body">
-                        <div class="card-title h4">
-                            MANAGE ADDRESSES
-
+                        <div class="card-title h4 d-flex">
+                            MANAGE ADDRESSES <i class="fa-solid fa-address-book ms-auto me-2"></i>
                         </div>
                         <p>Edit, Add or Remove your delivery addresses</p>
                     </div>
@@ -66,14 +85,62 @@
         </div>
     </div>
 </section>
+<!-- toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Memento</strong>
+            <small>Just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+
+        </div>
+    </div>
+</div>
 <script>
-    function edit() {
+    function edit(e) {
         $("input").attr("disabled", false);
         $("input")[0].focus();
-        $("#btnEdit").text("SAVE")
+        $(e).text("SAVE")
+
+        if (!$(".btnEdit").hasClass("btnUpdate")) $(".btnEdit").addClass("btnUpdate")
+        else {
+            let id = $(e).attr("id");
+            $.ajax({
+                url: "api/account.php",
+                method: "POST",
+                data: {
+                    name: $("#name").val(),
+                    phno: $("#phno").val(),
+                    email: $("#email").val(),
+                    id: id
+                },
+                success: function (data) {
+                    // Show toast
+                    const toastLiveExample = document.getElementById('liveToast')
+                    $(".toast-body").text(data)
+                    const toast = new bootstrap.Toast($("#liveToast"))
+                    toast.show()
+                    // Disable inputs and change text
+                    $(".btnEdit").removeClass("btnUpdate")
+                    $("input").attr("disabled", true);
+                    $(e).text("EDIT")
+                }
+            })
+        }
     }
-    $(".card").hover(function () {
-        $(this).toggleClass("border-dark")
+    $(document).ready(() => {
+        $(".card").hover(function () {
+            $(this).toggleClass("border-dark")
+        })
+
+        $('input[type="tel"]').keypress(function (e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+            if ($(this).val().length >= 10) return false;
+        });
     })
 </script>
 
