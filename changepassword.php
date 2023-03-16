@@ -16,28 +16,39 @@ require_once("global/api/conn.php");
     <link rel="shortcut icon" href="img/mxm-white.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="img/mxm-white.png">
 </head>
+<?php 
+if(isset($_REQUEST['btn_change'])){
+    $pass=$_REQUEST['pass'];
+    $confirmpass=$_REQUEST['confirmpass'];
+    if($pass==$confirmpass){
+        $sanitized_password = mysqli_real_escape_string($conn, $password);
+        $hashed_password = password_hash($sanitized_password, PASSWORD_DEFAULT);
+        $sql="UPDATE user SET password='$hashed_password' WHERE email='$'";
+    }else{
+        echo "<script>alert('no boi')</script>";
+    }
+}
+?>
 <body>
     <main>
         <div class="box">
-
             <div class="forms-wrap col-md-6">
                 <form action="" method="POST" class="sign-in-form">
                     <div class="logo">
                         <img src="img/mxm-black.png" alt="Clothing" />
                     </div>
                     <div class="heading">
-                        <h2>Password assistance</h2>
-                        <h6>Enter the email address associated with your Memento account.</h6>
+                        <h3>Create new password</h3>
+                        <h6>We'll ask for this password whenever you sign in.</h6>
                     </div>
                     <div class="actual-form">
                         <div class="input-wrap" style="margin-bottom: 8px;">
-                            <input type="text" id="email" name="email" class="input-field" required placeholder="Email" />
+                            <input type="text" id="pass" name="pass" class="input-field" required placeholder="New Password" />
                         </div>
-                        <p class="sendotp" style="margin-left: 290px;color:#9c95ae;border: none;background-color: white;">Get OTP</p>
                         <div class="input-wrap">
-                            <input type="text" id="otp" name="otp" class="input-field" required placeholder="OTP" disabled />
+                            <input type="text" id="confirmpass" name="confirmpass" class="input-field" required placeholder="Confirm New Password"/>
                         </div>
-                        <input type="submit" value="Continue" id="btn_checkotp" name="btn_checkotp" class="sign-btn" />
+                        <input type="submit" value="Continue" id="btn_change" name="btn_change" class="sign-btn" />
                         <p class="text">
                             Forgotten your password or your login details?
                             <a href="contact.php">Get help</a> signing in
@@ -55,47 +66,4 @@ require_once("global/api/conn.php");
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
-<script>
-    $(document).ready(function () {
-    let otp=Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000;
-
-    $(".sendotp").click(function() {
-        let email = $("#email").val();
-        var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (!emailRegex.test(email)) {
-            alert("Enter a email");
-            return false;
-        }else{
-        console.log(email);// nikalna hai end mai
-        let subject= "Forgot your Password?";
-        let body="Your OTP IS "+otp ;
-        let altbody="mail for change otp";
-        $.ajax({
-            url:"mail/",
-            method:"post",
-            data:{
-                email: email,
-                subject: subject,
-                body: body,
-                altbody: altbody,
-            },
-            success:function(data){
-                console.log(otp);//nikalna hai end mai
-                alert(data);
-                $("#otp").prop('disabled',false);
-            }
-        })
-    }
-    })
-    $(".sign-btn").click(function(){
-        let checkotp=$("#otp").val();
-        if(checkotp==otp){
-            location.href="changepassword.php"
-           alert("ya boi");//idher redirect karde nahi maan raaha location.href ya document ya koi bhi bhadwa hai
-        }else{
-            alert("Incorrect OTP")}
-    })
-})
-</script>
-
 </html>

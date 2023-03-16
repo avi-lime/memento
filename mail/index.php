@@ -7,43 +7,50 @@ use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require 'vendor/autoload.php';
-
+require '../global/api/conn.php';
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
-if(isset($_REQUEST['email'])){ 
-$email=$_REQUEST['email'];
-$subject=$_REQUEST['subject'];
-$body=$_REQUEST['body'];
-$altbody=$_REQUEST['altbody'];
-try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'jigyasusharma2803@gmail.com';                     //SMTP username
-    $mail->Password   = 'oaqdqszdsrqtcoyn';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+if (isset($_REQUEST['email'])) {
+    $email = $_REQUEST['email'];
+    $sql = 'SELECT * FROM user WHERE email="' . $email . '"';
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) <= 0) {
+        $message = "User does not exists";
+        echo $message;
+    } else {
+        $subject = $_REQUEST['subject'];
+        $body = $_REQUEST['body'];
+        $altbody = $_REQUEST['altbody'];
+        try {
+            //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'jigyasusharma2803@gmail.com';                     //SMTP username
+            $mail->Password   = 'oaqdqszdsrqtcoyn';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-    //Recipients 
-    $mail->setFrom('jigyasusharma2803@gmail.com', 'Jigyasu Sharma');
-    $mail->addAddress($email);     //Add a recipient
-    //Name is optional
-    $mail->addReplyTo('jigyasusharma2803@gmail.com', 'Information');
-   // $mail->addCC('cc@example.com');
-    //$mail->addBCC('bcc@example.com');
-    //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = $subject;
-    $mail->Body    = $body;//'This is the HTML message body <b>in bold!</b>'
-    $mail->AltBody = $altbody;
+            //Recipients 
+            $mail->setFrom('jigyasusharma2803@gmail.com', 'Jigyasu Sharma');
+            $mail->addAddress($email);     //Add a recipient
+            //Name is optional
+            $mail->addReplyTo('jigyasusharma2803@gmail.com', 'Information');
+            // $mail->addCC('cc@example.com');
+            //$mail->addBCC('bcc@example.com');
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body    = $body; //'This is the HTML message body <b>in bold!</b>'
+            $mail->AltBody = $altbody;
 
-    $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-}else{
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+} else {
     echo "idher kya kar raha";
 }
