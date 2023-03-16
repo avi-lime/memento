@@ -10,6 +10,9 @@ require_once("global/api/conn.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memento Sign in & Sign up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/login.css">
@@ -111,12 +114,15 @@ function redirect($url)
                                 <input type="text" id="email_signin" name="email_signin" class="input-field" required />
                                 <label>Email or Phone Number</label>
                             </div>
-                            <div class="input-wrap" style="margin-bottom:10px">
+                            <div class="input-wrap d-flex" style="margin-bottom:10px">
                                 <input type="password" id="pass_signin" name="pass_signin" class="input-field"
                                     required />
                                 <label>Password</label>
+                                <i class="fa-solid fa-eye ms-auto mt-3 me-1 z-3 passToggle" role="button"></i>
                             </div>
-                            <a href="forgotpassword.php" style="margin-left:230px;text-decoration:none;color:#9c95ae; font-size:15px;"> Forgot Password</a>
+                            <a href="forgotpassword.php"
+                                style="margin-left:230px;text-decoration:none;color:#9c95ae; font-size:15px;"> Forgot
+                                Password</a>
                             <input type="submit" value="Sign In" id="btn_signin" name="btn_signin" class="sign-btn" />
                             <p class="text">
                                 Forgotten your password or your login details?
@@ -146,10 +152,11 @@ function redirect($url)
                                 <label>Email</label>
                             </div>
 
-                            <div class="input-wrap">
+                            <div class="input-wrap d-flex">
                                 <input type="password" minlength="4" id="pass_signup" name="pass_signup"
                                     class="input-field" required />
                                 <label>Password</label>
+                                <i class="fa-solid fa-eye ms-auto me-1 mt-3 z-3 passToggle" role="button"></i>
                             </div>
                             <input type="submit" value="Sign Up" id="btn_signup" name="btn_signup" class="sign-btn" />
 
@@ -168,6 +175,8 @@ function redirect($url)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script>
         const inputs = document.querySelectorAll(".input-field");
         const toggle_btn = document.querySelectorAll(".toggle");
@@ -208,6 +217,17 @@ function redirect($url)
         bullets.forEach((bullet) => {
             bullet.addEventListener("click", moveSlider);
         });
+
+        $(document).ready(function () {
+            $(".passToggle").click(function () {
+                $(this).toggleClass("fa-eye")
+                $(this).toggleClass("fa-eye-slash")
+                let passField = $(this).siblings("input")
+                if (passField.attr("type") == "password") passField.attr("type", "text")
+                else passField.attr("type", "password")
+            })
+        })
+
     </script>
 </body>
 
