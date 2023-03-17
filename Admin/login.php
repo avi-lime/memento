@@ -45,7 +45,7 @@ require_once("../global/api/conn.php");
                 $_SESSION["admin"] = $admin["id"];
                 $_SESSION["super"] = $admin["superadmin"];
                 $_SESSION['expire'] = time() + (60 * 60);
-                redirect("dashboard.php");
+                redirect("dashboard");
             } else {
                 $error = "E-mail and Password don't match.";
             }
