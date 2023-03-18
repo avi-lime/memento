@@ -102,7 +102,7 @@ function redirect($url)
                 <div class="forms-wrap col-md-6">
                     <form action="" method="POST" class="sign-in-form">
                         <div class="logo">
-                            <img src="img/mxm-black.png" alt="Clothing" />
+                            <a href="index.php"><img src="img/mxm-black.png" alt="Clothing" /></a>
                         </div>
                         <div class="heading">
                             <h2>Welcome Back</h2>

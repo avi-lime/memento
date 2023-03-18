@@ -25,7 +25,7 @@ require_once("global/api/conn.php");
             <div class="forms-wrap col-md-6">
                 <form action="" method="POST" class="sign-in-form">
                     <div class="logo">
-                        <img src="img/mxm-black.png" alt="Clothing" />
+                        <a href="index.php"><img src="img/mxm-black.png" alt="Clothing" /></a> 
                     </div>
                     <div class="heading">
                         <h2>Password assistance</h2>
@@ -78,6 +78,7 @@ require_once("global/api/conn.php");
                 $(".sendotp").attr('disabled', true)
 
                 console.log(email);// nikalna hai end mai
+                console.log(otp);
                 let subject = "Forgot your Password?";
                 let body = "Your OTP IS " + otp;
                 let altbody = "mail for change otp";
