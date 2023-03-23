@@ -283,10 +283,13 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 </div>
                             </a>
                             <div class="product__item__text">
-                                <h6>
+                                <h5 style=" color: #36454F;
+                                font-weight:620;
+                                font-size: medium;
+                                margin-bottom:5px">
                                     <?= $relateditem['name'] ?>
-                                </h6>
-                                <a href="" class="add-cart" data-bs-toggle="modal" data-bs-target="#modal">+ Add To Cart</a>
+                                </h5>
+                                <!-- <a href="" class="add-cart" data-bs-toggle="modal" data-bs-target="#modal">+ Add To Cart</a> -->
 
                                 <h5>₹
                                     <?php $originalprice = $relateditem['price'];

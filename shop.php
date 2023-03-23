@@ -583,10 +583,13 @@
                                         </div>
                                     </a>
                                     <div class="product__item__text">
-                                        <h6>
-                                            <?= $prow['name']; ?>
-                                        </h6>
-                                        <a href="#" class="add-cart">+ Add To Cart</a>
+                                        <h5 style=" color: #36454F;
+                                        font-weight:620;
+                                        font-size: medium;
+                                        margin-bottom:2px">
+                                          <?= $prow['name']; ?>
+                                        </h5>
+                                        <!-- <a href="#" class="add-cart">+ Add To Cart</a> -->
                                         <div class="rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>

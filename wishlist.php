@@ -64,7 +64,7 @@ $userid = $_REQUEST['userid'] ?>
 								</li>
 							</ul>
 							<div class="card-body">
-								<a href="shopping-cart" style="color:#ff3e6c;text-decoration: none" class="addtobag">Add To
+								<a href="shopping-cart" style="color:#ff3e6c;text-decoration: none" id="<?=$wishlistdetails["id"] ?>" class="addtobag">Add To
 									Bag</a>
 							</div>
 						</div>
@@ -91,6 +91,12 @@ $userid = $_REQUEST['userid'] ?>
 					console.log("product added to wishlist")
 					document.location.reload();
 				}
+			})
+		})
+		$(".addtobag").click(function(){
+			var id = $(this).attr("id");
+			$.ajax({
+				
 			})
 		})
 	</script>

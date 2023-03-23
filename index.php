@@ -136,10 +136,13 @@
                             </div>
                         </a>
                         <div class="product__item__text">
-                            <h6>
+                            <h5 style=" color: #36454F;
+                                font-weight:620;
+                                font-size: medium;
+                                margin-bottom:5px">
                                 <?= $relateditem['name'] ?>
-                            </h6>
-                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            </h5>
+                            <!-- <a href="#" class="add-cart">+ Add To Cart</a> -->
                             <h5>₹
                                 <?php $originalprice = $relateditem['price'];
                                 $discountrate = $relateditem['discount'];
@@ -197,10 +200,13 @@
                             </div>
                         </a>
                         <div class="product__item__text">
-                            <h6>
+                            <h5 style=" color: #36454F;
+                                font-weight:620;
+                                font-size: medium;
+                                margin-bottom:5px">
                                 <?= $relateditem['name'] ?>
-                            </h6>
-                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            </h5>
+                            <!-- <a href="#" class="add-cart">+ Add To Cart</a> -->
                             <h5>₹
                                 <?php $originalprice = $relateditem['price'];
                                 $discountrate = $relateditem['discount'];
@@ -258,10 +264,13 @@
                             </div>
                         </a>
                         <div class="product__item__text">
-                            <h6>
+                            <h5 style=" color: #36454F;
+                                font-weight:620;
+                                font-size: medium;
+                                margin-bottom:5px">
                                 <?= $relateditem['name'] ?>
-                            </h6>
-                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            </h5>
+                            <!-- <a href="#" class="add-cart">+ Add To Cart</a> -->
                             <h5>₹
                                 <?php $originalprice = $relateditem['price'];
                                 $discountrate = $relateditem['discount'];
