@@ -59,33 +59,33 @@
             <div class="col-lg-7 offset-lg-4">
                 <div class="banner__item">
                     <div class="banner__item__pic">
-                        <img src="img/banner/banner-1.jpg" alt="">
+                        <img src="img/banner/banner-1.jpg" width= "440" height="440"alt="">
                     </div>
                     <div class="banner__item__text">
-                        <h2>Clothing Collections 2023</h2>
-                        <a href="#">Shop now</a>
+                        <h2>New Arrival Hoodies</h2>
+                        <a href="shop?cat_id=12&sub_id=14">Shop now</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="banner__item banner__item--middle">
                     <div class="banner__item__pic">
-                        <img src="img/banner/banner-2.jpg" alt="">
+                        <img src="img/banner/banner-2.jpg" width= "440" height="440" alt="">
                     </div>
                     <div class="banner__item__text">
-                        <h2>Accessories</h2>
-                        <a href="#">Shop now</a>
+                        <h2>Hot Sales T-Shirts</h2>
+                        <a href="shop?cat_id=12&sub_id=11">Shop now</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-7">
                 <div class="banner__item banner__item--last">
                     <div class="banner__item__pic">
-                        <img src="img/banner/banner-3.jpg" alt="">
+                        <img src="img/banner/banner-3.jpg" width="440" height= "550"alt="">
                     </div>
                     <div class="banner__item__text">
-                        <h2>Shoes Spring 2023</h2>
-                        <a href="#">Shop now</a>
+                        <h2>OverSize Spring 2023</h2>
+                        <a href="shop?cat_id=12&sub_id=13">Shop now</a>
                     </div>
                 </div>
             </div>

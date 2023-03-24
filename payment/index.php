@@ -27,11 +27,12 @@ $order_id = $razorpayOrder['id'];
 $order_receipt = $razorpayOrder['receipt'];
 $order_amount = $razorpayOrder['amount'];
 $order_currency = $razorpayOrder['currency'];
-$order_created_at = date('d-m-y h:i:s a', $razorpayOrder['created_at']);
+$order_created_at = date('y-m-d H:i:s', $razorpayOrder['created_at']);
 $_SESSION['razorpay_order_id'] = $order_id;
 ?>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <script>
 
     var options = {
@@ -43,7 +44,8 @@ $_SESSION['razorpay_order_id'] = $order_id;
         "image": "../img/mxm-black.png",
         "order_id": "<?= $order_id ?>",
         "handler": function (response) {
-            location.href = "../shopping-cart";
+            payment(true);
+            location.href="../shopping-cart.php";
         },
         "modal": {
             "ondismiss": function () {
@@ -69,6 +71,27 @@ $_SESSION['razorpay_order_id'] = $order_id;
         alert(response.error.reason);
         alert(response.error.metadata.order_id);
         alert(response.error.metadata.payment_id);
+        payment(false);
     });
+    function payment(success){
+        let amount=<?=$actual_amount?>;
+        let addressid=<?=$_SESSION['addressid']?>;
+        let status="NetBanking";
+        let date ="<?=$order_created_at?>";
+        $.ajax({
+            url:"../api/orderplaced.php",
+            method:"POST",
+            data:{
+                amount:amount,
+                addressid:addressid,
+                status:status,
+                date:date,
+                success:success
+            },
+            success: function(data){
+                console.log(data)
+            }
+        })
 
+    }
 </script>

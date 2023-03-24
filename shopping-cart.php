@@ -66,7 +66,7 @@ if (isset($_SESSION['user'])) {
                                                     $discountrate = $product['discount'];
                                                     $discountprice = $originalprice * ($discountrate / 100);
                                                     $price = $originalprice - $discountprice;
-                                                    echo $price; ?><span> ₹
+                                                    echo (int) $price; ?><span> ₹
                                                         <?= $product['price']; ?>
                                                     </span>
                                                 </h5>
@@ -104,7 +104,7 @@ if (isset($_SESSION['user'])) {
                                             <?php $quantity = $details['quantity'];
                                             $total = $price * $quantity;
                                             $prototal += $total;
-                                            echo $total; ?>
+                                            echo (int) $total; ?>
                                         </td>
                                         <td role="button" class="cart__close" id="<?= $details['id'] ?>"><i
                                                 class="fa fa-close"></i>
@@ -141,7 +141,7 @@ if (isset($_SESSION['user'])) {
                         <h6>Cart total</h6>
                         <ul>
                             <li>Subtotal <span>₹
-                                    <?= $prototal;
+                                    <?= (int) $prototal;
                                     $charges = 0 ?>
                                 </span></li>
                             <?php if ($prototal > 0) {
@@ -157,7 +157,7 @@ if (isset($_SESSION['user'])) {
                             } ?>
                             <li>Total <span>₹
                                     <?php $alltotal = $prototal + $charges;
-                                    echo $alltotal ?>
+                                    echo (int) $alltotal ?>
                                 </span></li>
                         </ul>
                         <a href="./checkout" class="primary-btn">Proceed to checkout</a>

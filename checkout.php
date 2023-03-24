@@ -67,6 +67,7 @@ $userid = $_SESSION['user'];
                             <p>Postcode / ZIP<span>*</span></p>
                             <input type="text" id="pincode" name="pincode" required>
                         </div>
+                        <input type="button" class="site-btn" id="saveaddress" name="saveaddress" value="Save Address">
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
@@ -94,7 +95,7 @@ $userid = $_SESSION['user'];
                                     <li>
                                         <?= $count . ".  " . $product['name'] . "(" . strtoupper($details['size']) . ")x" . $quantity; ?>
                                         <span>₹
-                                            <?= $saleprice ?>
+                                            <?= (int) $saleprice ?>
                                         </span>
                                     </li>
                                     <?php
@@ -103,7 +104,7 @@ $userid = $_SESSION['user'];
                             </ul>
                             <ul class="checkout__total__all">
                                 <li>Subtotal <span>₹
-                                        <?= $proprice; ?>
+                                        <?= (int) $proprice; ?>
                                     </span></li>
                                 <?php if ($proprice < 749) { ?>
                                     <li>Delivery Charges <span>₹
@@ -111,17 +112,17 @@ $userid = $_SESSION['user'];
                                             echo $charges ?>
                                         </span></li>
                                 <?php } else { ?>
-                                    <li>Delivery Charges <span>Free Free Free</span></li>
+                                    <li>Delivery Charges <span>Free</span></li>
                                 <?php } ?>
                                 <li>Total <span>₹
                                         <?php $totalprice = $proprice + $charges;
-                                        $_SESSION['price'] = $totalprice;
-                                        echo $totalprice ?>
+                                        $_SESSION['price'] = (int) $totalprice;
+                                        echo (int) $totalprice ?>
                                     </span></li>
                             </ul>
-                            <button type="button" name="btnnet" id="rzp-button1" class="primary-btn mb-2 w-100">pay
+                            <button type="button" name="rzp-button1" id="rzp-button1" class="primary-btn mb-2 w-100">pay
                                 online</button></br>
-                            <button type="button" name="btncod" id="site-btn" class="primary-btn mb-2 w-100">pay on
+                            <button type="button" name="btncod" id="btncod" class="primary-btn mb-2 w-100">pay on
                                 delivery *</button>
                             <p>* (+50₹) when using pay on delivery</p>
                         </div>
@@ -133,7 +134,8 @@ $userid = $_SESSION['user'];
 </section>
 <!-- Checkout Section End -->
 <script>
-    $("#site-btn").click(function () {
+    $("#saveaddress").click(function (e) {
+        e.preventDefault();
         let firstname = $("#firstname").val();
         let lastName = $("#lastname").val();
         let addressname = firstname.concat(" ", lastName);
@@ -143,7 +145,7 @@ $userid = $_SESSION['user'];
         let state = $("#state").val();
         let pincode = $("#pincode").val();
         $.ajax({
-            url: "api/order.php",
+            url: "api/saveaddress.php",
             method: "post",
             data: {
                 addressname: addressname,
@@ -154,13 +156,20 @@ $userid = $_SESSION['user'];
                 pincode: pincode
             },
             success: function (data) {
-
+                alert('address Save');
+            },
+            error: function(data){
+                alert('NONONONO');
             }
         })
     })
 
     $("#rzp-button1").click(function () {
+        <?php $_SESSION['addressid']="1"?>//radio add address id
         location.href = "payment";
     })
 </script>
-<?php include("components/footer.php"); ?>
+
+<?php
+
+include("components/footer.php"); ?>

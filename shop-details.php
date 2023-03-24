@@ -323,7 +323,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
             </div>
         </div>
 
-        <div class="modal" tabindex="-1">
+        <!-- <div class="modal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -339,7 +339,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  -->
+        <!--modal part commant for now-->
     </section>
     <?php
 } else {
