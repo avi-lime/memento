@@ -602,7 +602,7 @@
                                             $discountrate = $prow['discount'];
                                             $discountprice = $originalprice * ($discountrate / 100);
                                             $price = $originalprice - $discountprice;
-                                            echo $price;
+                                            echo (int) $price;
                                             ?><span>₹
                                                 <?= $prow['price']; ?>
                                             </span>
