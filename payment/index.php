@@ -27,6 +27,7 @@ $order_id = $razorpayOrder['id'];
 $order_receipt = $razorpayOrder['receipt'];
 $order_amount = $razorpayOrder['amount'];
 $order_currency = $razorpayOrder['currency'];
+date_default_timezone_set("Asia/Calcutta");
 $order_created_at = date('y-m-d H:i:s', $razorpayOrder['created_at']);
 $_SESSION['razorpay_order_id'] = $order_id;
 ?>
