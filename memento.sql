@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 03, 2023 at 07:20 PM
+-- Generation Time: Mar 25, 2023 at 12:47 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -39,7 +39,14 @@ CREATE TABLE IF NOT EXISTS `address` (
   `pincode` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_addresss_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`id`, `addressname`, `address`, `user_id`, `city`, `state`, `country`, `pincode`) VALUES
+(1, 'Jigyasu Sharma', 'Shubh Mangal Appartment,opp SBI Bank, Adajan', 2, 'surat', 'Gujarat', 'sad', 395009);
 
 -- --------------------------------------------------------
 
@@ -56,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `superadmin` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -83,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`),
   KEY `FK_cart_product` (`product_id`),
   KEY `FK_card_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
@@ -105,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
@@ -123,18 +130,19 @@ INSERT INTO `category` (`id`, `name`, `image`) VALUES
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `address_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `date` int(11) NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `size` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -145,14 +153,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
 DROP TABLE IF EXISTS `payment`;
 CREATE TABLE IF NOT EXISTS `payment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `transaction_date` date NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `transaction_date` datetime NOT NULL,
   `payment_mode` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `amount` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_payment_order` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -319,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `mobileno` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -327,7 +334,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `mobileno`) VALUES
 (1, 'Avi', 'sa3198154@gmail.com', '$2y$10$Zk6ThOmwRDgv5UtLSrMqk.bm9p9vHKaSymjMEBqCWG1BaamcblXHO', '9727445634'),
-(2, 'Jigyasu', 'jigyasu@gmail.com', '$2y$10$oLG6ihhookEykYD8bo.a9uxEqVqVC6HilvlOaqpl/05typUs1t1bm', '7405263599');
+(2, 'Jigyasu', 'jigyasu@gmail.com', '$2y$10$5/PZI2ecSCuJ9ewSnBg0.u.OpeGJ3C9D9ffiIPjTlj5vnF0hKZuiq', '7405263599'),
+(3, 'Rekha', 'rekhasharma2799@gmail.com', '$2y$10$uwRzy.3bCcCgap30.JriCO9/MlJAFZybHOVGiN3Aj1TeUVqVMpwJG', '8866405292');
 
 -- --------------------------------------------------------
 
@@ -343,14 +351,17 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wishlist`
 --
 
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
-(63, 1, 13);
+(63, 1, 13),
+(64, 2, 3),
+(65, 2, 4),
+(66, 2, 5);
 
 --
 -- Constraints for dumped tables
@@ -375,12 +386,6 @@ ALTER TABLE `cart`
 ALTER TABLE `orders`
   ADD CONSTRAINT `FK_order_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `payment`
---
-ALTER TABLE `payment`
-  ADD CONSTRAINT `FK_payment_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product`
