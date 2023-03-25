@@ -134,8 +134,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     </div>
                                 </div>
                                 <input type="button" class="primary-btn" id="<?= $detail['id'] ?>" value="add to cart">
-                                <a href="shopping-cart"><input type="button" class="primary-btn"
-                                        id="<?= $detail['id'] ?>" value="Buy Now"></a>
+                                <input type="button" class="primary-btn" id="<?= $detail['id'] ?>" name="buynow" value="Buy Now">
                             </div>
                             <div class="product__details__btns__option">
                                 <a href="#" class="<?= $class ?>" id="<?= $detail['id'] ?>"><?= $wishlist ?>
@@ -409,13 +408,11 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
         $(".primary-btn").click(function () {
             let id = $(this).attr("id");
             let quantity = $("#quantity").val();
-            console.log(id, quantity);
             if ($("input[name='size']").is(":checked")) { } else {
                 alert("select size");
                 return false;
             }
             let size = $("input[name='size']:checked").val();
-            console.log(size);
             $.ajax({
                 url: "api/addtocart.php",
                 method: "post",
@@ -432,6 +429,10 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 }
 
             })
+        })
+        $('[name="buynow"]').click(function(e){
+            e.preventDefault();
+            location.href="shopping-cart";
         })
     })
 </script>
