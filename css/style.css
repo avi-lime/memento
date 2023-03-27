@@ -1242,7 +1242,6 @@ ol {
 	padding: 0;
 	padding-top: 10px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #e5e5e5;
 }
 
 .shop__sidebar__accordion .card-heading {
@@ -1250,7 +1249,7 @@ ol {
 }
 
 .shop__sidebar__accordion .card-heading a {
-	color: #111111;
+	color: #fff;
 	font-size: 16px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -1283,7 +1282,7 @@ ol {
 .shop__sidebar__categories ul li a:hover,
 .shop__sidebar__price ul li a:hover,
 .shop__sidebar__brand ul li a:hover {
-	color: #111111;
+	color: #fff;
 }
 
 .shop__sidebar__brand ul {
@@ -1299,7 +1298,8 @@ ol {
 }
 
 .shop__sidebar__size label {
-	color: #111111;
+	color: #fff;
+	background-color: #111;
 	font-size: 15px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -1312,9 +1312,9 @@ ol {
 }
 
 .shop__sidebar__size label.active {
-	background: #111111;
-	color: #ffffff;
-	border-color: #111111;
+	background: #fff;
+	color: #111;
+	border-color: #fff;
 }
 
 .shop__sidebar__size label input {
@@ -1337,6 +1337,7 @@ ol {
 	cursor: pointer;
 }
 
+/* 
 .shop__sidebar__color label.c-1 {
 	background: #0b090c;
 }
@@ -1371,7 +1372,7 @@ ol {
 
 .shop__sidebar__color label.c-9 {
 	background: #ffffff;
-}
+} */
 
 .shop__sidebar__color label:after {
 	position: absolute;
@@ -1413,25 +1414,24 @@ ol {
 	color: #ffffff;
 }
 
-.shop__sidebar__accordion .card-heading a:after,
-.shop__sidebar__accordion .card-heading>a.active[aria-expanded=false]:after {
-	content: "";
+.shop__sidebar__accordion .card-heading>a[aria-expanded=false]:after {
+	content: "\002B";
 	font-family: "FontAwesome";
-	font-size: 24px;
-	font-weight: 700;
-	color: #111111;
+	font-size: 20px;
+	font-weight: 400;
+	color: #fff;
 	position: absolute;
 	right: 0;
 	top: 2px;
 	line-height: 20px;
 }
 
-.shop__sidebar__accordion .card-heading.active a:after {
-	content: "";
+.shop__sidebar__accordion .card-heading a:after {
+	content: "\2212";
 	font-family: "FontAwesome";
-	font-size: 24px;
-	font-weight: 700;
-	color: #111111;
+	font-size: 20px;
+	font-weight: 400;
+	color: #fff;
 	position: absolute;
 	right: 0;
 	top: 2px;
@@ -2410,12 +2410,13 @@ ol {
 	color: #0d0d0d;
 	font-weight: 700;
 }
+
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 span {
 	color: #b7b7b7;
-    font-size: 15px;
-    font-weight: 400;
-    margin-left: 10px;
-    text-decoration: line-through;
+	font-size: 15px;
+	font-weight: 400;
+	margin-left: 10px;
+	text-decoration: line-through;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item {
