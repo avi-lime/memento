@@ -9,6 +9,59 @@ require "vendor/autoload.php";
 $keyId = "rzp_test_zJnbchZUMQeulT";
 $keySecret = "kEKh6CGaqXhMcxNkkZkp1Lrn";
 $user_id = $_SESSION['user'];
+//email body start 
+$sql="SELECT * FROM user WHERE id=$user_id";
+$result=mysqli_query($conn,$sql);
+$userdetail=mysqli_fetch_assoc($result);
+$email=$userdetail['email'];
+$successmessage='<div>'
+.'You are now a member of our family.<br />'
+.'Here are the product details'
+.'<table>'
+    .'<tr>'
+       // .'<th>Image</th>'
+        .'<th>Product</th>'
+        .'<th>quantity</th>'
+        .'<th>size</th>'
+        .'<th>amount</th>'
+    .'</tr>';
+    $sql = 'SELECT * FROM cart WHERE user_id='.$user_id.'';
+        $result = mysqli_query($conn, $sql);
+        $prototal = 0;
+        $alltotal = 0;
+        while ($details = mysqli_fetch_assoc($result)) {
+            $productsql = 'SELECT * FROM product WHERE id=' . $details['product_id'] . '';
+            $imagesql = 'SELECT * FROM product_images WHERE product_id=' . $details['product_id'] . ' LIMIT 1 ';
+            $productresult = mysqli_query($conn, $productsql);
+            $imageresult = mysqli_query($conn, $imagesql);
+            $product = mysqli_fetch_assoc($productresult);
+            $image = mysqli_fetch_assoc($imageresult);
+            $successmessage.='<tr>'
+           // .'<td>'.'<img src="../global/assets/images/' .$image['image'].'" style="width: 100px;height: 100px; object-fit: cover" alt="">'.'</td>'
+            .'<td>'.$product['name'].'</td>'
+            .'<td>'.$details['quantity'].'</td>'
+            .'<td>'.strtoupper($details['size']) .'</td>'
+            .'<td>';
+            $originalprice = $product['price'];
+            $discountrate = $product['discount'];
+            $discountprice = $originalprice * ($discountrate / 100);
+            $price = $originalprice - $discountprice;
+            $quantity = $details['quantity'];
+            $total = $price * $quantity;
+            $prototal += $total;
+            $successmessage.=(int)$total.'</td>'
+            .'</td>'
+            .'</tr>';
+        }
+        $successmessage.='<tr>'
+                .'<td></td>'
+                .'<td></td>'
+                .'<td>Total:</td>'
+                .'<td>'.$_SESSION['price'].'</td>'
+                .'</tr>'
+                .'</table>'
+                .'</div>';
+        //////order conform email body 
 $api = new Api($keyId, $keySecret);
 
 $actual_amount = $_SESSION['price'];
@@ -45,6 +98,7 @@ $_SESSION['razorpay_order_id'] = $order_id;
         "image": "../img/mxm-black.png",
         "order_id": "<?= $order_id ?>",
         "handler": function (response) {
+            sendMail();
             payment(true);
             location.href="../shopping-cart.php";
         },
@@ -94,5 +148,25 @@ $_SESSION['razorpay_order_id'] = $order_id;
             }
         })
 
+    }
+    function sendMail(){
+        let email="<?=$email?>";
+        let subject = "Order has been placed";
+        let body = '<?=$successmessage?>';
+        let altbody = "mail for change Product Order";
+                $.ajax({
+                    url: "../mail/",
+                    method: "post",
+                    data: {
+                        email: email,
+                        subject: subject,
+                        body: body,
+                        altbody: altbody,
+                        fromMail: "jigyasusharma2803@gmail.com",
+                        fromName: "Jigyasu Sharma"
+                    },
+                    success: function (data) {
+                    }
+                })
     }
 </script>
