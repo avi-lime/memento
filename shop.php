@@ -1,8 +1,10 @@
 <?php include("components/header.php"); ?>
 
+
+
 <!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-option">
-    <div class="container-fluid mx-5">
+<section class="breadcrumb-option px-4">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__text">
