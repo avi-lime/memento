@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 25, 2023 at 12:47 PM
+-- Generation Time: Mar 29, 2023 at 07:22 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -90,14 +90,16 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`),
   KEY `FK_cart_product` (`product_id`),
   KEY `FK_card_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`id`, `product_id`, `quantity`, `size`, `user_id`) VALUES
-(25, 3, 3, 'm', 1);
+(25, 3, 3, 'm', 1),
+(26, 3, 2, 'l', 2),
+(32, 4, 1, 'm', 3);
 
 -- --------------------------------------------------------
 
@@ -142,7 +144,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `user_id`, `product_id`, `address_id`, `amount`, `status`, `date`, `quantity`, `size`) VALUES
+(10, 'order_LXOFKKfLprSUL4', 3, 3, 1, 399, NULL, '2023-03-29 21:00:30', 1, 'm'),
+(11, 'order_LXOGr2XDS8tR6g', 3, 5, 1, 749, NULL, '2023-03-29 21:01:57', 1, 'l');
 
 -- --------------------------------------------------------
 
@@ -159,7 +169,15 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `status` varchar(255) NOT NULL,
   `amount` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `order_id`, `transaction_date`, `payment_mode`, `status`, `amount`) VALUES
+(8, 'order_LXOFKKfLprSUL4', '2023-03-29 21:00:30', 'NetBanking', 'Completed', 399),
+(9, 'order_LXOGr2XDS8tR6g', '2023-03-29 21:01:57', 'NetBanking', 'Completed', 749);
 
 -- --------------------------------------------------------
 
@@ -274,16 +292,21 @@ DROP TABLE IF EXISTS `slider`;
 CREATE TABLE IF NOT EXISTS `slider` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `subcat_id` int(11) DEFAULT NULL,
   `image` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  KEY `cat_id` (`cat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `slider`
 --
 
-INSERT INTO `slider` (`id`, `content`, `image`) VALUES
-(2, 'Bevis Baldwin', '1677013293.jpg');
+INSERT INTO `slider` (`id`, `content`, `cat_id`, `subcat_id`, `image`) VALUES
+(9, 'Marvel', 12, 13, '1680114446.jpg'),
+(11, 'StreetWear23', 12, NULL, '1680114617.jpg'),
+(12, 'OverSize', 12, 13, '1680117750.jpg');
 
 -- --------------------------------------------------------
 
@@ -351,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wishlist`
@@ -361,7 +384,10 @@ INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
 (63, 1, 13),
 (64, 2, 3),
 (65, 2, 4),
-(66, 2, 5);
+(66, 2, 5),
+(67, 3, 3),
+(68, 3, 4),
+(69, 3, 5);
 
 --
 -- Constraints for dumped tables
@@ -399,6 +425,12 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product_images`
   ADD CONSTRAINT `FK_product_image` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `slider`
+--
+ALTER TABLE `slider`
+  ADD CONSTRAINT `slider_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`);
 
 --
 -- Constraints for table `subcat`
