@@ -3,7 +3,7 @@
 <section class="hero">
     <div class="hero__slider owl-carousel">
         <?php 
-        $sql="SELECT * FROM slider";
+        $sql="SELECT * FROM slider limit 5";
         $result=mysqli_query($conn,$sql);
         while($slider=mysqli_fetch_assoc($result)){
             $catid=$slider['cat_id'];
@@ -12,7 +12,8 @@
                 $subcatid=$slider['subcat_id'];
             }
         ?>
-        <div class="hero__items set-bg" data-setbg="global/assets/slider/<?=$slider['image']?>">
+        <div class="hero__items set-bg" data-setbg="">
+        <a href="shop?cat_id=<?=$catid?>&sub_id=<?=$subcatid?>"> <img src="global/assets/slider/<?=$slider['image']?>" height="600px" width="100%" alt=""></a>
             <div class="container">
                 <div class="row">
                     <div class="col-xl-5 col-lg-7 col-md-8">
