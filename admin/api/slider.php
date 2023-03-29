@@ -6,7 +6,11 @@ if (!isset($_POST["name"])) {
     include("../../global/api/conn.php");
 
     $name = $_POST['name'];
+    $cat_id=$_POST['cat'];
+    $subcat_id=$_POST['subcat'];
+    $sanitized_subcat_id=mysqli_real_escape_string($conn,$subcat_id);
     $sanitized_name = mysqli_real_escape_string($conn, $name);
+    $sanitized_cat_id= mysqli_real_escape_string($conn,$cat_id);
 
     if (file_exists($_FILES['imgfile']["tmp_name"]) && is_uploaded_file($_FILES["imgfile"]["tmp_name"])) {
 
@@ -31,8 +35,11 @@ if (!isset($_POST["name"])) {
     $image = mysqli_real_escape_string($conn, $image);
 
     if ($_POST['id'] == '') {
-        $sql = "INSERT INTO slider (content, image) VALUES ('$sanitized_name','$image')";
-    } else {
+        if($sanitized_subcat_id!=-1){
+            $sql="INSERT INTO slider (content,cat_id,subcat_id,image) VALUES ('$sanitized_name',$sanitized_cat_id,$sanitized_subcat_id,'$image')";
+        }else{
+        $sql = "INSERT INTO slider (content,cat_id,image) VALUES ('$sanitized_name',$sanitized_cat_id,'$image')";
+    }} else {
         $sql = "UPDATE slider SET content='$sanitized_name'";
         if ($image != "default.png")
             $sql .= ", image='$image'";
