@@ -21,7 +21,8 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Filter Offcanvas -->
-<div class="offcanvas bg-black offcanvas-end" tabindex="-1" id="offcanvasExample" data-bs-theme="dark" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas bg-black offcanvas-end" tabindex="-1" id="offcanvasExample" data-bs-theme="dark"
+    aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h3 class="offcanvas-title text-white">FILTERS</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -190,20 +191,20 @@
                                 $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
                                 if ($result = mysqli_query($conn, $subquery)) {
                                     while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
+                                        ?>
                                         <a href="shop?sub_id=<?= $row['id'] ?>"><?php
-                                                                                echo $row['name'] ?></a>
-                                    <?php
+                                          echo $row['name'] ?></a>
+                                        <?php
                                     }
                                 }
                             } else {
                                 $query = 'SELECT * FROM subcat';
                                 if ($result = mysqli_query($conn, $query)) {
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
+                                        ?>
                                         <a href="shop?sub_id=<?= $row['id'] ?>"><?php
-                                                                                echo $row['name'] ?></a>
-                            <?php
+                                          echo $row['name'] ?></a>
+                                        <?php
                                     }
                                 }
                             }
@@ -267,21 +268,29 @@
 
                 <div class="shop__product__option__right">
                     <p>Sort by Price:</p>
-                    <select name="sort" id="sort" >
-                        <?php 
-                        $selected=null;
-                        if((isset($_REQUEST['order'])) && ($order=$_REQUEST['order'])){
-                            if($order=="ASC"){
-                            $selected="ASC";
-                        }elseif($order=="DESC"){
-                            $selected="DESC";}
+                    <select name="sort" id="sort">
+                        <?php
+                        $selected = null;
+                        if ((isset($_REQUEST['order'])) && ($order = $_REQUEST['order'])) {
+                            if ($order == "ASC") {
+                                $selected = "ASC";
+                            } elseif ($order == "DESC") {
+                                $selected = "DESC";
+                            }
                         }
                         ?>
-                        <option value="" <?php if($selected==null) echo 'selected="selected"';?>>Recommended </option>
-                        <option value="ASC" <?php if($selected=="ASC")  echo ' selected="selected"';?>>Low To High</option>
-                        <option value="DESC"<?php if($selected=="DESC")  echo ' selected="selected"';?>>High To Low</option>
+                        <option value="" <?php if ($selected == null)
+                            echo 'selected="selected"'; ?>>Recommended </option>
+                        <option value="ASC" <?php if ($selected == "ASC")
+                            echo ' selected="selected"'; ?>>Low To High
+                        </option>
+                        <option value="DESC" <?php if ($selected == "DESC")
+                            echo ' selected="selected"'; ?>>High To Low
+                        </option>
                     </select>
-                    <button class="filter primary-btn ms-3" style="font-size: 16px" id="btnfilter" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">filter
+                    <button class="filter primary-btn ms-3" style="font-size: 16px" id="btnfilter"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                        aria-controls="offcanvasExample">filter
                         <i class="fa-solid fa-filter"></i></button>
                 </div>
             </div>
@@ -292,7 +301,7 @@
             <?php
 
             if ($totalproduct['totalproduct'] < 1) {
-            ?>
+                ?>
                 <div class="box__description-container" style="padding-left: 250px">
                     <div class="box__description-title">Whoops!</div>
                     <div class="box__description-text">It seems like we don't have the product you were looking for
@@ -300,8 +309,8 @@
                 </div>
                 <?php
             } else {
-                if($selected!=null){
-                    $ordersql='ORDER BY price '.$selected;
+                if ($selected != null) {
+                    $ordersql = 'ORDER BY price ' . $selected;
                 }
                 if ((isset($_REQUEST['sub_id'])) && ($subcat = $_REQUEST['sub_id'])) {
                     $pquery = 'SELECT * FROM product WHERE subcat_id=' . $subcat . '';
@@ -310,35 +319,35 @@
                 } else {
                     $pquery = 'SELECT * FROM product';
                 }
-                if($selected!=null){
-                    $pquery.=' '.$ordersql;
+                if ($selected != null) {
+                    $pquery .= ' ' . $ordersql;
                 }
                 $presult = mysqli_query($conn, $pquery);
                 while ($prow = mysqli_fetch_assoc($presult)) {
-                ?>
+                    ?>
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item sale">
                             <a href="shop-details?product_id=<?= $prow['id']; ?>">
                                 <div class="product__item__pic set-bg" data-setbg="global/assets/images/<?php
-                                                                                                        $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
-                                                                                                        $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                                                                                                        echo $image['image'];
-                                                                                                        if (isset($_SESSION['user'])) {
-                                                                                                            $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $prow['id'] . '';
-                                                                                                            $check = mysqli_query($conn, $checksql);
-                                                                                                            $num = mysqli_num_rows($check);
-                                                                                                            if ($num > 0) {
-                                                                                                                $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
-                                                                                                                $class = "delete";
-                                                                                                            } else {
-                                                                                                                $class = "wishlist";
-                                                                                                                $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
-                                                                                                            }
-                                                                                                        } else {
-                                                                                                            $class = "login";
-                                                                                                            $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
-                                                                                                        }
-                                                                                                        ?>">
+                                $sql = 'SELECT image FROM product_images WHERE product_id = "' . $prow['id'] . '" LIMIT 1';
+                                $image = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                echo $image['image'];
+                                if (isset($_SESSION['user'])) {
+                                    $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $prow['id'] . '';
+                                    $check = mysqli_query($conn, $checksql);
+                                    $num = mysqli_num_rows($check);
+                                    if ($num > 0) {
+                                        $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
+                                        $class = "delete";
+                                    } else {
+                                        $class = "wishlist";
+                                        $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
+                                    }
+                                } else {
+                                    $class = "login";
+                                    $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
+                                }
+                                ?>">
                                     <!-- <span class="label">Sale</span> -->
                                     <ul class="product__hover">
                                         <li id="<?= $prow['id'] ?>" class="<?= $class ?>"><?= $wishlist ?></li>
@@ -374,7 +383,7 @@
                         </div>
                     </div>
 
-            <?php
+                    <?php
                 }
             }
             ?>
@@ -407,34 +416,8 @@
 
 <!-- Shop Section End -->
 <script>
-    $(document).ready(function() {
-        $('.wishlist, .delete').click(function(e) {
-            e.preventDefault();
-            var id = $(this).attr("id");
-            let action = $(this).attr("class");
-            console.log(action)
-            $.ajax({
-                url: 'api/wishlist.php',
-                method: 'POST',
-                data: {
-                    id: id,
-                    action: action
-                },
-                success: function(data) {
-                    const toastLiveExample = document.getElementById('liveToast')
-
-                    $(".toast-body").text(data)
-
-                    const toast = new bootstrap.Toast($("#liveToast"))
-                    toast.show()
-
-                    $(`#${id}`).toggleClass("wishlist").toggleClass("delete")
-                    $(`#${id}`).children("i.fa-heart").toggleClass("white-heart").toggleClass("red-heart")
-                }
-            })
-        })
-
-        $('.login').click(function(e) {
+    $(document).ready(function () {
+        $('.login').click(function (e) {
             e.preventDefault();
             location.href = "login";
         })
@@ -477,22 +460,22 @@
                 }
             });
         });
-        $('#sort').change(function(){
-            let order=$('#sort').val();
+        $('#sort').change(function () {
+            let order = $('#sort').val();
             let change;
-            if(order=="ASC"){
-             change="DESC";
-            }else{
-                 change="ASC"
+            if (order == "ASC") {
+                change = "DESC";
+            } else {
+                change = "ASC"
             }
-            let url= window.location.href;
+            let url = window.location.href;
             let n = url.indexOf('&order');
-            url= url.substring(0, n != -1 ? n : url.length);
-            if(order!=""){
-            url+="&order="+order;
+            url = url.substring(0, n != -1 ? n : url.length);
+            if (order != "") {
+                url += "&order=" + order;
             }
             console.log(url);
-            location.href=url;
+            location.href = url;
         })
     })
 </script>

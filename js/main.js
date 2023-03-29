@@ -228,4 +228,36 @@
             $(element).parent('li').addClass("active");
         }
     });
+
+    // wishlist
+
+    $('.wishlist, .delete').click(function (e) {
+        e.preventDefault();
+        var id = $(this).attr("id");
+        let action = $(this).attr("class");
+        console.log(action);
+        $.ajax({
+            url: 'api/wishlist.php',
+            method: 'POST',
+            data: {
+                id: id,
+                action: action
+            },
+            success: function (data) {
+
+                $(".toast-body").text(data)
+
+                const toast = new bootstrap.Toast($("#liveToast"))
+                toast.show()
+                console.log($(`#${id}`).class())
+                $(`#${id}`)
+                    .toggleClass("wishlist")
+                    .toggleClass("delete")
+
+                $(`#${id}`).children("i.fa-heart")
+                    .toggleClass("white-heart")
+                    .toggleClass("red-heart")
+            }
+        })
+    })
 })(jQuery);
