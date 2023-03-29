@@ -2,46 +2,35 @@
 <!-- Hero Section Begin -->
 <section class="hero">
     <div class="hero__slider owl-carousel">
-        <div class="hero__items set-bg" data-setbg="img/hero/hero-1.jpg">
+        <?php 
+        $sql="SELECT * FROM slider";
+        $result=mysqli_query($conn,$sql);
+        while($slider=mysqli_fetch_assoc($result)){
+            $catid=$slider['cat_id'];
+            $subcatid=null;
+            if($slider['subcat_id']!=null){
+                $subcatid=$slider['subcat_id'];
+            }
+        ?>
+        <div class="hero__items set-bg" data-setbg="global/assets/slider/<?=$slider['image']?>">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-5 col-lg-7 col-md-8">
                         <div class="hero__text">
-                            <h2>Fall - Winter Collections 2023</h2>
-                            <a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                            <a href="shop?cat_id=<?=$catid?>&sub_id=<?=$subcatid?>" class="primary-btn" >Shop now <span class="arrow_right"></span></a>
                             <div class="hero__social">
                                 <!--<a href=""><i class="fa-brands fa-facebook"></i></a>-->
                                 <!--<a href="#"><i class="fa-brands fa-twitter"></i></a>-->
-                                <!--<a href="#"><i class="fa-brands fa-pinterest"></i></a>-->
-                                <a href="https://www.instagram.com/memento.couture/" target="_blank"><i
-                                        class="fa-brands fa-instagram"></i></a>
+                                <!--<a href="#"><i class="fa-brands fa-pinterest"></i></a>-->   
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="hero__items set-bg" data-setbg="img/hero/hero-2.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-7 col-md-8">
-                        <div class="hero__text">
-                            <h2>Fall - Summer Collections 2023</h2>
-                            <a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>
-                            <div class="hero__social">
-                                <!--
-                                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                                    <a href="#"><i class="fa-brands fa-pinterest"></i></a>
-                                -->
-                                <a href="https://www.instagram.com/memento.couture/" target="_blank"><i
-                                        class="fa-brands fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php 
+        }
+        ?>
     </div>
 </section>
 <!-- Hero Section End -->
