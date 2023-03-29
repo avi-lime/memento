@@ -197,7 +197,7 @@ include("../global/api/conn.php");
                     content += `
                          <div class="p-1 col-xl-4 col-md-6 col-sm-12 mb-1">
                             <div class="card bg-black text-white">
-                                <img src="../global/assets/images/${parsedItem.image}" alt="" class="card-img-top"
+                                <img src="../global/assets/slider/${parsedItem.image}" alt="" class="card-img-top"
                                     style="object-fit: cover" height="300px">
                                 <div class="card-body">
                                     <h5 class="card-title">

@@ -19,7 +19,7 @@ if (!isset($_POST["name"])) {
             // fetch old image
             $result = mysqli_query($conn, "SELECT image FROM slider WHERE id=" . $_POST['id']);
             $row = mysqli_fetch_assoc($result);
-            $oldPicture = "../../global/assets/slider/" . $row["image"];
+            $oldPicture = "../../global/assets/slider/". $row["image"];
             unlink($oldPicture);
         }
 
