@@ -21,6 +21,7 @@ include("../global/api/conn.php");
         $output = '<thead>'
             . '<tr>'
             . '<th>ID</th>'
+            .'<th>Order ID</th>'
             . '<th>User id</th>'
             . '<th>Product ID</th>'
             // . '<th>Image</th>'
@@ -28,7 +29,6 @@ include("../global/api/conn.php");
             . '<th>amount</th>'
             . '<th>status</th>'
             . '<th>date</th>'
-            . '<th>Extra Expenses</th>'
             . '<th>Quantity</th>'
             . '</tr>'
             . '</thead>'
@@ -36,6 +36,7 @@ include("../global/api/conn.php");
         while ($row = mysqli_fetch_assoc($result)) {
             $output .= '<tr>'
                 . '<th scope="row">' . $row['id'] . '</td>'
+                .' <td>'.$row['order_id'].'</td>'
                 . '<td>' . $row['user_id'] . '</td>'
                 . '<td>' . $row['product_id'] . '</td>'
                 // . "<td><img style='height:200px; width:200px; object-fit:cover' class='rounded-circle' alt='img' src='../assets/images/" . $row['image'] . "'></td>"
@@ -43,7 +44,6 @@ include("../global/api/conn.php");
                 . '<td>' . $row['amount'] . '</td>'
                 . '<td>' . $row['status'] . '</td>'
                 . '<td>' . $row['date'] . '</td>'
-                . '<td>' . $row['extra_expenses'] . '</td>'
                 . '<td>' . $row['quantity'] . '</td>'
                 . '</td>'
                 . '</tr>';

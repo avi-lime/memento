@@ -41,8 +41,28 @@ include("../global/api/conn.php");
                     <form id="form" action="api/slider.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
-                            <label>Content: *</label>
+                            <label>Alternate Name: *</label>
                             <input required id="name" name="name" type="text" class="form-control mb-3">
+                        </div>
+                        <div class="form-group">
+                            <label>Category: *</label>
+                            <select name='cat' id='cat' class="form-select" aria-label="Default select example"
+                                required>
+                                <option selected disabled value="-1">Select a Category</option>
+                                <?php
+                                $query = "SELECT * FROM category";
+                                $result = mysqli_query($conn, $query);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sub-Category: *</label>
+                            <select name='subcat' id='subcat' class="form-select" required disabled>
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Image: </label>
@@ -85,6 +105,7 @@ include("../global/api/conn.php");
                     let parsedData = $.parseJSON(data[0]);
                     $("#id").val(parsedData.id);
                     $("#name").val(parsedData.content);
+                    
                     $("#imgfile").attr("required", false);
                     $("#mdlLabel").text("Edit slider");
                     $("#btnSubmit").text("Update");
@@ -123,6 +144,8 @@ include("../global/api/conn.php");
         $('#btnAdd').click(function () {
             $("#id").val("");
             $("#name").val("");
+            $("#cat").val("");
+            $("#subcat").val("");
             $("#imgfile")
                 .val("")
                 .attr("required", true);
@@ -131,7 +154,28 @@ include("../global/api/conn.php");
         })
 
     })
+            // change subcat on cat change
+            $('#cat').change(function () {
+            var id = $(this).val();
+            fillsub(id);
+        })
 
+    //sub Category Filler
+    function fillsub(id, sub_id) {
+            sub_id = sub_id || null;
+            $.ajax({
+                url: "api/fetchsub.php",
+                method: 'POST',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    $("#subcat").attr('disabled', false)
+                    $("#subcat").html(data);
+                    if (sub_id != null) $("#subcat").val(sub_id);
+                }
+            })
+        }
 
     function fetch_filter_sort(table) {
         let params = "";
