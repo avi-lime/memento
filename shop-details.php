@@ -3,19 +3,26 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     $sql = 'SELECT * FROM product WHERE id=' . $id . '';
     $result = mysqli_query($conn, $sql);
     $detail = mysqli_fetch_assoc($result);
-    $class = "wishlist";
-    $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
-    $wishlisttext = "ADD TO WISHLIST";
     if (isset($_SESSION['user'])) {
-        $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $detail['id'] . '';
+        $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $detail['id'];
         $check = mysqli_query($conn, $checksql);
         $num = mysqli_num_rows($check);
         if ($num > 0) {
             $wishlist = '<i class="fa-solid fa-heart red-heart"></i>';
-            $class = "";
-            $wishlisttext = "WISHLISTED";
+            $class = "delete";
+            $wishlisttext = "ADDED TO WISHLIST";
+
+        } else {
+            $class = "wishlist";
+            $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
+            $wishlisttext = "ADD TO WISHLIST";
+
         }
+    } else {
+        $class = "login";
+        $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
     }
+
     ?>
 
     <!-- Shop Details Section Begin -->
@@ -45,11 +52,11 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     <?php
                                     $count++;
                                     if ($count == 1)
-                                        $class = "active";
+                                        $active = "active";
                                     else
-                                        $class = "";
+                                        $active = "";
                                     ?>
-                                    <a class="nav-link <?= $class ?>" data-bs-toggle="tab" href="#tabs-<?= $count; ?>"
+                                    <a class="nav-link <?= $active ?>" data-bs-toggle="tab" href="#tabs-<?= $count; ?>"
                                         data-bs-target="#tabs-<?= $count; ?>" role="tab">
                                         <div class="product__thumb__pic set-bg img-cover"
                                             data-setbg="global/assets/images/<?= $image['image'] ?>">
@@ -70,11 +77,11 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                             while (($image = mysqli_fetch_assoc($imageresult))) {
                                 $count++;
                                 if ($count == 1)
-                                    $class = "active";
+                                    $active = "active";
                                 else
-                                    $class = "";
+                                    $active = "";
                                 ?>
-                                <div class="tab-pane  <?= $class ?>" href="" id="tabs-<?= $count; ?>" role="tabpanel">
+                                <div class="tab-pane  <?= $active ?>" href="" id="tabs-<?= $count; ?>" role="tabpanel">
                                     <div class="product__details__pic__item">
                                         <img src="global/assets/images/<?= $image['image'] ?>"
                                             style="width: 450px; height: 600px;object-fit: cover" alt="">
@@ -134,7 +141,8 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     </div>
                                 </div>
                                 <input type="button" class="primary-btn" id="<?= $detail['id'] ?>" value="add to cart">
-                                <input type="button" class="primary-btn" id="<?= $detail['id'] ?>" name="buynow" value="Buy Now">
+                                <input type="button" class="primary-btn" id="<?= $detail['id'] ?>" name="buynow"
+                                    value="Buy Now">
                             </div>
                             <div class="product__details__btns__option">
                                 <a href="#" class="<?= $class ?>" id="<?= $detail['id'] ?>"><?= $wishlist ?>
@@ -375,32 +383,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
 <!-- script -->
 <script>
     $(document).ready(function () {
-        $(".wishlist, .delete").click(function (e) {
-            e.preventDefault();
-            var id = $(this).attr("id");
-            let action = ($(this).hasClass("wishlist")) ? "wishlist" : "delete";
-            $.ajax({
-                url: "api/wishlist.php",
-                method: "post",
-                data: {
-                    id: id,
-                    action: action
-                },
-                success: function (data) {
-                    console.log("product added to wishlist") //idher toast add kar dena merako nahi aa raha // thike bc
 
-                    const toastLiveExample = document.getElementById('liveToast')
-
-                    $(".toast-body").text(data)
-
-                    const toast = new bootstrap.Toast($("#liveToast"))
-                    toast.show()
-
-                    $(`#${id}`).toggleClass("wishlist").toggleClass("delete")
-                    $(`#${id}`).children("i.fa-heart").toggleClass("white-heart").toggleClass("red-heart")
-                }
-            })
-        })
         $(".login").click(function (e) {
             e.preventDefault();
             document.location.href = "login";
@@ -430,9 +413,9 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
 
             })
         })
-        $('[name="buynow"]').click(function(e){
+        $('[name="buynow"]').click(function (e) {
             e.preventDefault();
-            location.href="shopping-cart";
+            location.href = "shopping-cart";
         })
     })
 </script>
