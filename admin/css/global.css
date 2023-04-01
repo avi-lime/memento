@@ -277,3 +277,12 @@ a.my-btn {
     bottom: 2rem;
     right: 2rem;
 }
+
+.back-to-top:hover a {
+    background-color: var(--purple);
+    border-color: var(--purple);
+}
+
+.back-to-top:hover i {
+    color: var(--white)
+}

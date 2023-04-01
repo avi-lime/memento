@@ -145,8 +145,12 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                     value="Buy Now">
                             </div>
                             <div class="product__details__btns__option">
-                                <a href="#" class="<?= $class ?>" id="<?= $detail['id'] ?>"><?= $wishlist ?>
-                                    <?= $wishlisttext ?></a>
+                                <a href="#" class="<?= $class ?>" id="wish-<?= $detail['id'] ?>"><?= $wishlist ?>
+
+                                    <p>
+                                        <?= $wishlisttext ?>
+                                    </p>
+                                </a>
                                 <div class="product__details__last__option">
                                     <ul>
                                         <li><span>Categories:</span>
@@ -285,7 +289,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                                 ?>">
                                     <!-- <span class="label">New</span> -->
                                     <ul class="product__hover">
-                                        <li class="<?= $class ?>" id="<?= $relateditem['id'] ?>"><?= $wishlist ?></li>
+                                        <li class="<?= $class ?>" id="wish-<?= $relateditem['id'] ?>"><?= $wishlist ?></li>
                                     </ul>
                                 </div>
                             </a>

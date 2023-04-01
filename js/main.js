@@ -233,14 +233,14 @@
 
     $('.wishlist, .delete').click(function (e) {
         e.preventDefault();
-        var id = $(this).attr("id");
+        let id = $(this).attr("id");
         let action = $(this).attr("class");
-        console.log(action);
+        let productId = id.split("-")[1];
         $.ajax({
             url: 'api/wishlist.php',
             method: 'POST',
             data: {
-                id: id,
+                id: productId,
                 action: action
             },
             success: function (data) {
@@ -249,7 +249,7 @@
 
                 const toast = new bootstrap.Toast($("#liveToast"))
                 toast.show()
-                console.log($(`#${id}`).class())
+                console.log(`#${id}`)
                 $(`#${id}`)
                     .toggleClass("wishlist")
                     .toggleClass("delete")
@@ -257,6 +257,9 @@
                 $(`#${id}`).children("i.fa-heart")
                     .toggleClass("white-heart")
                     .toggleClass("red-heart")
+
+                if (action == "delete") $(`#${id}`).children("p").text("ADD TO WISHLIST")
+                else $(`#${id}`).children("p").text("ADDED TO WISHLIST")
             }
         })
     })

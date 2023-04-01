@@ -350,7 +350,7 @@
                                 ?>">
                                     <!-- <span class="label">Sale</span> -->
                                     <ul class="product__hover">
-                                        <li id="<?= $prow['id'] ?>" class="<?= $class ?>"><?= $wishlist ?></li>
+                                        <li id="wish-<?= $prow['id'] ?>" class="<?= $class ?>"><?= $wishlist ?></li>
                                     </ul>
                                 </div>
                             </a>

@@ -1827,19 +1827,21 @@ ol {
 
 .product__details__btns__option {
 	margin-bottom: 40px;
+	display: inline;
 }
 
-.product__details__btns__option a {
-	display: inline-block;
+.product__details__btns__option p {
+	display: inline;
 	font-size: 13px;
 	color: #3d3d3d;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	font-weight: 700;
 	margin-right: 20px;
+	margin-left: 5px;
 }
 
-.product__details__btns__option a:last-child {
+.product__details__btns__option p:last-child {
 	margin-right: 0;
 }
 

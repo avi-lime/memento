@@ -26,3 +26,8 @@
     color: red;
     text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
 }
+
+.arrow_left,
+.arrow_right {
+    color: white;
+}
