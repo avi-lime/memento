@@ -231,7 +231,6 @@
             <div class="m-0 d-flex align-items-center justify-content-between">
                 <div class="shop__product__option__left">
                     <?php
-
                     if ((isset($_REQUEST['sub_id'])) && ($subcat = $_REQUEST['sub_id'])) {
                         $titlequery = 'SELECT COUNT(id)as totalproduct FROM product WHERE subcat_id=' . $subcat . '';
                         if ($result = mysqli_query($conn, $titlequery)) {
@@ -244,7 +243,7 @@
                         }
                     }
                      else {
-                        $titlequery = 'SELECT COUNT(id)as totalproduct FROM product';
+                        $titlequery = 'SELECT COUNT(id) as totalproduct FROM product';
                         if ($result = mysqli_query($conn, $titlequery)) {
                             $totalproduct = mysqli_fetch_assoc($result);
                         }
@@ -463,16 +462,30 @@
         $('#sort').change(function () {
             let order = $('#sort').val();
             let change;
+            var subId = "<?= isset($_GET['sub_id']) ? $_GET['sub_id'] : '' ?>";
+            var catId = "<?= isset($_GET['cat_id']) ? $_GET['cat_id'] : '' ?>";
+            let url = window.location.href;
+            var category = true
+            let n = url.indexOf('&order');
+            if(catId == "" && subId == ""){
+                category = false;
+                n = url.indexOf('?order');
+            }
             if (order == "ASC") {
                 change = "DESC";
             } else {
                 change = "ASC"
             }
-            let url = window.location.href;
-            let n = url.indexOf('&order');
+            let a = url.indexOf('shop');
+            console.log(url);
             url = url.substring(0, n != -1 ? n : url.length);
             if (order != "") {
-                url += "&order=" + order;
+                if(category){
+                    url += "&order=" + order;
+                }else{
+                    url += "?order=" + order;
+                }
+                
             }
             console.log(url);
             location.href = url;
