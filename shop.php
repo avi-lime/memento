@@ -190,10 +190,8 @@
                             if (isset($_REQUEST['cat_id']) && $_REQUEST['cat_id']!=null) {
                                 $catid=$_REQUEST['cat_id']; 
                                 $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
-                                echo $subquery ;
-                                if ($result = mysqli_query($conn, $subquery)) {
-                                    print_r($result);
-                                    while($row = mysqli_num_rows($result)){
+                                if($result = mysqli_query($conn, $subquery)){
+                                while($row = mysqli_fetch_assoc($result)){
                                         ?>
                                         <a href="shop?sub_id=<?=$row['id'] ?>"><?=$row['name'] ?></a>
                                         <?php
@@ -244,7 +242,8 @@
                         if ($result = mysqli_query($conn, $titlequery)) {
                             $totalproduct = mysqli_fetch_assoc($result);
                         }
-                    } else {
+                    }
+                     else {
                         $titlequery = 'SELECT COUNT(id)as totalproduct FROM product';
                         if ($result = mysqli_query($conn, $titlequery)) {
                             $totalproduct = mysqli_fetch_assoc($result);

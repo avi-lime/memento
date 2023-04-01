@@ -118,7 +118,7 @@ include "global/api/conn.php";
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li class="active"><a href="./index">Home</a></li>
-                            <li><a href="./shop?sub_id=&cat_id=">Category</a>
+                            <li><a href="./shop">Category</a>
                                 <ul class="dropdown">
                                     <?php
                                     $query = "SELECT * FROM category";
@@ -126,7 +126,7 @@ include "global/api/conn.php";
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             ?>
                                             <div class="list">
-                                                <li class="dropdown-item-m"><a href="shop?sub_id=&cat_id=<?= $row["id"] ?>">
+                                                <li class="dropdown-item-m"><a href="shop?cat_id=<?= $row["id"] ?>">
                                                         <?= $row['name'] ?>
                                                     </a></li>
                                                 <ul class="sub-dropdown">
@@ -136,7 +136,7 @@ include "global/api/conn.php";
                                                         while ($subrow = mysqli_fetch_assoc($subresult)) {
                                                             ?>
                                                             <li class="sub-dropdown-item"><a
-                                                                    href="shop?cat_id=<?= $subrow["cat_id"] ?>&sub_id=<?= $subrow["id"] ?>">
+                                                                    href="shop?sub_id=<?= $subrow["id"] ?>">
                                                                     <?= $subrow['name'] ?>
                                                                 </a></li>
                                                             <?php
