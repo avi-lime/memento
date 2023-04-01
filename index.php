@@ -132,9 +132,9 @@
                                 $discountrate = $relateditem['discount'];
                                 $discountprice = $originalprice * ($discountrate / 100);
                                 $price = $originalprice - $discountprice;
-                                echo $price;
+                                echo (int) $price;
                                 ?><span>₹
-                                    <?= $relateditem['price'] ?>
+                                    <?= (int) $relateditem['price'] ?>
                                 </span>
                             </h5>
                         </div>
@@ -196,9 +196,9 @@
                                 $discountrate = $relateditem['discount'];
                                 $discountprice = $originalprice * ($discountrate / 100);
                                 $price = $originalprice - $discountprice;
-                                echo $price;
+                                echo (int) $price;
                                 ?><span>₹
-                                    <?= $relateditem['price'] ?>
+                                    <?= (int) $relateditem['price'] ?>
                                 </span>
                             </h5>
                         </div>
@@ -260,9 +260,9 @@
                                 $discountrate = $relateditem['discount'];
                                 $discountprice = $originalprice * ($discountrate / 100);
                                 $price = $originalprice - $discountprice;
-                                echo $price;
+                                echo (int)$price;
                                 ?><span>₹
-                                    <?= $relateditem['price'] ?>
+                                    <?= (int)$relateditem['price'] ?>
                                 </span>
                             </h5>
                         </div>
