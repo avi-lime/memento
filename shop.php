@@ -187,13 +187,15 @@
                     <div class="card-body">
                         <div class="shop__sidebar__tags">
                             <?php
-                            if ($catid = isset($_REQUEST['cat_id'])) {
+                            if (isset($_REQUEST['cat_id']) && $_REQUEST['cat_id']!=null) {
+                                $catid=$_REQUEST['cat_id']; 
                                 $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
+                                echo $subquery ;
                                 if ($result = mysqli_query($conn, $subquery)) {
-                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    print_r($result);
+                                    while($row = mysqli_num_rows($result)){
                                         ?>
-                                        <a href="shop?sub_id=<?= $row['id'] ?>"><?php
-                                          echo $row['name'] ?></a>
+                                        <a href="shop?sub_id=<?=$row['id'] ?>"><?=$row['name'] ?></a>
                                         <?php
                                     }
                                 }
@@ -202,8 +204,7 @@
                                 if ($result = mysqli_query($conn, $query)) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         ?>
-                                        <a href="shop?sub_id=<?= $row['id'] ?>"><?php
-                                          echo $row['name'] ?></a>
+                                        <a href="shop?sub_id=<?= $row['id'] ?>"><?=$row['name'] ?></a>
                                         <?php
                                     }
                                 }
