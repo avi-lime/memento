@@ -47,20 +47,20 @@
                         <div class="price-input">
                             <div class="field">
                                 <span>Min</span>
-                                <input type="number" class="input-min" value="0">
+                                <input type="number" class="input-min" value="<?= isset($_GET['min']) ? $_GET['min'] : 0 ?>">
                             </div>
                             <div class="separator">-</div>
                             <div class="field">
                                 <span>Max</span>
-                                <input type="number" class="input-max" value="2000">
+                                <input type="number" class="input-max" value="<?= isset($_GET['max']) ? $_GET['max'] : 3000 ?>">
                             </div>
                         </div>
                         <div class="slider">
                             <div class="progress"></div>
                         </div>
                         <div class="range-input">
-                            <input type="range" class="range-min" min="0" max="2000" value="0" step="10">
-                            <input type="range" class="range-max" min="0" max="2000" value="2000" step="10">
+                            <input type="range" class="range-min" id="min" name="min" min="0" max="3000" value="<?= isset($_GET['min']) ? $_GET['min'] : 0 ?>" step="10">
+                            <input type="range" class="range-max" id="max" name="max" min="0" max="3000" value="<?= isset($_GET['max']) ? $_GET['max'] : 3000 ?>" step="10">
                         </div>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                     }
                 </style>
             </div>
-            <div class="card bg-black">
+            <!-- <div class="card bg-black">
                 <div class="card-heading">
                     <a data-bs-toggle="collapse" data-bs-target="#collapseFour">Size</a>
                 </div>
@@ -178,7 +178,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="card bg-black">
                 <div class="card-heading">
                     <a data-bs-toggle="collapse" data-bs-target="#collapseSix">Sub-Category</a>
@@ -215,7 +215,10 @@
             <div class="card bg-black">
                 <div class="card-body">
                     <div class="shop__sidebar__size">
-                        <input type="button" class="primary-btn" id="btnFilter" name="btnFilter" value="Apply">
+                        <input type="button" class="primary-btn" id="btnFilterapply" name="btnFilterapply" value="Apply">
+                        <?php 
+                        
+                        ?>
                     </div>
                 </div>
             </div>
@@ -317,6 +320,15 @@
                     $pquery = 'SELECT * FROM product WHERE cat_id=' . $catid . '';
                 } else {
                     $pquery = 'SELECT * FROM product';
+                }
+                if(isset($_REQUEST['min']) || isset($_REQUEST['max'])){
+                    $min=$_REQUEST['min'];
+                    $max=$_REQUEST['max'];
+                    $orderby=" WHERE price BETWEEN $min AND $max";
+                    if(isset($_REQUEST['sub_id']) || isset($_REQUEST['cat_id'])){
+                        $orderby=" AND price BETWEEN $min AND $max";
+                    }
+                    $pquery.=$orderby;
                 }
                 if ($selected != null) {
                     $pquery .= ' ' . $ordersql;
@@ -459,25 +471,41 @@
                 }
             });
         });
-        $('#sort').change(function () {
-            let order = $('#sort').val();
-            let change;
+        $('#btnFilterapply').click(function (){
+            let min=$('#min').val();
+            let max=$('#max').val();
             var subId = "<?= isset($_GET['sub_id']) ? $_GET['sub_id'] : '' ?>";
             var catId = "<?= isset($_GET['cat_id']) ? $_GET['cat_id'] : '' ?>";
+            var order ="<?=isset($_GET['order']) ? $_GET['order'] : ''?>"
+            let url = window.location.href;
+            var category = true
+            let n =url.indexOf('&min');
+            if(catId == "" && subId == "" && order ==""){
+                category = false;
+                n = url.indexOf('?min');
+            }           
+            url = url.substring(0, n != -1 ? n : url.length);
+            if(category){
+                url += "&min=" + min +"&max="+ max;
+                }else{
+                 url += "?min=" + min +"&max="+ max;
+                }
+            console.log(url+" "+min+" "+max);
+            location.href = url;
+
+        })
+        $('#sort').change(function () {
+            let order = $('#sort').val();
+            var subId = "<?= isset($_GET['sub_id']) ? $_GET['sub_id'] : '' ?>";
+            var catId = "<?= isset($_GET['cat_id']) ? $_GET['cat_id'] : '' ?>";
+            var maxcheck ="<?=isset($_GET['min']) ? $_GET['min'] : ''?>"
             let url = window.location.href;
             var category = true
             let n = url.indexOf('&order');
-            if(catId == "" && subId == ""){
+            if(catId == "" && subId == "" && maxcheck==""){
                 category = false;
                 n = url.indexOf('?order');
-            }
-            if (order == "ASC") {
-                change = "DESC";
-            } else {
-                change = "ASC"
-            }
-            let a = url.indexOf('shop');
-            console.log(url);
+            }       
             url = url.substring(0, n != -1 ? n : url.length);
             if (order != "") {
                 if(category){
@@ -485,9 +513,7 @@
                 }else{
                     url += "?order=" + order;
                 }
-                
             }
-            console.log(url);
             location.href = url;
         })
     })
