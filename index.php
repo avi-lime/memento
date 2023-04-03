@@ -2,34 +2,35 @@
 <!-- Hero Section Begin -->
 <section class="hero">
     <div class="hero__slider owl-carousel">
-        <?php 
-        $sql="SELECT * FROM slider limit 5";
-        $result=mysqli_query($conn,$sql);
-        while($slider=mysqli_fetch_assoc($result)){
-            $catid=$slider['cat_id'];
-            $subcatid=null;
-            if($slider['subcat_id']!=null){
-                $subcatid=$slider['subcat_id'];
+        <?php
+        $sql = "SELECT * FROM slider limit 5";
+        $result = mysqli_query($conn, $sql);
+        while ($slider = mysqli_fetch_assoc($result)) {
+            $catid = $slider['cat_id'];
+            $subcatid = null;
+            if ($slider['subcat_id'] != null) {
+                $subcatid = $slider['subcat_id'];
             }
-        ?>
-        <div class="hero__items set-bg" data-setbg="">
-        <a href="shop?cat_id=<?=$catid?>&sub_id=<?=$subcatid?>"> <img src="global/assets/slider/<?=$slider['image']?>" height="600px" width="100%" alt=""></a>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-7 col-md-8">
-                        <div class="hero__text">
-                            <a href="shop?cat_id=<?=$catid?>&sub_id=<?=$subcatid?>" class="primary-btn" >Shop now <span class="arrow_right"></span></a>
-                            <div class="hero__social">
-                                <!--<a href=""><i class="fa-brands fa-facebook"></i></a>-->
-                                <!--<a href="#"><i class="fa-brands fa-twitter"></i></a>-->
-                                <!--<a href="#"><i class="fa-brands fa-pinterest"></i></a>-->   
+            ?>
+            <div class="hero__items set-bg" data-setbg="global/assets/slider/<?= $slider['image'] ?>">
+                <a class="stretched-link" href="shop?cat_id=<?= $catid ?>&sub_id=<?= $subcatid ?>">
+                    <!-- <img src="" height="600px" width="100%" alt=""> -->
+                </a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-7 col-md-8">
+                            <div class="hero__text">
+                                <div class="hero__social">
+                                    <!--<a href=""><i class="fa-brands fa-facebook"></i></a>-->
+                                    <!--<a href="#"><i class="fa-brands fa-twitter"></i></a>-->
+                                    <!--<a href="#"><i class="fa-brands fa-pinterest"></i></a>-->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <?php 
+            <?php
         }
         ?>
     </div>
@@ -43,7 +44,7 @@
             <div class="col-lg-7 offset-lg-4">
                 <div class="banner__item">
                     <div class="banner__item__pic">
-                        <img src="img/banner/banner-1.jpg" width= "440" height="440"alt="">
+                        <img src="img/banner/banner-1.jpg" width="440" alt="">
                     </div>
                     <div class="banner__item__text">
                         <h2>New Arrival Hoodies</h2>
@@ -54,7 +55,7 @@
             <div class="col-lg-5">
                 <div class="banner__item banner__item--middle">
                     <div class="banner__item__pic">
-                        <img src="img/banner/banner-2.jpg" width= "440" height="440" alt="">
+                        <img src="img/banner/banner-2.jpg" width="440" alt="">
                     </div>
                     <div class="banner__item__text">
                         <h2>Hot Sales T-Shirts</h2>
@@ -65,7 +66,7 @@
             <div class="col-lg-7">
                 <div class="banner__item banner__item--last">
                     <div class="banner__item__pic">
-                        <img src="img/banner/banner-3.jpg" width="440" height= "550"alt="">
+                        <img src="img/banner/banner-3.jpg" width="440" alt="">
                     </div>
                     <div class="banner__item__text">
                         <h2>OverSize Spring 2023</h2>
@@ -260,9 +261,9 @@
                                 $discountrate = $relateditem['discount'];
                                 $discountprice = $originalprice * ($discountrate / 100);
                                 $price = $originalprice - $discountprice;
-                                echo (int)$price;
+                                echo (int) $price;
                                 ?><span>₹
-                                    <?= (int)$relateditem['price'] ?>
+                                    <?= (int) $relateditem['price'] ?>
                                 </span>
                             </h5>
                         </div>

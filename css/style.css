@@ -663,7 +663,7 @@ ol {
 
 .hero__social {
 	margin-top: 100px;
-	margin-left:100px;
+	margin-left: 100px;
 }
 
 .hero__social a {
@@ -3452,11 +3452,15 @@ ol {
 	}
 
 	.hero__slider.owl-carousel .owl-nav button {
-		left: 2px;
+		left: 20px;
 	}
 
 	.hero__slider.owl-carousel .owl-nav button.owl-next {
-		right: 2px;
+		right: 20px;
+	}
+
+	.hero__items {
+		height: 450px;
 	}
 
 	.testimonial__text {
@@ -3815,12 +3819,14 @@ ol {
 
 	.hero__slider.owl-carousel .owl-nav button {
 		left: 15px;
-		top: 80%;
 	}
 
 	.hero__slider.owl-carousel .owl-nav button.owl-next {
-		left: 75px;
-		right: 0;
+		right: 15px;
+	}
+
+	.hero__items {
+		height: 300px;
 	}
 
 	.banner__item.banner__item--middle {

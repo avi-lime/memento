@@ -27,143 +27,149 @@ if (isset($_SESSION['user'])) {
         <div class="container">
             <input type="hidden" id="user-id">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="shopping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Size</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $prototal = 0;
-                                $alltotal = 0;
-                                while ($details = mysqli_fetch_assoc($result)) {
-                                    $productsql = 'SELECT * FROM product WHERE id=' . $details['product_id'] . '';
-                                    $imagesql = 'SELECT * FROM product_images WHERE product_id=' . $details['product_id'] . ' LIMIT 1 ';
-                                    $productresult = mysqli_query($conn, $productsql);
-                                    $imageresult = mysqli_query($conn, $imagesql);
-                                    $product = mysqli_fetch_assoc($productresult);
-                                    $image = mysqli_fetch_assoc($imageresult);
-                                    ?>
+                <?php if (mysqli_num_rows($result) > 0) { ?>
+
+                    <div class="col-lg-8">
+
+                        <div class="shopping__cart__table">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td class="product__cart__item">
-                                            <div class="product__cart__item__pic">
-                                                <img src="global/assets/images/<?= $image['image'] ?>"
-                                                    style="width: 90px;height: 160px; object-fit: cover" alt="">
-                                            </div>
-                                            <div class="product__cart__item__text">
-                                                <h6>
-                                                    <?= $product['name'] ?>
-                                                </h6>
-                                                <h5 id="price-<?= $details["id"] ?>">₹
-                                                    <?php $originalprice = $product['price'];
-                                                    $discountrate = $product['discount'];
-                                                    $discountprice = $originalprice * ($discountrate / 100);
-                                                    $price = $originalprice - $discountprice;
-                                                    echo (int) $price; ?><span> ₹
-                                                        <?= $product['price']; ?>
-                                                    </span>
-                                                </h5>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="product__cart__item__text">
-                                                <div class="size">
-                                                    <select class="nice-select" name="size" id="size-<?= $details["id"] ?>"
-                                                        data-id="<?= $details["id"] ?>">
-                                                        <option value="s" <?php if ($details['size'] == 's')
-                                                            echo ' selected="selected"'; ?>>S</option>
-                                                        <option value="m" <?php if ($details['size'] == 'm')
-                                                            echo ' selected="selected"'; ?>>M</option>
-                                                        <option value="l" <?php if ($details['size'] == 'l')
-                                                            echo ' selected="selected"'; ?>>L</option>
-                                                        <option value="xl" <?php if ($details['size'] == 'xl')
-                                                            echo ' selected="selected"'; ?>>XL</option>
-                                                    </select>
-                                                </div>
-                                                <?php // echo strtoupper($details['size']); 
-                                                        ?>
-                                            </div>
-                                        </td>
-                                        <td class="quantity__item">
-                                            <div class="quantity">
-                                                <div class="pro-qty-2">
-                                                    <input disabled type="text" class="product-quantity" name="quantity"
-                                                        id="qty-<?= $details["id"] ?>" data-id="<?= $details['id'] ?>"
-                                                        value="<?= $details['quantity'] ?>">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="cart__price" id="total-<?= $details["id"] ?>">₹
-                                            <?php $quantity = $details['quantity'];
-                                            $total = $price * $quantity;
-                                            $prototal += $total;
-                                            echo (int) $total; ?>
-                                        </td>
-                                        <td role="button" class="cart__close" id="<?= $details['id'] ?>"><i
-                                                class="fa fa-close"></i>
-                                        </td>
+                                        <th>Product</th>
+                                        <th>Size</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn">
-                                <a href="shop">Continue Shopping</a>
+                                    $prototal = 0;
+                                    $alltotal = 0;
+                                    while ($details = mysqli_fetch_assoc($result)) {
+                                        $productsql = 'SELECT * FROM product WHERE id=' . $details['product_id'] . '';
+                                        $imagesql = 'SELECT * FROM product_images WHERE product_id=' . $details['product_id'] . ' LIMIT 1 ';
+                                        $productresult = mysqli_query($conn, $productsql);
+                                        $imageresult = mysqli_query($conn, $imagesql);
+                                        $product = mysqli_fetch_assoc($productresult);
+                                        $image = mysqli_fetch_assoc($imageresult);
+                                        ?>
+                                        <tr>
+                                            <td class="product__cart__item">
+                                                <div class="product__cart__item__pic">
+                                                    <img src="global/assets/images/<?= $image['image'] ?>"
+                                                        style="width: 90px;height: 160px; object-fit: cover" alt="">
+                                                </div>
+                                                <div class="product__cart__item__text">
+                                                    <h6>
+                                                        <?= $product['name'] ?>
+                                                    </h6>
+                                                    <h5 id="price-<?= $details["id"] ?>">₹
+                                                        <?php $originalprice = $product['price'];
+                                                        $discountrate = $product['discount'];
+                                                        $discountprice = $originalprice * ($discountrate / 100);
+                                                        $price = $originalprice - $discountprice;
+                                                        echo (int) $price; ?><span> ₹
+                                                            <?= $product['price']; ?>
+                                                        </span>
+                                                    </h5>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="product__cart__item__text">
+                                                    <div class="size">
+                                                        <select class="nice-select" name="size" id="size-<?= $details["id"] ?>"
+                                                            data-id="<?= $details["id"] ?>">
+                                                            <option value="s" <?php if ($details['size'] == 's')
+                                                                echo ' selected="selected"'; ?>>S</option>
+                                                            <option value="m" <?php if ($details['size'] == 'm')
+                                                                echo ' selected="selected"'; ?>>M</option>
+                                                            <option value="l" <?php if ($details['size'] == 'l')
+                                                                echo ' selected="selected"'; ?>>L</option>
+                                                            <option value="xl" <?php if ($details['size'] == 'xl')
+                                                                echo ' selected="selected"'; ?>>XL</option>
+                                                        </select>
+                                                    </div>
+                                                    <?php // echo strtoupper($details['size']); 
+                                                                ?>
+                                                </div>
+                                            </td>
+                                            <td class="quantity__item">
+                                                <div class="quantity">
+                                                    <div class="pro-qty-2">
+                                                        <input disabled type="text" class="product-quantity" name="quantity"
+                                                            id="qty-<?= $details["id"] ?>" data-id="<?= $details['id'] ?>"
+                                                            value="<?= $details['quantity'] ?>">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="cart__price" id="total-<?= $details["id"] ?>">₹
+                                                <?php $quantity = $details['quantity'];
+                                                $total = $price * $quantity;
+                                                $prototal += $total;
+                                                echo (int) $total; ?>
+                                            </td>
+                                            <td role="button" class="cart__close" id="<?= $details['id'] ?>"><i
+                                                    class="fa fa-close"></i>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="continue__btn">
+                                    <a href="shop">Continue Shopping</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="continue__btn update__btn">
+                                    <a href="" id="empty_cart"><i class="fa fa-trash"></i> Empty cart</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn update__btn">
-                                <a href="" id="empty_cart"><i class="fa fa-trash"></i> Empty cart</a>
-                            </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="cart__discount">
+                            <h6>Discount codes</h6>
+                            <form action="#">
+                                <input type="text" placeholder="Coupon code">
+                                <button type="submit">Apply</button>
+                            </form>
+                        </div>
+                        <div class="cart__total">
+                            <h6>Cart total</h6>
+                            <ul>
+                                <li>Subtotal <span>₹
+                                        <?= (int) $prototal;
+                                        $charges = 0 ?>
+                                    </span></li>
+                                <?php if ($prototal > 0) {
+                                    if ($prototal < 749) { ?>
+                                        <li>Delivery Charges <span>₹
+                                                <?php $charges = 50;
+                                                echo $charges ?>
+                                            </span></li>
+                                    <?php } else { ?>
+                                        <li>Delivery Charges <span>Free</span></li>
+                                        <?php
+                                    }
+                                } ?>
+                                <li>Total <span>₹
+                                        <?php $alltotal = $prototal + $charges;
+                                        echo (int) $alltotal ?>
+                                    </span></li>
+                            </ul>
+                            <a href="./checkout" class="primary-btn">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="cart__discount">
-                        <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Coupon code">
-                            <button type="submit">Apply</button>
-                        </form>
-                    </div>
-                    <div class="cart__total">
-                        <h6>Cart total</h6>
-                        <ul>
-                            <li>Subtotal <span>₹
-                                    <?= (int) $prototal;
-                                    $charges = 0 ?>
-                                </span></li>
-                            <?php if ($prototal > 0) {
-                                if ($prototal < 749) { ?>
-                                    <li>Delivery Charges <span>₹
-                                            <?php $charges = 50;
-                                            echo $charges ?>
-                                        </span></li>
-                                <?php } else { ?>
-                                    <li>Delivery Charges <span>Free</span></li>
-                                    <?php
-                                }
-                            } ?>
-                            <li>Total <span>₹
-                                    <?php $alltotal = $prototal + $charges;
-                                    echo (int) $alltotal ?>
-                                </span></li>
-                        </ul>
-                        <a href="./checkout" class="primary-btn">Proceed to checkout</a>
-                    </div>
-                </div>
-            </div>
+            <?php } else
+                    echo "<h1 class='display-2 text-center'>CART EMPTY</h1>";
+                ?>
         </div>
     </section>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">

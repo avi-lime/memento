@@ -1,11 +1,6 @@
 <?php
 include("components/header.php");
 
-if (!isset($_SESSION["user"])) {
-    redirect("login");
-} else
-    $userid = $_SESSION["user"];
-
 ?>
 
 <!-- Breadcrumb Section Begin -->
@@ -30,59 +25,66 @@ if (!isset($_SESSION["user"])) {
 <section class="account spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <h2>Personal Details</h2>
-                <hr>
-                <div class="checkout__form">
-                    <?php
-                    $result = mysqli_query($conn, "SELECT * FROM user WHERE id=$userid");
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                        <form action="" method="Post">
-                            <div class="">
+            <?php
+            if (isset($_SESSION["user"])) {
+                $userid = $_SESSION["user"];
+                ?>
+                <div class="col-lg-6">
+                    <h2>Personal Details</h2>
+                    <hr>
+                    <div class="checkout__form">
+                        <?php
+                        $result = mysqli_query($conn, "SELECT * FROM user WHERE id=$userid");
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                            <form action="" method="Post">
                                 <div class="">
-                                    <div class="checkout__input">
-                                        <p>Name</p>
-                                        <input type="text" id="name" name="name" value="<?= $row['name'] ?>" required
-                                            disabled>
-                                    </div>
-                                    <div class="checkout__input">
-                                        <p>E-Mail</p>
-                                        <input type="email" id="email" name="email" value="<?= $row['email'] ?>" required
-                                            disabled>
-                                    </div>
-                                    <div class="checkout__input">
-                                        <p>Phone Number:</p>
-                                        <input type="tel" required id="phno" name="phno" value="<?= $row['mobileno'] ?>"
-                                            pattern="[0-9]{10}" disabled>
+                                    <div class="">
+                                        <div class="checkout__input">
+                                            <p>Name</p>
+                                            <input type="text" id="name" name="name" value="<?= $row['name'] ?>" required
+                                                disabled>
+                                        </div>
+                                        <div class="checkout__input">
+                                            <p>E-Mail</p>
+                                            <input type="email" id="email" name="email" value="<?= $row['email'] ?>" required
+                                                disabled>
+                                        </div>
+                                        <div class="checkout__input">
+                                            <p>Phone Number:</p>
+                                            <input type="tel" required id="phno" name="phno" value="<?= $row['mobileno'] ?>"
+                                                pattern="[0-9]{10}" disabled>
+                                        </div>
                                     </div>
                                 </div>
+                            </form>
+                        <?php } ?>
+                        <button class="primary-btn btnEdit" id="<?= $userid ?>" onclick="edit(this);">EDIT</button>
+                        <button class="primary-btn" id="btnPass">change password</button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <a class="card mb-3 account__link" role="button" href="orders">
+                        <div class="card-body">
+                            <div class="card-title h4 d-flex">
+                                MY ORDERS <i class="fa-solid fa-boxes-stacked ms-auto me-2"></i>
                             </div>
-                        </form>
-                    <?php } ?>
-                    <button class="primary-btn btnEdit" id="<?= $userid ?>" onclick="edit(this);">EDIT</button>
-                    <button class="primary-btn" id="btnPass">change password</button>
+                            <p>View, Track or Manage Orders</p>
+                        </div>
+                    </a>
+                    <a class="card account__link" role="button" href="address">
+                        <div class="card-body">
+                            <div class="card-title h4 d-flex">
+                                MANAGE ADDRESSES <i class="fa-solid fa-address-book ms-auto me-2"></i>
+                            </div>
+                            <p>Edit, Add or Remove your delivery addresses</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="card mb-3" role="button">
-                    <div class="card-body">
-                        <div class="card-title h4 d-flex">
-                            MY ORDERS <i class="fa-solid fa-boxes-stacked ms-auto me-2"></i>
-                        </div>
-                        <p>View, Track or Manage Orders</p>
-                    </div>
-                </div>
-                <div class="card" role="button">
-                    <div class="card-body">
-                        <div class="card-title h4 d-flex">
-                            MANAGE ADDRESSES <i class="fa-solid fa-address-book ms-auto me-2"></i>
-                        </div>
-                        <p>Edit, Add or Remove your delivery addresses</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php } else { ?>
+            <h1><a class="account__link text-decoration-underline" href="login">Login</a> to see your account</h1>
+        <?php } ?>
     </div>
 </section>
 <!-- toast -->
@@ -98,6 +100,7 @@ if (!isset($_SESSION["user"])) {
         </div>
     </div>
 </div>
+
 <script>
     function edit(e) {
         $("input").attr("disabled", false);
@@ -131,9 +134,6 @@ if (!isset($_SESSION["user"])) {
         }
     }
     $(document).ready(() => {
-        $(".card").hover(function () {
-            $(this).toggleClass("border-dark")
-        })
 
         $('input[type="tel"]').keypress(function (e) {
             var charCode = (e.which) ? e.which : event.keyCode

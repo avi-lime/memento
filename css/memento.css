@@ -31,3 +31,15 @@
 .arrow_right {
     color: white;
 }
+
+.account__link {
+    text-decoration: none;
+    color: black;
+    transition: all 200ms ease-in-out;
+}
+
+.account__link:hover,
+.account input:focus-visible {
+    color: black;
+    border-color: black;
+}
