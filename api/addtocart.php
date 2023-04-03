@@ -2,7 +2,10 @@
 include("../global/api/conn.php");
 session_start();
 $userid = $_SESSION['user'];
-
+if(!$userid){
+    echo "login kar";
+    die;
+};
 if (isset($_REQUEST['id']) && isset($_REQUEST['quantity']) && isset($_REQUEST['size']) && !isset($_REQUEST["update"])) {
     // INSERT
     $id = $_REQUEST['id'];
