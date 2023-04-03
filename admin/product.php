@@ -21,14 +21,14 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         <?php } ?>
         <div class="sort">
             <select class="nice-select" name="sort" id="sort">
-                <option value="ORDER BY id" selected>ID, 1-9</option>
-                <option value="ORDER BY id DESC">ID, 9-1</option>
-                <option value="ORDER BY name">Name, A-Z</option>
-                <option value="ORDER BY name DESC">Name, Z-A</option>
-                <option value="ORDER BY cat">Category, A-Z</option>
-                <option value="ORDER BY cat DESC">Category, Z-A</option>
-                <option value="ORDER BY sub">Sub-Category, A-Z</option>
-                <option value="ORDER BY sub DESC">Sub-Category, Z-A</option>
+                <option value="id" selected>ID, 1-9</option>
+                <option value="id DESC">ID, 9-1</option>
+                <option value="name">Name, A-Z</option>
+                <option value="name DESC">Name, Z-A</option>
+                <option value="cat">Category, A-Z</option>
+                <option value="cat DESC">Category, Z-A</option>
+                <option value="sub">Sub-Category, A-Z</option>
+                <option value="sub DESC">Sub-Category, Z-A</option>
             </select>
         </div>
         <input type="text" class="search-bar" name="search" id="search" data-table="product" placeholder="Search...">
@@ -221,7 +221,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     function fetch_filter_sort() {
         let params = "";
         let search = $("#search").val();
-        let sort_by = $("#sort").val();
+        let sort_by = "ORDER BY " + $("#sort").val();
         if (search != "") params += ` WHERE name LIKE '%${search}%' OR id LIKE '${search}%'`;
         params += ` ${sort_by}`
         $.ajax({
@@ -275,11 +275,11 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                         </li>
                                     </ul>
                                     <?php if ($super) { ?>
-                                                                <div class="btn-group w-100" role="group" aria-label="Actions">
-                                                                    <!-- <button type="button" class="btn my-btn">View</button> -->
-                                                                    <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
-                                                                    <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
-                                                                </div>
+                                                                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                                                                            <!-- <button type="button" class="btn my-btn">View</button> -->
+                                                                            <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                                                            <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                                                        </div>
                                     <?php } ?>
                                 </div>
                             </div>
