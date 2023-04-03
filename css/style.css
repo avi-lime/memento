@@ -980,11 +980,6 @@ ol {
 	opacity: 1;
 	visibility: visible;
 }
-
-.product__item:hover .product__item__text h6 {
-	opacity: 0;
-}
-
 .product__item:hover .product__item__text .product__color__select {
 	opacity: 1;
 }
@@ -1086,7 +1081,7 @@ ol {
 }
 
 .product__item__text h6 {
-	color: #111111;
+	color: red;
 	font-size: 15px;
 	font-weight: 600;
 	margin-bottom: 5px;
@@ -1114,9 +1109,10 @@ ol {
 	color: #b7b7b7;
 	font-size: 15px;
 	font-weight: 400;
-	margin-left: 10px;
+	margin-left: 5px;
 	text-decoration: line-through;
 }
+
 
 .product__item__text .product__color__select {
 	position: absolute;

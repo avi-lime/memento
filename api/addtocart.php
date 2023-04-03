@@ -1,9 +1,10 @@
 <?php
 include("../global/api/conn.php");
 session_start();
-$userid = $_SESSION['user'];
-
-if (isset($_REQUEST['id']) && isset($_REQUEST['quantity']) && isset($_REQUEST['size']) && !isset($_REQUEST["update"])) {
+$userid = isset($_SESSION['user'])? $_SESSION['user'] : "";
+if($userid==""){
+    $message= "To add product on cart please <a href='login'>Login</a>";
+}else if (isset($_REQUEST['id']) && isset($_REQUEST['quantity']) && isset($_REQUEST['size']) && !isset($_REQUEST["update"])) {
     // INSERT
     $id = $_REQUEST['id'];
     $quantity = (int) $_REQUEST['quantity'];

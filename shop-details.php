@@ -3,6 +3,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
     $sql = 'SELECT * FROM product WHERE id=' . $id . '';
     $result = mysqli_query($conn, $sql);
     $detail = mysqli_fetch_assoc($result);
+    $wishlisttext = "ADD TO WISHLIST";
     if (isset($_SESSION['user'])) {
         $checksql = 'SELECT * FROM wishlist WHERE user_id=' . $_SESSION['user'] . ' AND product_id=' . $detail['id'];
         $check = mysqli_query($conn, $checksql);
@@ -15,8 +16,6 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
         } else {
             $class = "wishlist";
             $wishlist = '<i class="fa-solid fa-heart white-heart"></i>';
-            $wishlisttext = "ADD TO WISHLIST";
-
         }
     } else {
         $class = "login";
@@ -410,7 +409,7 @@ if ((isset($_REQUEST['product_id']) && ($id = $_REQUEST['product_id']))) {
                 },
                 success: function (data) {
                     const toastLiveExample = document.getElementById('liveToast')
-                    $(".toast-body").text(data)
+                    $(".toast-body").html(data)
                     const toast = new bootstrap.Toast($("#liveToast"))
                     toast.show()
                 }
