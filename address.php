@@ -4,7 +4,7 @@ if (isset($_SESSION['user'])) {
     $sql = 'SELECT * FROM address WHERE user_id=' . $_SESSION['user'] . '';
     $result = mysqli_query($conn, $sql);
 
-    ?>
+?>
 
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
@@ -31,8 +31,7 @@ if (isset($_SESSION['user'])) {
             <input type="hidden" id="user-id">
             <div class="row">
                 <!-- Add address -->
-                <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -45,7 +44,8 @@ if (isset($_SESSION['user'])) {
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="checkout__input">
-                                                <p>Fist Name<span>*</span></p>
+                                            <input type="hidden" name="id" id="id">
+                                                <p>First Name<span>*</span></p>
                                                 <input type="text" id="firstname" name="firstname" required>
                                             </div>
                                         </div>
@@ -62,8 +62,7 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                     <div class="checkout__input">
                                         <p>Address<span>*</span></p>
-                                        <textarea rows="3" required id="address" name="address" autocomplete="address"
-                                            class="checkout__input__add"></textarea>
+                                        <textarea rows="3" required id="address" name="address" autocomplete="address" class="checkout__input__add"></textarea>
                                     </div>
                                     <div class="checkout__input">
                                         <p>Town/City<span>*</span></p>
@@ -84,14 +83,14 @@ if (isset($_SESSION['user'])) {
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn-site primary-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" id="btnClose" class="btn-site primary-btn" data-bs-dismiss="modal">Close</button>
                                 <button id="btnSubmit" type="submit" class="primary-btn">Save</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button class="primary-btn mb-3" data-bs-toggle="modal" data-bs-target="#addressModal">ADD ADDRESS</button>
+                <button class="primary-btn mb-3" data-bs-toggle="modal" id="addAddress" data-bs-target="#addressModal">ADD ADDRESS</button>
 
                 <!-- Render Address -->
                 <div id="addressList" class="p-0"></div>
@@ -101,14 +100,67 @@ if (isset($_SESSION['user'])) {
     <script>
         const userId = "<?= $_SESSION['user'] ?>"
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             fetch_address();
 
 
-            $("#btnSubmit")
+            $("#btnSubmit").click(function() {
+                let first = $('#firstname').val();
+                let last = $('#lastname').val();
+                let fullname=first+" "+last;
+                let country = $('#country').val();
+                let address = $('#address').val();
+                let city = $('#city').val();
+                let state = $('#state').val();
+                let pincode = $('#pincode').val();
+                let default1=0;
+                let id = $('#id').val();
+                if($('#default').is(':checked')){
+                    default1=1;
+                }
+                $.ajax({
+                    url:"api/saveaddress.php", 
+                    method:"POST",
+                    data: {
+                        pincode:pincode,
+                        state:state,
+                        city:city,
+                        country:country,
+                        addressname:fullname,
+                        address:address,
+                        default:default1,
+                        id:id
+                    },
+                    success: function(data){
+                        console.log(data);
+                        fetch_address();
+                        remove_feild();
+                    }   
+                })
 
-
-            $("#addressList").on("click", ".edit", function () {
+            })
+            $("#btnClose,.btn-close,#addAddress").on("click", function() {
+                remove_feild();
+            })
+            $('#addressList').on("click", ".delete",function(){
+                var id = $(this).attr("id").split("-")[1];
+                console.log(id);
+                $.ajax({
+                    url:"api/delete.php",
+                    method:"POST",
+                    data:{
+                        id:id,
+                        table:'address'
+                    },
+                    success: function(data){
+                        console.log(data);
+                        alert('Deleted address');
+                        fetch_address()
+                    }
+                })
+            })
+            $("#addressList").on("click", ".edit", function() {
+                remove_feild();
                 var id = $(this).attr("id").split("-")[1];
                 $.ajax({
                     url: "api/fetch.php",
@@ -116,8 +168,19 @@ if (isset($_SESSION['user'])) {
                         query: "SELECT * FROM address WHERE id=" + id
                     },
                     dataType: "json",
-                    success: function (data) {
+                    success: function(data) {
                         data.forEach(item => {
+                            let parsedData = $.parseJSON(data[0]);
+                            let name = parsedData.addressname;
+                            let ret = name.split(" ");
+                            $('#id').val(parsedData.id);
+                            $('#firstname').val(ret[0]);
+                            $('#lastname').val(ret[1]);
+                            $('#country').val(parsedData.country);
+                            $('#address').val(parsedData.address);
+                            $('#city').val(parsedData.city);
+                            $('#state').val(parsedData.state);
+                            $('#pincode').val(parsedData.pincode);
                             console.log(item)
                         })
                     }
@@ -125,8 +188,17 @@ if (isset($_SESSION['user'])) {
                 $(".modal").modal("show")
             })
         })
-
-
+        function remove_feild() {
+            $('#id').val("");
+            $('#firstname').val("");
+            $('#lastname').val("");
+            $('#country').val("");
+            $('#address').val("");
+            $('#city').val("");
+            $('#state').val("");
+            $('#pincode').val("");
+            $('#default').prop('checked', false); 
+        }
 
         function fetch_address() {
             $.ajax({
@@ -135,7 +207,7 @@ if (isset($_SESSION['user'])) {
                     query: "SELECT * FROM address WHERE user_id=" + userId
                 },
                 dataType: "json",
-                success: function (data) {
+                success: function(data) {
                     let content = ``;
                     console.log(data.length)
                     if (data.length > 0) {
@@ -162,9 +234,9 @@ if (isset($_SESSION['user'])) {
             })
         }
     </script>
-    <?php
+<?php
 } else {
-    ?>
+?>
     <section class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -190,7 +262,7 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </section>
-    <?php
+<?php
 }
 ?>
 
