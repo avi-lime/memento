@@ -56,10 +56,11 @@ if (isset($_SESSION['user'])) {
                                     ?>
                                     <tr>
                                         <td class="product__cart__item">
-                                            <div class="product__cart__item__pic">
+                                           <a href="shop-details?product_id=<?=$product['id']?>"><div class="product__cart__item__pic">
                                                 <img src="global/assets/images/<?= $image['image'] ?>"
                                                     style="width: 90px;height: 160px; object-fit: cover" alt="">
                                             </div>
+                                        </a>
                                             <div class="product__cart__item__text">
                                                 <h6>
                                                     <?= $product['name'] ?>
