@@ -43,3 +43,9 @@
     color: black;
     border-color: black;
 }
+
+.address .card .card-title span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #7b7b7b;
+}

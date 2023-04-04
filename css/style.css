@@ -980,6 +980,7 @@ ol {
 	opacity: 1;
 	visibility: visible;
 }
+
 .product__item:hover .product__item__text .product__color__select {
 	opacity: 1;
 }
@@ -2624,7 +2625,8 @@ ol {
 	color: #e53637;
 }
 
-.checkout__input input {
+.checkout__input input,
+.checkout__input textarea {
 	height: 50px;
 	width: 100%;
 	border: 1px solid #e1e1e1;

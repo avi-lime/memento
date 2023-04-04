@@ -83,7 +83,6 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                 . '<td>' . $row['username'] . '</td>'
                 . '<td>' . $row['email'] . '</td>'
                 . '<td>'
-                . '<a class="me-2 btn-edit" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-pen"></i></a>'
                 . '<a class="btn-del" role="button" id="' . $row["id"] . '" style="color: var(--white)"><i class="fa-solid fa-trash"></i></a>'
                 . '</td>'
                 . '</tr>';
@@ -97,29 +96,6 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     $(document).ready(function () {
 
         $("#table").DataTable();
-        $('.btn-edit').click(function () {
-            var id = $(this).attr("id");
-            $.ajax({
-                url: 'api/fetch.php',
-                method: 'POST',
-                data: {
-                    id: id,
-                    table: "admin"
-                },
-                dataType: "json",
-                success: function (data) {
-                    $("#id").val(data.id);
-                    $("#name").val(data.username);
-                    $("#email").val(data.email);
-                    $("#password").attr("type", "text");
-                    $("#password").val(data.password);
-                    $("#password").attr("type", "password");
-                    $("#mdlLabel").text("Edit Admin");
-                    $("#btnSubmit").text("Update");
-                    $("#modal").modal('show');
-                }
-            })
-        })
 
         $("#table").on("click", "a.btn-del", function () {
             var id = $(this).attr("id");
