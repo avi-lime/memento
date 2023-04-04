@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 29, 2023 at 07:22 PM
+-- Generation Time: Apr 04, 2023 at 06:28 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -37,16 +37,18 @@ CREATE TABLE IF NOT EXISTS `address` (
   `state` varchar(255) NOT NULL,
   `country` text NOT NULL,
   `pincode` int(11) NOT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_addresss_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `address`
 --
 
-INSERT INTO `address` (`id`, `addressname`, `address`, `user_id`, `city`, `state`, `country`, `pincode`) VALUES
-(1, 'Jigyasu Sharma', 'Shubh Mangal Appartment,opp SBI Bank, Adajan', 2, 'surat', 'Gujarat', 'sad', 395009);
+INSERT INTO `address` (`id`, `addressname`, `address`, `user_id`, `city`, `state`, `country`, `pincode`, `is_default`) VALUES
+(1, 'Jigyasu Sharma', 'Shubh Mangal Appartment,opp SBI Bank, Adajan', 2, 'surat', 'Gujarat', 'sad', 395009, 0),
+(2, 'Avinash Singh', 'B-704, Rameshwaram Keshav Heights, Opposite Broadway international school, Althan', 1, 'Surat', 'Gujarat', 'India', 395007, 0);
 
 -- --------------------------------------------------------
 
@@ -97,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `cart` (
 --
 
 INSERT INTO `cart` (`id`, `product_id`, `quantity`, `size`, `user_id`) VALUES
-(25, 3, 3, 'm', 1),
 (26, 3, 2, 'l', 2),
 (32, 4, 1, 'm', 3);
 
@@ -144,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
@@ -152,7 +153,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`id`, `order_id`, `user_id`, `product_id`, `address_id`, `amount`, `status`, `date`, `quantity`, `size`) VALUES
 (10, 'order_LXOFKKfLprSUL4', 3, 3, 1, 399, NULL, '2023-03-29 21:00:30', 1, 'm'),
-(11, 'order_LXOGr2XDS8tR6g', 3, 5, 1, 749, NULL, '2023-03-29 21:01:57', 1, 'l');
+(11, 'order_LXOGr2XDS8tR6g', 3, 5, 1, 749, NULL, '2023-03-29 21:01:57', 1, 'l'),
+(12, 'order_LYugUXNIQDoZPp', 1, 5, 1, 749, NULL, '2023-04-02 17:23:25', 1, 'l');
 
 -- --------------------------------------------------------
 
@@ -169,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `status` varchar(255) NOT NULL,
   `amount` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payment`
@@ -177,7 +179,8 @@ CREATE TABLE IF NOT EXISTS `payment` (
 
 INSERT INTO `payment` (`id`, `order_id`, `transaction_date`, `payment_mode`, `status`, `amount`) VALUES
 (8, 'order_LXOFKKfLprSUL4', '2023-03-29 21:00:30', 'NetBanking', 'Completed', 399),
-(9, 'order_LXOGr2XDS8tR6g', '2023-03-29 21:01:57', 'NetBanking', 'Completed', 749);
+(9, 'order_LXOGr2XDS8tR6g', '2023-03-29 21:01:57', 'NetBanking', 'Completed', 749),
+(10, 'order_LYugUXNIQDoZPp', '2023-04-02 17:23:25', 'NetBanking', 'Completed', 749);
 
 -- --------------------------------------------------------
 
@@ -232,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_images`
@@ -241,8 +244,6 @@ CREATE TABLE IF NOT EXISTS `product_images` (
 INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
 (9, 4, '16778027110.JPG'),
 (10, 4, '16778027111.JPG'),
-(13, 5, '16778033460.JPG'),
-(14, 5, '16778033461.JPG'),
 (15, 6, '16778034270.JPG'),
 (16, 6, '16778034271.JPG'),
 (17, 7, '16778035830.JPG'),
@@ -264,7 +265,9 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
 (43, 14, '16778699720.JPG'),
 (44, 14, '16778699721.JPG'),
 (45, 15, '16778704780.JPG'),
-(46, 15, '16778704781.JPG');
+(46, 15, '16778704781.JPG'),
+(47, 5, '16803449890.JPG'),
+(48, 5, '16803449891.JPG');
 
 -- --------------------------------------------------------
 
@@ -304,7 +307,6 @@ CREATE TABLE IF NOT EXISTS `slider` (
 --
 
 INSERT INTO `slider` (`id`, `content`, `cat_id`, `subcat_id`, `image`) VALUES
-(9, 'Marvel', 12, 13, '1680114446.jpg'),
 (11, 'StreetWear23', 12, NULL, '1680114617.jpg'),
 (12, 'OverSize', 12, 13, '1680117750.jpg');
 
@@ -349,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `mobileno` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -358,7 +360,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `mobileno`) VALUES
 (1, 'Avi', 'sa3198154@gmail.com', '$2y$10$Zk6ThOmwRDgv5UtLSrMqk.bm9p9vHKaSymjMEBqCWG1BaamcblXHO', '9727445634'),
 (2, 'Jigyasu', 'jigyasu@gmail.com', '$2y$10$5/PZI2ecSCuJ9ewSnBg0.u.OpeGJ3C9D9ffiIPjTlj5vnF0hKZuiq', '7405263599'),
-(3, 'Rekha', 'rekhasharma2799@gmail.com', '$2y$10$uwRzy.3bCcCgap30.JriCO9/MlJAFZybHOVGiN3Aj1TeUVqVMpwJG', '8866405292');
+(3, 'Rekha', 'rekhasharma2799@gmail.com', '$2y$10$uwRzy.3bCcCgap30.JriCO9/MlJAFZybHOVGiN3Aj1TeUVqVMpwJG', '8866405292'),
+(4, 'Om', 'ombhatt@gmail.com', '$2y$10$XQx6BuRmnvrpNKs1JH3Glup1rVXj2dIWvDC6M3MKRnt.pGA/iHTdG', '9727445634');
 
 -- --------------------------------------------------------
 
@@ -374,20 +377,21 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wishlist`
 --
 
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
-(63, 1, 13),
 (64, 2, 3),
 (65, 2, 4),
 (66, 2, 5),
 (67, 3, 3),
 (68, 3, 4),
-(69, 3, 5);
+(69, 3, 5),
+(70, 1, 5),
+(71, 1, 13);
 
 --
 -- Constraints for dumped tables
