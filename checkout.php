@@ -250,7 +250,7 @@ $successmessage='<div>'
                 .'</div>';
                 date_default_timezone_set("Asia/Calcutta");
                 $order_created_at = date('y-m-d H:i:s');
-                $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $user_id;
+                $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
 ?>
 <!-- php body for COD -->
 <script>
