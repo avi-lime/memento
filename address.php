@@ -141,6 +141,8 @@ if (isset($_SESSION['user'])) {
             })
             $("#btnClose,.btn-close,#addAddress").on("click", function() {
                 remove_feild();
+                $('#btnSubmit').text("Save");
+                
             })
             $('#addressList').on("click", ".delete",function(){
                 var id = $(this).attr("id").split("-")[1];
@@ -181,6 +183,7 @@ if (isset($_SESSION['user'])) {
                             $('#city').val(parsedData.city);
                             $('#state').val(parsedData.state);
                             $('#pincode').val(parsedData.pincode);
+                            $('#btnSubmit').text("Update");
                             console.log(item)
                         })
                     }
