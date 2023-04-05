@@ -12,7 +12,11 @@ if($success=="false"){
 }else{
     $success="Completed";
 }
+if($_REQUEST['orderid']){
+$orderid=mysqli_real_escape_string($conn,$_REQUEST['orderid']);
+}else{
 $orderid=mysqli_real_escape_string($conn,$_SESSION['razorpay_order_id']);
+}
 $sql="SELECT * FROM cart WHERE user_id=$userid";
 $result=mysqli_query($conn,$sql) or die(mysqli_errno($conn));
 while($product=mysqli_fetch_assoc($result)){
