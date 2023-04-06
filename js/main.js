@@ -263,4 +263,9 @@
             }
         })
     })
+
+    $(".search-model-form").submit(function (e) {
+        e.preventDefault();
+        location.href = "shop?q=" + $("#search-input").val();
+    })
 })(jQuery);

@@ -19,7 +19,8 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Filter Offcanvas -->
-<div class="offcanvas bg-black offcanvas-end" tabindex="-1" id="offcanvasExample" data-bs-theme="dark" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas bg-black offcanvas-end" tabindex="-1" id="offcanvasExample" data-bs-theme="dark"
+    aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h3 class="offcanvas-title text-white">FILTERS</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -44,20 +45,24 @@
                         <div class="price-input">
                             <div class="field">
                                 <span>Min</span>
-                                <input type="number" class="input-min" value="<?= isset($_GET['min']) ? $_GET['min'] : 0 ?>">
+                                <input type="number" class="input-min"
+                                    value="<?= isset($_GET['min']) ? $_GET['min'] : 0 ?>">
                             </div>
                             <div class="separator">-</div>
                             <div class="field">
                                 <span>Max</span>
-                                <input type="number" class="input-max" value="<?= isset($_GET['max']) ? $_GET['max'] : 3000 ?>">
+                                <input type="number" class="input-max"
+                                    value="<?= isset($_GET['max']) ? $_GET['max'] : 3000 ?>">
                             </div>
                         </div>
                         <div class="slider">
                             <div class="progress"></div>
                         </div>
                         <div class="range-input">
-                            <input type="range" class="range-min" id="min" name="min" min="0" max="3000" value="<?= isset($_GET['min']) ? $_GET['min'] : 0 ?>" step="10">
-                            <input type="range" class="range-max" id="max" name="max" min="0" max="3000" value="<?= isset($_GET['max']) ? $_GET['max'] : 3000 ?>" step="10">
+                            <input type="range" class="range-min" id="min" name="min" min="0" max="3000"
+                                value="<?= isset($_GET['min']) ? $_GET['min'] : 0 ?>" step="10">
+                            <input type="range" class="range-max" id="max" name="max" min="0" max="3000"
+                                value="<?= isset($_GET['max']) ? $_GET['max'] : 3000 ?>" step="10">
                         </div>
                     </div>
                 </div>
@@ -189,18 +194,18 @@
                                 $subquery = 'SELECT * FROM subcat WHERE cat_id=' . $catid . '';
                                 if ($result = mysqli_query($conn, $subquery)) {
                                     while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
+                                        ?>
                                         <a href="shop?sub_id=<?= $row['id'] ?>"><?= $row['name'] ?></a>
-                                    <?php
+                                        <?php
                                     }
                                 }
                             } else {
                                 $query = 'SELECT * FROM subcat';
                                 if ($result = mysqli_query($conn, $query)) {
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
+                                        ?>
                                         <a href="shop?sub_id=<?= $row['id'] ?>"><?= $row['name'] ?></a>
-                            <?php
+                                        <?php
                                     }
                                 }
                             }
@@ -212,7 +217,8 @@
             <div class="card bg-black">
                 <div class="card-body">
                     <div class="shop__sidebar__size">
-                        <input type="button" class="primary-btn" id="btnFilterapply" name="btnFilterapply" value="Apply">
+                        <input type="button" class="primary-btn" id="btnFilterapply" name="btnFilterapply"
+                            value="Apply">
                         <?php
 
                         ?>
@@ -236,7 +242,9 @@
                         <option value="ASC">Low To High</option>
                         <option value="DESC">High To Low</option>
                     </select>
-                    <button class="filter primary-btn ms-3" style="font-size: 16px" id="btnfilter" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">filter
+                    <button class="filter primary-btn ms-3" style="font-size: 16px" id="btnfilter"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                        aria-controls="offcanvasExample">filter
                         <i class="fa-solid fa-filter"></i></button>
                 </div>
             </div>
@@ -262,11 +270,11 @@
 
 <!-- Shop Section End -->
 <script>
-    $(document).ready(function() {        
-    fetch_filter_sort();
+    $(document).ready(function () {
+        fetch_filter_sort();
         const rangeInput = document.querySelectorAll(".range-input input"),
-        priceInput = document.querySelectorAll(".price-input input"),
-        range = document.querySelector(".slider .progress");
+            priceInput = document.querySelectorAll(".price-input input"),
+            range = document.querySelector(".slider .progress");
         let priceGap = 100;
         priceInput.forEach(input => {
             input.addEventListener("input", e => {
@@ -305,34 +313,39 @@
     })
 
     //main code
-    $("#sort").change(function(){
+    $("#sort").change(function () {
         fetch_filter_sort();
     })
-    $("#btnFilterapply").click(function(){
+    $("#btnFilterapply").click(function () {
         fetch_filter_sort();
     })
     function fetch_filter_sort() {
         let params = "";
-        let subID='<?=isset($_REQUEST['sub_id']) ? $_REQUEST['sub_id'] : ""?>';
-        let catID='<?=isset($_REQUEST['cat_id']) ? $_REQUEST['cat_id'] : ""?>';
+        let subID = '<?= isset($_REQUEST['sub_id']) ? $_REQUEST['sub_id'] : "" ?>';
+        let catID = '<?= isset($_REQUEST['cat_id']) ? $_REQUEST['cat_id'] : "" ?>';
+        let search = '<?= isset($_REQUEST['q']) ? $_REQUEST['q'] : "" ?>';
         let min = $("#min").val();
-        let max =$("#max").val();
+        let max = $("#max").val();
         let sort_by = $("#sort").val();
-        if(subID){
-            params+=" WHERE subcat_id="+subID;
-            if(min || max){
-            params+=" AND price BETWEEN "+min+" AND "+max;
-            } 
-        }else if(catID){
-            params+=" WHERE cat_id="+catID;
-            if(min || max){
-            params+=" AND price BETWEEN "+min+" AND "+max;
-            } 
-        }else if (min || max){
-            params+=" WHERE price BETWEEN "+min+" AND "+max;
+
+        if (search) {
+            params += ` WHERE name LIKE %${search}%`
+        } else if (subID) {
+            params += " WHERE subcat_id=" + subID;
+            if (min || max) {
+                params += " AND price BETWEEN " + min + " AND " + max;
+            }
+        } else if (catID) {
+            params += " WHERE cat_id=" + catID;
+            if (min || max) {
+                params += " AND price BETWEEN " + min + " AND " + max;
+            }
+        } else if (min || max) {
+            params += " WHERE price BETWEEN " + min + " AND " + max;
         }
-        if(sort_by){
-            params+=" ORDER BY price "+sort_by;
+
+        if (sort_by) {
+            params += " ORDER BY price " + sort_by;
         }
         console.log(params);
         $.ajax({
@@ -346,15 +359,14 @@
                 ` + params
             },
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 let content = ""
                 data.forEach(item => {
                     let parsedItem = $.parseJSON(item);
                     content += `<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item sale">
                                         <a href="shop-details?product_id=${parsedItem.id}">
-                                            <div class="product__item__pic set-bg carousel slide" id="${parsedItem.id}" data-setbg="global/assets/images/">
-                                          
+                                        <div class="product__item__pic set-bg carousel slide" id="${parsedItem.id}" data-setbg="global/assets/images/">
                                 </div>
                             </a>
                             <div class="product__item__text">
@@ -367,7 +379,7 @@
                                     </h5>
                                     <p class="mb-1" >
                                     ${parsedItem.sub}</p>
-                                <h5>₹${parseInt(parsedItem.price-parsedItem.price*parsedItem.discount/100)}<span>₹${parsedItem.price}</span><h6>(${parsedItem.discount}% OFF)</h6></h5></div>
+                                <h5>₹${parseInt(parsedItem.price - parsedItem.price * parsedItem.discount / 100)}<span>₹${parsedItem.price}</span><h6>(${parsedItem.discount}% OFF)</h6></h5></div>
                         </div>
                     </div>
         </div>
@@ -375,7 +387,7 @@
                         `;
                 })
                 $("#productList").html(content)
-                $(".carousel").each(function(index, element) {
+                $(".carousel").each(function (index, element) {
                     let id = element.id;
                     $.ajax({
                         url: "api/fetch.php",
@@ -384,7 +396,7 @@
                             query: "SELECT * FROM product_images WHERE product_id=" + id
                         },
                         dataType: "json",
-                        success: function(data) {
+                        success: function (data) {
                             let content = `<div class="carousel-indicators">`
                             let class_active = "";
                             for (let i = 0; i < data.length; i++) {
