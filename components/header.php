@@ -87,7 +87,6 @@ include "global/api/conn.php";
                 <div class="row">
                     <div class="col-lg-6 col-md-7">
                         <div class="header__top__left">
-                            <p>Free shipping, 30-day return or refund guarantee.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-5">
@@ -104,7 +103,6 @@ include "global/api/conn.php";
                                     <?php
                                 }
                                 ?>
-                                <a href="#">FAQs</a>
                                 <a href="./blog">Blog</a>
                             </div>
                         </div>
