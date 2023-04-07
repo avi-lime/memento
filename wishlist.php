@@ -64,7 +64,7 @@ $userid = $_REQUEST['userid'] ?>
 								</li>
 							</ul>
 							<div class="card-body">
-								<a href="shopping-cart" style="color:#ff3e6c;text-decoration: none" id="<?=$wishlistdetails["id"] ?>" class="addtobag">Add To
+								<a href="" style="color:#ff3e6c;text-decoration: none" id="<?=$wishlistdetails["id"] ?>" class="addtobag">Add To
 									Bag</a>
 							</div>
 						</div>
@@ -76,28 +76,41 @@ $userid = $_REQUEST['userid'] ?>
 		</div>
 	</div>
 	<script>
-		$(".delete").click(function (e) {
-			e.preventDefault();
+		$(document).ready(function(){
+			$(".delete").click(function (e) {
+	
 			var id = $(this).attr("id");
 			console.log(id);
 			$.ajax({
-				url: "api/wishlist.php",
+				url: "api/delete.php",
 				method: "post",
 				data: {
-					wishlistid: id,
-					action: "delete"
+					id: id,
+					table:"wishlist"
 				},
 				success: function (data) {
-					console.log("product added to wishlist")
+					console.log("Product deleted")
 					document.location.reload();
 				}
 			})
 		})
-		$(".addtobag").click(function(){
+		$(".addtobag").click(function(e){
+			e.preventDefault();
 			var id = $(this).attr("id");
+			console.log(id);
 			$.ajax({
-				
+				url:"api/addtocart",
+				method:"POST",
+				data:{
+					quantity:1,
+					size:"m",
+					id:id
+				},
+				success:function(data){
+					location.href="shopping-cart.php";
+				}
 			})
+		})
 		})
 	</script>
 	<?php include("components/footer.php"); ?>
