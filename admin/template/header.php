@@ -165,14 +165,14 @@ function redirect($url)
                     <i class="fa-solid fa-user ms-2"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                    <li>
+                    <!-- <li>
                         <a class="dropdown-item" href="settings">
                             <i class="fa-solid fa-cog"></i>&nbsp;&nbsp;Settings
                         </a>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
-                    </li>
+                    </li> -->
                     <li>
                         <form method="post" action="api/logout.php">
                             <button name="btnLogout" class="dropdown-item" type="submit">
