@@ -77,8 +77,8 @@
                 url: "mail/index.php",
                 data: {
                     email: email,
-                    subject: subject,
-                    body: message,
+                    subject: "Thanks for reaching out!",
+                    body: "We've received your message and we'll respond to you shortly!",
                     altbody: altbody,
                     fromMail: "jigyasusharma2803@gmail.com",
                     fromName: "MEMENTO",

@@ -10,7 +10,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
 
 ?>
 <div class="card">
-    <h1>Categories</h1>
+    <h1>Messages</h1>
     <hr>
     <div class="actions">
         <?php if ($super) { ?>
@@ -139,7 +139,8 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                     body: message,
                     altbody: "Support Response",
                     fromMail: "jigyasusharma2803@gmail.com",
-                    fromName: "MEMENTO"
+                    fromName: "MEMENTO",
+                    contact: true
                 },
                 success: function (data) {
                     console.log(data);
@@ -205,7 +206,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                             </ul>    
                             <div class="card-body pb-0">
                                     <?php if ($super) { ?>
-                                                                                                                                                                                                <a role="button" id="reply-${parsedItem.id}" class="btn my-btn btn-reply">Reply</a>
+                                                                                                                                                                                                        <a role="button" id="reply-${parsedItem.id}" class="btn my-btn btn-reply">Reply</a>
                                     <?php } ?>
                                 </div>
                                 <div class="card-footer">

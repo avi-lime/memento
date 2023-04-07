@@ -96,6 +96,8 @@ $userid = $_SESSION['user'];
                         <div class="row" id="addressList">
 
                         </div>
+                        <a href="#addressModal" data-bs-toggle="modal" class="primary-btn mt-3 text-center"
+                            role="button" name="addAddress" id="addAddress">+ Add a new address</a>
                         <!-- <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
@@ -368,7 +370,6 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
                                         </div>
                                         `;
                     });
-                    content += `<a href="#addressModal" data-bs-toggle="modal" class="primary-btn mt-3 text-center" role="button" name="addAddress" id="addAddress" >+ Add a new address</a>`;
                 } else content = "<h2 class='text-center mt-6'>No saved addresses.</h2>"
 
                 $("#addressList").html(content)

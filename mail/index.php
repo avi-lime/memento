@@ -16,6 +16,7 @@ if (isset($_REQUEST['email'])) {
     $fromName = $_REQUEST['fromName'];
     $sql = 'SELECT * FROM user WHERE email="' . $email . '"';
     $result = mysqli_query($conn, $sql);
+    echo "<script>alert('" . isset($_REQUEST["contact"]) . "')</script>";
     if (mysqli_num_rows($result) <= 0 && !isset($_REQUEST["contact"])) {
         echo false;
     } else {
