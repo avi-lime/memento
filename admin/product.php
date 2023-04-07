@@ -222,7 +222,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         let params = "";
         let search = $("#search").val();
         let sort_by = "ORDER BY " + $("#sort").val();
-        if (search != "") params += ` WHERE name LIKE '%${search}%' OR id LIKE '${search}%'  OR cat_id = (SELECT id FROM category WHERE category.name LIKE '%${search}%') OR subcat_id = (SELECT id FROM subcat WHERE subcat.name LIKE '%${search}%')`;
+        if (search != "") params += ` WHERE name LIKE '%${search}%' OR id LIKE '${search}%' OR cat_id = (SELECT id FROM category WHERE category.name LIKE '%${search}%') OR subcat_id = (SELECT id FROM subcat WHERE subcat.name LIKE '%${search}%')`;
         params += ` ${sort_by}`
         $.ajax({
             url: 'api/fetch.php',
@@ -277,11 +277,11 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                     </ul>
                                     <div class="card-body">
                                     <?php if ($super) { ?>
-                    <div class="btn-group w-100" role="group" aria-label="Actions">
-                        <!-- <button type="button" class="btn my-btn">View</button> -->
-                        <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
-                        <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
-                    </div>
+                                        <div class="btn-group w-100" role="group" aria-label="Actions">
+                                            <!-- <button type="button" class="btn my-btn">View</button> -->
+                                            <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
+                                            <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
+                                        </div>
                                     <?php } ?>
                                 </div>
                             </div>

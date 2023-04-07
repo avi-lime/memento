@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 04, 2023 at 06:28 PM
+-- Generation Time: Apr 07, 2023 at 08:03 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   `is_default` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_addresss_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `address`
@@ -48,7 +48,8 @@ CREATE TABLE IF NOT EXISTS `address` (
 
 INSERT INTO `address` (`id`, `addressname`, `address`, `user_id`, `city`, `state`, `country`, `pincode`, `is_default`) VALUES
 (1, 'Jigyasu Sharma', 'Shubh Mangal Appartment,opp SBI Bank, Adajan', 2, 'surat', 'Gujarat', 'sad', 395009, 0),
-(2, 'Avinash Singh', 'B-704, Rameshwaram Keshav Heights, Opposite Broadway international school, Althan', 1, 'Surat', 'Gujarat', 'India', 395007, 0);
+(2, 'Avinash Singh', 'B-704, Rameshwaram Keshav Heights, Opposite Broadway international school, Althan', 1, 'Surat', 'Gujarat', 'India', 395007, 0),
+(9, 'Neha Singh', 'I-301, Rajhans Platinum, Palanpur Canal road', 1, 'Surat', 'Gujarat', 'India', 395009, 1);
 
 -- --------------------------------------------------------
 
@@ -73,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 INSERT INTO `admin` (`id`, `email`, `password`, `username`, `superadmin`) VALUES
 (3, 'admin@admin.com', '$2y$10$p1hI3LduLkki2cIIsH1WmeHI.dmygMs3mGHNkhWIg/WSlAlERJQBG', 'admin', 1),
-(4, 'allahhuakbar911@boomboom.com', '$2y$10$8MWn2jmfEz5BkAGgR6NSqel7gmEtLIZM.EurMbCp9VxY4mNtgMiN.', 'allah hu akbar', 0),
 (6, 'sa3198154+admin@gmail.com', '$2y$10$xnoWTawUw7cOUgDDNfXqa.au9NX1asVTMrLOfsxFIHrCH/HcaSLsO', 'avi', 0);
 
 -- --------------------------------------------------------
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`),
   KEY `FK_cart_product` (`product_id`),
   KEY `FK_card_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
@@ -100,7 +100,8 @@ CREATE TABLE IF NOT EXISTS `cart` (
 
 INSERT INTO `cart` (`id`, `product_id`, `quantity`, `size`, `user_id`) VALUES
 (26, 3, 2, 'l', 2),
-(32, 4, 1, 'm', 3);
+(32, 4, 1, 'm', 3),
+(33, 13, 1, 'm', 1);
 
 -- --------------------------------------------------------
 
@@ -115,14 +116,52 @@ CREATE TABLE IF NOT EXISTS `category` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `image`) VALUES
-(12, 'Casual wear', '1677211700.jpg');
+(12, 'Male', '1680890995.png'),
+(13, 'Female', '1680891009.png'),
+(14, 'Kids', '1680891022.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `sent_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `replied_to` int(11) DEFAULT NULL,
+  `replied_by` int(11) DEFAULT NULL,
+  `replied` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `name`, `email`, `message`, `sent_time`, `replied_to`, `replied_by`, `replied`) VALUES
+(3, 'asdfsd', 'sa3198154@gmail.com', 'asfasdf', '2023-04-06 20:27:06', NULL, NULL, 1),
+(8, 'asdfsd', 'sa3198154@gmail.com', 'asfasdf', '2023-04-06 20:27:06', NULL, NULL, 1),
+(15, 'asdf', 'sa3198154@gmail.com', 'manoj chutiya manoj chutiya bsdka loda ek kaam ni karta chutiya mc kya kareaga  zindagi me bsdwala job karne wala tha loda isko koi job pe rakhega ek project me to kaam ho ni ra mai kya karu lode isse kya hoga zindagi me mar jayenga ye', '2023-04-06 20:27:06', NULL, NULL, 1),
+(17, 'asdf', 'sa3198154@gmail.com', 'manoj chutiya manoj chutiya bsdka loda ek kaam ni karta chutiya mc kya kareaga  zindagi me bsdwala job karne wala tha loda isko koi job pe rakhega ek project me to kaam ho ni ra mai kya karu lode isse kya hoga zindagi me mar jayenga ye', '2023-04-06 20:40:18', NULL, NULL, 1),
+(18, 'avi', 'sa3198154@gmail.com', 'lamba message\r\n\r\ndsaf\r\ndsaf\r\n', '2023-04-06 20:57:54', 17, 6, 0),
+(19, 'avi', 'sa3198154@gmail.com', 'lamba message\r\n\r\ndsaf\r\ndsaf\r\n', '2023-04-06 20:57:57', 17, 6, 0),
+(24, '', 'sa3198154@gmail.com', ' okkkkkk', '2023-04-07 08:02:53', 8, 3, 0),
+(25, '', 'sa3198154@gmail.com', ' okay', '2023-04-07 08:03:35', 8, 3, 0),
+(26, '', 'sa3198154@gmail.com', ' okay', '2023-04-07 08:03:56', 3, 3, 0),
+(27, '', 'sa3198154@gmail.com', ' okayyy', '2023-04-07 08:04:28', 15, 3, 0),
+(28, '', 'jigyasusharma2803@gmail.com', 'ab admin kisi ko b email bhej skta, tere mail se, but tere mail se khud ko jayega k nai wo ni malum ðŸ’€', '2023-04-07 08:11:16', 15, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -145,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
@@ -154,7 +193,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
 INSERT INTO `orders` (`id`, `order_id`, `user_id`, `product_id`, `address_id`, `amount`, `status`, `date`, `quantity`, `size`) VALUES
 (10, 'order_LXOFKKfLprSUL4', 3, 3, 1, 399, NULL, '2023-03-29 21:00:30', 1, 'm'),
 (11, 'order_LXOGr2XDS8tR6g', 3, 5, 1, 749, NULL, '2023-03-29 21:01:57', 1, 'l'),
-(12, 'order_LYugUXNIQDoZPp', 1, 5, 1, 749, NULL, '2023-04-02 17:23:25', 1, 'l');
+(12, 'order_LYugUXNIQDoZPp', 1, 5, 1, 749, NULL, '2023-04-02 17:23:25', 1, 'l'),
+(13, 'order_La2sFe6JiITglX', 1, 5, 1, 749, NULL, '2023-04-05 14:03:06', 1, 'm');
 
 -- --------------------------------------------------------
 
@@ -171,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `status` varchar(255) NOT NULL,
   `amount` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payment`
@@ -180,7 +220,8 @@ CREATE TABLE IF NOT EXISTS `payment` (
 INSERT INTO `payment` (`id`, `order_id`, `transaction_date`, `payment_mode`, `status`, `amount`) VALUES
 (8, 'order_LXOFKKfLprSUL4', '2023-03-29 21:00:30', 'NetBanking', 'Completed', 399),
 (9, 'order_LXOGr2XDS8tR6g', '2023-03-29 21:01:57', 'NetBanking', 'Completed', 749),
-(10, 'order_LYugUXNIQDoZPp', '2023-04-02 17:23:25', 'NetBanking', 'Completed', 749);
+(10, 'order_LYugUXNIQDoZPp', '2023-04-02 17:23:25', 'NetBanking', 'Completed', 749),
+(11, 'order_La2sFe6JiITglX', '2023-04-05 14:03:06', 'NetBanking', 'Completed', 749);
 
 -- --------------------------------------------------------
 
@@ -201,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `FK_product_cat` (`cat_id`),
   KEY `FK_product_sub` (`subcat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product`
@@ -220,7 +261,14 @@ INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discou
 (12, 'Human\'s Cry', 999, 15, 'We cry, we love,\r\nBut we do whatever we do, in style!\r\nLimited Edition, so grab it before it\'s gone!!', 25, 12, 14),
 (13, 'Work is Worship', 499, 25, 'Cool yet Classy!\r\nAnother one from the BVM Collaboration.\r\nLimited stock.\r\n', 30, 12, 11),
 (14, 'BVM White', 499, 15, 'White T-Shirt with a cool design made for the collab with BVM University\r\n', 30, 12, 11),
-(15, 'BVM Beige', 499, 15, 'Beige T-Shirt from our BVM T-Shirt collection\r\n\r\nFrom our collab with BVM University', 30, 12, 11);
+(15, 'BVM Beige', 499, 15, 'Beige T-Shirt from our BVM T-Shirt collection\r\n\r\nFrom our collab with BVM University', 30, 12, 11),
+(16, 'Superman', 404, 100, 'Men White Printed Round Neck Pure Cotton T-shirt', 10, 12, 11),
+(17, 'Grey Melange Solid Round Neck T-shirt', 599, 50, 'Grey melange solid T-shirt, has a round neck, short sleeves', 10, 12, 11),
+(18, 'PUMA Classic No.1 Logo Women\'s T-Shirt', 669, 100, 'Classics are called so for a reason because no matter what time, they never get old, only better. The PUMA No.1 Classic Logo Women\'s T-Shirt is simple, sophisticated and versatile.	', 10, 13, 17),
+(19, 'Men Purple Boxy Fit Printed Round Neck Pure Cotton T-shirt	', 626, 200, 'Purple printed T-shirt, has a round neck, short sleeves	', 5, 12, 11),
+(20, 'Women Off White Pure Cotton Printed Regular Kurta', 2659, 50, 'Women Off White Pure Cotton Printed Regular Kurta with Trousers & Dupatta	', 10, 13, 17),
+(21, 'Women Black 2-In-1 Solid Dri-Fit Running Shorts	', 1895, 20, 'A wider elastic waistband offers a smooth look and feel. Mesh-lined waistband and tipping provides ventilation. Internal pockets store small items, such as keys or cards. Standard fit for a relaxed, easy feel	', 5, 13, 18),
+(22, 'Boys Black & White Punisher Printed Sweatshirt	', 699, 100, 'Black printed sweatshirt has a round neck, long sleeves, closure, straight hem	', 10, 14, 20);
 
 -- --------------------------------------------------------
 
@@ -235,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_images`
@@ -267,7 +315,14 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
 (45, 15, '16778704780.JPG'),
 (46, 15, '16778704781.JPG'),
 (47, 5, '16803449890.JPG'),
-(48, 5, '16803449891.JPG');
+(48, 5, '16803449891.JPG'),
+(49, 16, '16808953620.png'),
+(50, 17, '16808958390.png'),
+(51, 18, '16808958960.png'),
+(52, 19, '16808961330.png'),
+(53, 20, '16808962160.png'),
+(54, 21, '16808962780.png'),
+(55, 22, '16808963850.png');
 
 -- --------------------------------------------------------
 
@@ -308,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `slider` (
 
 INSERT INTO `slider` (`id`, `content`, `cat_id`, `subcat_id`, `image`) VALUES
 (11, 'StreetWear23', 12, NULL, '1680114617.jpg'),
-(12, 'OverSize', 12, 13, '1680117750.jpg');
+(12, 'OverSize23', 12, 13, '1680117750.jpg');
 
 -- --------------------------------------------------------
 
@@ -325,16 +380,23 @@ CREATE TABLE IF NOT EXISTS `subcat` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `FK_sub_cat` (`cat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subcat`
 --
 
 INSERT INTO `subcat` (`id`, `name`, `cat_id`, `image`) VALUES
-(11, 'T-Shirts', 12, '1677212967.png'),
+(11, 'Casual Wear', 12, '1677212967.png'),
 (13, 'Oversized Tees', 12, '1677802580.jpg'),
-(14, 'Hoodies', 12, '1677802602.jpg');
+(14, 'Hoodies', 12, '1677802602.jpg'),
+(15, 'Sportswear', 12, '1680891218.png'),
+(16, 'Formal Wear', 12, '1680891246.png'),
+(17, 'Casual Wear', 13, '1680891314.png'),
+(18, 'Sports Wear', 13, '1680891331.png'),
+(19, 'Formal Wear', 13, '1680893024.png'),
+(20, 'Boys', 14, '1680893694.png'),
+(21, 'Girls', 14, '1680893708.png');
 
 -- --------------------------------------------------------
 
