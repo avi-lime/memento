@@ -31,21 +31,79 @@
                     <form action="#">
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Name">
+                                <input type="text" id="name" name="name" placeholder="Name">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Email">
+                                <input type="text" id="email" name="email" placeholder="Email">
                             </div>
                             <div class="col-lg-12">
-                                <textarea placeholder="Message"></textarea>
-                                <button type="submit" class="site-btn">Send Message</button>
+                                <textarea id="message" name="message" placeholder="Message"></textarea>
+                                <button type="submit" id="send_mail" name="send_mail" class="site-btn">Send
+                                    Message</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Memento</strong>
+                        <small>Just now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+
+        $("#send_mail").click(function (e) {
+            e.preventDefault();
+            let name = $('#name').val();
+            let email = $('#email').val();
+            let message = $('#message').val();
+            let subject = "User Here";
+            let altbody = "User request";
+
+            console.log([name, email, message, subject, altbody])
+
+            $.ajax({
+                url: "mail/index.php",
+                data: {
+                    email: email,
+                    subject: subject,
+                    body: message,
+                    altbody: altbody,
+                    fromMail: "jigyasusharma2803@gmail.com",
+                    fromName: "MEMENTO"
+                },
+                success: function (data) {
+                    console.log(data);
+                    $(".toast-body").text("E-Mail Sent, We'll respond to you shortly.")
+                    const toast = new bootstrap.Toast($("#liveToast"))
+                    toast.show()
+                }
+            })
+
+            $.ajax({
+                url: "api/message.php",
+                data: {
+                    message: message,
+                    email: email,
+                    name: name
+                },
+                success: function (data) {
+
+                }
+            })
+        })
+    })
+</script>
 <!-- Contact Section End -->
 <?php include("components/footer.php"); ?>

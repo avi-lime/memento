@@ -119,6 +119,12 @@ function redirect($url)
                             <span class="links_name">Orders</span>
                         </a>
                     </li>
+                    <li class="item" data-bs-toggle="tooltip" data-bs-title="message" data-bs-placement="right">
+                        <a href="messages">
+                            <i class="fa-solid fa-message"></i>
+                            <span class="links_name">Messages</span>
+                        </a>
+                    </li>
                     <li class="item" data-bs-toggle="tooltip" data-bs-title="slider" data-bs-placement="right">
                         <a href="slider">
                             <i class="fa-regular fa-images"></i>
@@ -137,18 +143,12 @@ function redirect($url)
                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none">
                     <i class="fa-solid fa-message"></i>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                    <li>
-                        <a class="dropdown-item" href="settings">
-                            Message
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                <ul id="messages" class="dropdown-menu dropdown-menu-dark" style="width: 500px">
 
                 </ul>
             </div>
+
+
             <div class="profile">
 
                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none">

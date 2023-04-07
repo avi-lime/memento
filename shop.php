@@ -329,7 +329,7 @@
         let sort_by = $("#sort").val();
 
         if (search) {
-            params += ` WHERE name LIKE %${search}%`
+            params += ` WHERE name LIKE '%${search}%' OR cat_id = (SELECT id FROM category WHERE category.name LIKE '%${search}%') OR subcat_id = (SELECT id FROM subcat WHERE subcat.name LIKE '%${search}%')`
         } else if (subID) {
             params += " WHERE subcat_id=" + subID;
             if (min || max) {
@@ -347,7 +347,11 @@
         if (sort_by) {
             params += " ORDER BY price " + sort_by;
         }
-        console.log(params);
+        console.log(`SELECT product.id, name,
+                (SELECT name FROM category WHERE category.id=product.cat_id) AS cat,
+                (SELECT name FROM subcat WHERE subcat.id=product.subcat_id) AS sub,
+                price, quantity, discount FROM product
+                ` + params);
         $.ajax({
             url: 'api/fetch.php',
             method: 'POST',

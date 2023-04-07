@@ -43,7 +43,7 @@
     $(document).ready(function () {
 
         // set active link
-        const currentLocation = location.href;
+        const currentLocation = location.href.split("#")[0];
         $("a").each(function (index, element) {
             const linkRegEx = new RegExp(`^${currentLocation}`)
             if (linkRegEx.test(element.href)) {
@@ -80,6 +80,46 @@
         })
 
         $(".sort select").niceSelect();
+        $(".chat").click(function () {
+
+            $.ajax({
+                url: "api/fetch.php",
+                data: {
+                    query: "SELECT * FROM messages WHERE replied_to IS NULL ORDER BY id DESC LIMIT 5",
+                },
+                dataType: "json",
+                success: function (data) {
+                    let content = `
+                     <li>
+                        <a class="dropdown-item" href="messages">
+                            Message
+                        </a>
+                    </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    `;
+                    data.forEach(message => {
+                        let m = $.parseJSON(message);
+                        console.log(m.replied_to)
+                        content += `
+                        <li>
+                            <a href="messages#${m.id}" class="dropdown-item line-clamp ${(m.replied == "0") ? "new" : ""}" style="white-space: normal">
+                                <div>
+                                    <b>${m.name}</b><br>
+                                </div>
+                                <div>
+                                    <p>${m.message}</p>
+                                </div>
+                            </a>
+                        </li>
+                        `
+                    })
+                    $("#messages").html(content);
+
+                }
+            })
+        })
 
     })
 
