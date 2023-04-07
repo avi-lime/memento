@@ -81,7 +81,8 @@
                     body: message,
                     altbody: altbody,
                     fromMail: "jigyasusharma2803@gmail.com",
-                    fromName: "MEMENTO"
+                    fromName: "MEMENTO",
+                    contact: true
                 },
                 success: function (data) {
                     console.log(data);
