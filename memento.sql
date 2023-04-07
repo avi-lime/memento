@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 07, 2023 at 08:03 PM
--- Server version: 5.7.36
--- PHP Version: 7.4.26
+-- Generation Time: Apr 07, 2023 at 10:29 PM
+-- Server version: 8.0.31
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,14 +29,14 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `addressname` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   `city` varchar(255) NOT NULL,
   `state` varchar(255) NOT NULL,
   `country` text NOT NULL,
-  `pincode` int(11) NOT NULL,
+  `pincode` int NOT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_addresss_user` (`user_id`)
@@ -59,11 +59,11 @@ INSERT INTO `address` (`id`, `addressname`, `address`, `user_id`, `city`, `state
 
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `password` varchar(60) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `superadmin` int(1) DEFAULT '0',
+  `superadmin` int DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
@@ -84,11 +84,11 @@ INSERT INTO `admin` (`id`, `email`, `password`, `username`, `superadmin`) VALUES
 
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int NOT NULL,
+  `quantity` int NOT NULL,
   `size` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_cart_product` (`product_id`),
   KEY `FK_card_user` (`user_id`)
@@ -100,8 +100,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
 
 INSERT INTO `cart` (`id`, `product_id`, `quantity`, `size`, `user_id`) VALUES
 (26, 3, 2, 'l', 2),
-(32, 4, 1, 'm', 3),
-(33, 13, 1, 'm', 1);
+(32, 4, 1, 'm', 3);
 
 -- --------------------------------------------------------
 
@@ -111,7 +110,7 @@ INSERT INTO `cart` (`id`, `product_id`, `quantity`, `size`, `user_id`) VALUES
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
@@ -135,13 +134,13 @@ INSERT INTO `category` (`id`, `name`, `image`) VALUES
 
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `email` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `sent_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `replied_to` int(11) DEFAULT NULL,
-  `replied_by` int(11) DEFAULT NULL,
+  `replied_to` int DEFAULT NULL,
+  `replied_by` int DEFAULT NULL,
   `replied` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
@@ -171,20 +170,20 @@ INSERT INTO `messages` (`id`, `name`, `email`, `message`, `sent_time`, `replied_
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `order_id` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `address_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `address_id` int NOT NULL,
+  `amount` int NOT NULL,
   `status` varchar(255) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
-  `quantity` int(11) NOT NULL,
+  `quantity` int NOT NULL,
   `size` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   KEY `FK_order_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
@@ -194,7 +193,8 @@ INSERT INTO `orders` (`id`, `order_id`, `user_id`, `product_id`, `address_id`, `
 (10, 'order_LXOFKKfLprSUL4', 3, 3, 1, 399, NULL, '2023-03-29 21:00:30', 1, 'm'),
 (11, 'order_LXOGr2XDS8tR6g', 3, 5, 1, 749, NULL, '2023-03-29 21:01:57', 1, 'l'),
 (12, 'order_LYugUXNIQDoZPp', 1, 5, 1, 749, NULL, '2023-04-02 17:23:25', 1, 'l'),
-(13, 'order_La2sFe6JiITglX', 1, 5, 1, 749, NULL, '2023-04-05 14:03:06', 1, 'm');
+(13, 'order_La2sFe6JiITglX', 1, 5, 1, 749, NULL, '2023-04-05 14:03:06', 1, 'm'),
+(14, 'order_Lb3ZO1MaFWZ9PH', 1, 13, 1, 399, NULL, '2023-04-08 03:22:56', 1, 'm');
 
 -- --------------------------------------------------------
 
@@ -204,14 +204,14 @@ INSERT INTO `orders` (`id`, `order_id`, `user_id`, `product_id`, `address_id`, `
 
 DROP TABLE IF EXISTS `payment`;
 CREATE TABLE IF NOT EXISTS `payment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `order_id` varchar(255) NOT NULL,
   `transaction_date` datetime NOT NULL,
   `payment_mode` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payment`
@@ -221,7 +221,8 @@ INSERT INTO `payment` (`id`, `order_id`, `transaction_date`, `payment_mode`, `st
 (8, 'order_LXOFKKfLprSUL4', '2023-03-29 21:00:30', 'NetBanking', 'Completed', 399),
 (9, 'order_LXOGr2XDS8tR6g', '2023-03-29 21:01:57', 'NetBanking', 'Completed', 749),
 (10, 'order_LYugUXNIQDoZPp', '2023-04-02 17:23:25', 'NetBanking', 'Completed', 749),
-(11, 'order_La2sFe6JiITglX', '2023-04-05 14:03:06', 'NetBanking', 'Completed', 749);
+(11, 'order_La2sFe6JiITglX', '2023-04-05 14:03:06', 'NetBanking', 'Completed', 749),
+(12, 'order_Lb3ZO1MaFWZ9PH', '2023-04-08 03:22:56', 'NetBanking', 'Completed', 399);
 
 -- --------------------------------------------------------
 
@@ -231,18 +232,18 @@ INSERT INTO `payment` (`id`, `order_id`, `transaction_date`, `payment_mode`, `st
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `price` int(20) NOT NULL,
-  `quantity` int(20) NOT NULL,
+  `price` int NOT NULL,
+  `quantity` int NOT NULL,
   `description` text NOT NULL,
-  `discount` int(3) NOT NULL,
-  `cat_id` int(10) NOT NULL,
-  `subcat_id` int(10) NOT NULL,
+  `discount` int NOT NULL,
+  `cat_id` int NOT NULL,
+  `subcat_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_cat` (`cat_id`),
   KEY `FK_product_sub` (`subcat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product`
@@ -268,7 +269,15 @@ INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discou
 (19, 'Men Purple Boxy Fit Printed Round Neck Pure Cotton T-shirt	', 626, 200, 'Purple printed T-shirt, has a round neck, short sleeves	', 5, 12, 11),
 (20, 'Women Off White Pure Cotton Printed Regular Kurta', 2659, 50, 'Women Off White Pure Cotton Printed Regular Kurta with Trousers & Dupatta	', 10, 13, 17),
 (21, 'Women Black 2-In-1 Solid Dri-Fit Running Shorts	', 1895, 20, 'A wider elastic waistband offers a smooth look and feel. Mesh-lined waistband and tipping provides ventilation. Internal pockets store small items, such as keys or cards. Standard fit for a relaxed, easy feel	', 5, 13, 18),
-(22, 'Boys Black & White Punisher Printed Sweatshirt	', 699, 100, 'Black printed sweatshirt has a round neck, long sleeves, closure, straight hem	', 10, 14, 20);
+(22, 'Boys Black & White Punisher Printed Sweatshirt	', 699, 100, 'Black printed sweatshirt has a round neck, long sleeves, closure, straight hem	', 10, 14, 20),
+(23, 'tank-top', 499, 10, 'naylon based tank top', 0, 12, 15),
+(24, 'sportswear set', 999, 10, 'a set of both top and track', 0, 12, 15),
+(25, 'cotton shirt', 699, 10, '100% blue cotton shirt', 0, 12, 16),
+(26, 'formal pants', 799, 10, '100% cotton black pants \r\n', 0, 12, 16),
+(27, 'formal shirt', 599, 10, 'grey formal shirt', 0, 13, 19),
+(28, 'formal set', 999, 10, 'formal set', 0, 13, 19),
+(29, 'sassy t-shirt', 499, 10, 'sassy kid\'s t-shirt', 0, 14, 21),
+(30, 'Go girl t-shirt', 499, 10, 'kid\'s t-shirt', 0, 14, 21);
 
 -- --------------------------------------------------------
 
@@ -278,12 +287,12 @@ INSERT INTO `product` (`id`, `name`, `price`, `quantity`, `description`, `discou
 
 DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE IF NOT EXISTS `product_images` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int NOT NULL,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_product_image` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_images`
@@ -322,7 +331,15 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
 (52, 19, '16808961330.png'),
 (53, 20, '16808962160.png'),
 (54, 21, '16808962780.png'),
-(55, 22, '16808963850.png');
+(55, 22, '16808963850.png'),
+(56, 23, '16809059540.jpg'),
+(57, 24, '16809060670.jpg'),
+(58, 25, '16809061350.jpg'),
+(59, 26, '16809061960.jpg'),
+(60, 27, '16809062390.jpg'),
+(61, 28, '16809062930.webp'),
+(62, 29, '16809063700.jpg'),
+(63, 30, '16809064040.jpg');
 
 -- --------------------------------------------------------
 
@@ -332,11 +349,11 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`) VALUES
 
 DROP TABLE IF EXISTS `size`;
 CREATE TABLE IF NOT EXISTS `size` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `small` int(11) NOT NULL,
-  `medium` int(11) NOT NULL,
-  `large` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int NOT NULL,
+  `small` int NOT NULL,
+  `medium` int NOT NULL,
+  `large` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -348,10 +365,10 @@ CREATE TABLE IF NOT EXISTS `size` (
 
 DROP TABLE IF EXISTS `slider`;
 CREATE TABLE IF NOT EXISTS `slider` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `content` varchar(255) NOT NULL,
-  `cat_id` int(11) NOT NULL,
-  `subcat_id` int(11) DEFAULT NULL,
+  `cat_id` int NOT NULL,
+  `subcat_id` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cat_id` (`cat_id`)
@@ -373,9 +390,9 @@ INSERT INTO `slider` (`id`, `content`, `cat_id`, `subcat_id`, `image`) VALUES
 
 DROP TABLE IF EXISTS `subcat`;
 CREATE TABLE IF NOT EXISTS `subcat` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `cat_id` int(10) NOT NULL,
+  `cat_id` int NOT NULL,
   `image` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
@@ -406,7 +423,7 @@ INSERT INTO `subcat` (`id`, `name`, `cat_id`, `image`) VALUES
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(25) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -433,9 +450,9 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`, `mobileno`) VALUES
 
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE IF NOT EXISTS `wishlist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
@@ -463,34 +480,34 @@ INSERT INTO `wishlist` (`id`, `user_id`, `product_id`) VALUES
 -- Constraints for table `address`
 --
 ALTER TABLE `address`
-  ADD CONSTRAINT `FK_addresss_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_addresss_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `FK_card_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_cart_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_card_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_cart_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `FK_order_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_order_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `FK_product_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_product_sub` FOREIGN KEY (`subcat_id`) REFERENCES `subcat` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_product_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_product_sub` FOREIGN KEY (`subcat_id`) REFERENCES `subcat` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_images`
 --
 ALTER TABLE `product_images`
-  ADD CONSTRAINT `FK_product_image` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_product_image` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `slider`
@@ -502,14 +519,14 @@ ALTER TABLE `slider`
 -- Constraints for table `subcat`
 --
 ALTER TABLE `subcat`
-  ADD CONSTRAINT `FK_sub_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_sub_cat` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
