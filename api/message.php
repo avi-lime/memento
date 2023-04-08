@@ -9,7 +9,7 @@ if (isset($_REQUEST["email"])) {
 
     $sql = "INSERT INTO messages (name, email, message, replied_to, replied_by) VALUES ('$name', '$email', '$message', $replied_to, $replied_by)";
     mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
+    echo "<script>alert('" . $sql . "')</script>";
     if ($replied_to != null) {
         $sql = "UPDATE messages SET replied=1 WHERE id=" . $replied_to;
         mysqli_query($conn, $sql) or die(mysqli_error($conn));

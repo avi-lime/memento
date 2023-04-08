@@ -205,6 +205,7 @@ if (isset($_SESSION['user'])) {
             $('#state').val("");
             $('#pincode').val("");
             $('#default').prop('checked', false);
+            $("#addressModal").modal("toggle")
         }
 
         function fetch_address() {
@@ -221,19 +222,19 @@ if (isset($_SESSION['user'])) {
                         data.forEach(item => {
                             let address = $.parseJSON(item)
                             content += `<div class="card my-3">
-                                                    <div class="card-body">
-                                                        <h3 class="card-title">${address.addressname} `
+                                                        <div class="card-body">
+                                                            <h3 class="card-title">${address.addressname} `
                             content += (address.is_default != "0") ? "<span>[DEFAULT]<span>" : ""
                             content += `</h3>
-                                                <p>${address.address}</p>
-                                                <p>${address.city}. ${address.state} - ${address.pincode}</p>
-                                                <button id="edit-${address.id}" class="edit primary-btn">EDIT</button>
-                                                <button id="delete-${address.id}" class="delete primary-btn">DELETE</button>`
+                                                    <p>${address.address}</p>
+                                                    <p>${address.city}. ${address.state} - ${address.pincode}</p>
+                                                    <button id="edit-${address.id}" class="edit primary-btn">EDIT</button>
+                                                    <button id="delete-${address.id}" class="delete primary-btn">DELETE</button>`
                             // content += (address.is_default == "0") ?
                             //     `<button id="default-${address.id}" class="default primary-btn mx-1">SET DEFAULT</button>` : ""
                             content += `</div>
-                                                </div>
-                                                `;
+                                                    </div>
+                                                    `;
                         });
                     } else content = "<h2 class='text-center mt-6'>No saved addresses.</h2>"
                     $("#addressList").html(content)

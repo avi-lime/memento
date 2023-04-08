@@ -96,8 +96,7 @@ $userid = $_SESSION['user'];
                         <div class="row" id="addressList">
 
                         </div>
-                        <a href="#addressModal" data-bs-toggle="modal" class="primary-btn mt-3 text-center"
-                            role="button" name="addAddress" id="addAddress">+ Add a new address</a>
+
                         <!-- <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
@@ -256,9 +255,9 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
 ?>
 <!-- php body for COD -->
 <script>
-
     const userId = "<?= $_SESSION['user'] ?>"
     $(document).ready(function () {
+
         fetch_address();
         //insert or update address
         $("#btnSubmit").click(function () {
@@ -275,7 +274,6 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
             if ($('#default').is(':checked')) {
                 default1 = 1;
             }
-            alert(default1)
             $.ajax({
                 url: "api/saveaddress.php",
                 method: "POST",
@@ -290,9 +288,9 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
                     id: id
                 },
                 success: function (data) {
-                    console.log(data);
                     fetch_address();
                     remove_feild();
+
                 }
             })
 
@@ -343,6 +341,7 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
         $('#state').val("");
         $('#pincode').val("");
         $('#default').prop('checked', false);
+        $("#addressModal").modal("toggle")
     }
     //fetch address
     function fetch_address() {
@@ -353,25 +352,25 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
             },
             dataType: "json",
             success: function (data) {
-                let content = ``;
-                console.log(data.length)
+                let content = `<a href="#addressModal" data-bs-toggle="modal" class="primary-btn mt-3 text-center"
+                            role="button" name="addAddress" id="addAddress">+ Add a new address</a>`;
                 if (data.length > 0) {
                     data.forEach(item => {
                         let address = $.parseJSON(item)
                         content += `<div class="card my-2">
                                     <div class="d-inline-flex gap-3 my-3">
                                         <div>
-                                        <input type="radio" val="${address.id}" id="${address.id}" name="selectAddress" value="${address.id}" ${(address.is_default != "0" ? "checked" : "false")}>
-                                        </div>
-                                        <div>
-                                        <label for="${address.id}"><h5>${address.addressname}</h5>  ${address.address},${address.city}:${address.pincode},${address.country}</label></br>
-                                        </div>
-                                        </div>
-                                        </div>
+                                        <input type="radio" id="${address.id}" name="selectAddress" value="${address.id}" ${(address.is_default != "0" ? "checked" : "")}>
+                                        </div >
+                        <div>
+                    <label for="${address.id}"><h5>${address.addressname}</h5>  ${address.address},${address.city}:${address.pincode},${address.country}</label></br>
+                                        </div >
+                                        </div >
+                                        </div >
                                         `;
+
                     });
                 } else content = "<h2 class='text-center mt-6'>No saved addresses.</h2>"
-
                 $("#addressList").html(content)
             }
         })
@@ -379,13 +378,12 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
 
     //netbanking click product
     $("#rzp-button1").click(function () {
-        <?php $_SESSION['addressid'] = "1" ?>//radio add address id
-        location.href = "payment";
+        location.href = "payment/?addressid=" + $('input[name="selectAddress"]:checked').val();
     })
 
     $("#btncod").click(function () {
         let amount = <?= $_SESSION['price'] ?>;
-        let addressid = "1";
+        let addressid = $('input[name="selectAddress"]:checked').val();
         let status = "COD";
         let date = "<?= $order_created_at ?>";
         success = "true";
@@ -402,8 +400,8 @@ $receipt = str_replace('.', '', microtime(true)) . rand(1, 10000) . $userid;
                 orderid: orderid
             },
             success: function (data) {
-                alert(data);
-                location.href = "shopping-cart.php";
+                alert("Your order has been placed!");
+                location.href = "orders.php";
             }
         })
     })

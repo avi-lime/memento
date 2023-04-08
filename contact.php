@@ -97,7 +97,9 @@
                 data: {
                     message: message,
                     email: email,
-                    name: name
+                    name: name,
+                    replied_to: null,
+                    replied_by: null
                 },
                 success: function (data) {
 

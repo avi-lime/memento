@@ -64,8 +64,6 @@ include "global/api/conn.php";
                     <?php
                 }
                 ?>
-                <a href="#">FAQs</a>
-                <a href="#">Blog</a>
             </div>
         </div>
         <div class="offcanvas__nav__option">
@@ -74,9 +72,6 @@ include "global/api/conn.php";
             <a href="./cart"><i class="fa-solid fa-bag-shopping"></i></a>
         </div>
         <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__text">
-            <p>Free shipping, 30-day return or refund guarantee.</p>
-        </div>
     </div>
     <!-- Offcanvas Menu End -->
 
@@ -103,7 +98,6 @@ include "global/api/conn.php";
                                     <?php
                                 }
                                 ?>
-                                <a href="./blog">Blog</a>
                             </div>
                         </div>
                     </div>
@@ -133,8 +127,7 @@ include "global/api/conn.php";
                                                     if ($subresult = mysqli_query($conn, $subquery)) {
                                                         while ($subrow = mysqli_fetch_assoc($subresult)) {
                                                             ?>
-                                                            <li class="sub-dropdown-item"><a
-                                                                    href="shop?sub_id=<?= $subrow["id"] ?>">
+                                                            <li class="sub-dropdown-item"><a href="shop?sub_id=<?= $subrow["id"] ?>">
                                                                     <?= $subrow['name'] ?>
                                                                 </a></li>
                                                             <?php
