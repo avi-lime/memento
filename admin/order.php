@@ -23,7 +23,7 @@ include("../global/api/conn.php");
             . '<th>ID</th>'
             . '<th>Order ID</th>'
             . '<th>User id</th>'
-            . '<th>Product ID</th>'
+            . '<th>Product</th>'
             // . '<th>Image</th>'
             . '<th>amount</th>'
             . '<th>date</th>'

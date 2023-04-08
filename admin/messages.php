@@ -174,7 +174,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
         let params = "";
         let search = $("#search").val();
         let sort_by = $("#sort").val();
-        if (search != "") params += ` AND name LIKE '%${search}%' OR id LIKE '${search}%' OR email LIKE '%${search}%' OR message LIKE %${search}%`;
+        if (search != "") params += ` AND name LIKE '%${search}%' OR id LIKE '${search}%' OR email LIKE '%${search}%' OR message LIKE '%${search}%'`;
         params += ` ${sort_by}`
         $.ajax({
             url: 'api/fetch.php',
@@ -206,7 +206,7 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                             </ul>    
                             <div class="card-body pb-0">
                                     <?php if ($super) { ?>
-                                                                                                                                                                                                        <a role="button" id="reply-${parsedItem.id}" class="btn my-btn btn-reply">Reply</a>
+                                                                                                                                                                                                            <a role="button" id="reply-${parsedItem.id}" class="btn my-btn btn-reply">Reply</a>
                                     <?php } ?>
                                 </div>
                                 <div class="card-footer">
