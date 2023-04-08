@@ -17,49 +17,25 @@
                 <div class="footer__widget">
                     <h6>GET HELP</h6>
                     <ul>
-                        <li><a href="#">Clothing Store</a></li>
-                        <li><a href="#">Trending Shoes</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li><a href="shop">Clothing Store</a></li>
+                        <li><a href="shop?sub_id=14">Trending Hoodies</a></li>
+                        <li><a href="shop?cat_id=12">Men Clothes</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>CUSTOMER POLICIES</h6>
+                    <h6>CUSTOMER</h6>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Cancellation</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">Privacy Policies</a></li>
-                        <li><a href="#">Track Order</a></li>
+                        <li><a href="contact">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
-                <div class="footer__widget">
-                    <h6>NewsLetter</h6>
-                    <div class="footer__newslatter">
-                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
-                        <form action="#">
-                            <input type="text" placeholder="Your email" style="color: white">
-                            <button type="submit"><span class="icon_mail_alt"></span></button>
-                        </form>
-                        <div class="social-icons">
-                            <i class="fa-brands fa-facebook"></i>
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <i class="fa-brands fa-instagram"></i>
-                            <i class="fa-brands fa-pinterest"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="footer__copyright__text">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
                     <p>Copyright ©
                         <script>
                             document.write(new Date().getFullYear());
@@ -67,10 +43,10 @@
                         All rights reserved | Developed using template from <a href="https://colorlib.com"
                             target="_blank">Colorlib</a>
                     </p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </footer>
 <!-- Footer Section End -->

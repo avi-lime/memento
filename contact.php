@@ -73,6 +73,10 @@
 
             console.log([name, email, message, subject, altbody])
 
+            $("#send_mail").attr("disabled", true)
+            setTimeout(() => {
+                $("#send_mail").attr("disabled", false)
+            }, 20000);
             $.ajax({
                 url: "mail/index.php",
                 data: {
@@ -89,20 +93,20 @@
                     $(".toast-body").text("E-Mail Sent, We'll respond to you shortly.")
                     const toast = new bootstrap.Toast($("#liveToast"))
                     toast.show()
-                }
-            })
 
-            $.ajax({
-                url: "api/message.php",
-                data: {
-                    message: message,
-                    email: email,
-                    name: name,
-                    replied_to: null,
-                    replied_by: null
-                },
-                success: function (data) {
+                    $.ajax({
+                        url: "api/message.php",
+                        data: {
+                            message: message,
+                            email: email,
+                            name: name,
+                            replied_to: null,
+                            replied_by: null
+                        },
+                        success: function (data) {
 
+                        }
+                    })
                 }
             })
         })
