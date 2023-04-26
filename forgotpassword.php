@@ -91,7 +91,7 @@ require_once("global/api/conn.php");
                         body: body,
                         altbody: altbody,
                         fromMail: "jigyasusharma2803@gmail.com",
-                        fromName: "Jigyasu Sharma"
+                        fromName: "Memento"
                     },
                     success: function (data) {
                         if (!data) { alert("User does not exist."); $(".sendotp").attr('disabled', false); }
