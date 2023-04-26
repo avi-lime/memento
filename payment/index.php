@@ -101,7 +101,7 @@ $_SESSION['razorpay_order_id'] = $order_id;
         "handler": function (response) {
             sendMail();
             payment(true);
-            location.href = "../orders.php";
+            location.href = "../orders";
         },
         "modal": {
             "ondismiss": function () {
@@ -109,7 +109,7 @@ $_SESSION['razorpay_order_id'] = $order_id;
             }
         },
         "notes": {
-            "address": "Mera Ghar"
+            "address": "Memento"
         },
         "theme": {
             "color": "#3399cc"
