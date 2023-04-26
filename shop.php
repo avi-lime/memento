@@ -329,7 +329,8 @@
         let sort_by = $("#sort").val();
 
         if (search) {
-            params += ` WHERE name LIKE '%${search}%' OR cat_id = (SELECT id FROM category WHERE category.name LIKE '%${search}%') OR subcat_id = (SELECT id FROM subcat WHERE subcat.name LIKE '%${search}%')`
+            console.log(search);
+            params += ` WHERE name LIKE '%${search}%' OR cat_id = (SELECT id FROM category WHERE category.name LIKE '%${search}%' LIMIT 1) OR subcat_id = (SELECT id FROM subcat WHERE subcat.name LIKE '%${search}%' LIMIT 1)`
         } else if (subID) {
             params += " WHERE subcat_id=" + subID;
             if (min || max) {
