@@ -3,7 +3,7 @@
 <!-- Map Begin -->
 <div class="map">
     <iframe height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"
-        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=niga hospital&amp;t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=DRB commerce college&amp;t=&amp;z=18&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
 </div>
 <!-- Map End -->
 

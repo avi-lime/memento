@@ -236,11 +236,11 @@
         <div class="shop__product__option">
             <div class="m-0 d-flex align-items-center justify-content-between">
                 <div class="shop__product__option__right ms-auto">
-                    <p>Sort by Price:</p>
+                    <p>Sort by:</p>
                     <select name="sort" id="sort">
                         <option value="">Recommended </option>
-                        <option value="ASC">Low To High</option>
-                        <option value="DESC">High To Low</option>
+                        <option value="ASC">Price Low To High</option>
+                        <option value="DESC">Price High To Low</option>
                     </select>
                     <button class="filter primary-btn ms-3" style="font-size: 16px" id="btnfilter"
                         data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
