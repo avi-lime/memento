@@ -56,11 +56,12 @@ if (isset($_SESSION['user'])) {
                                     ?>
                                     <tr>
                                         <td class="product__cart__item">
-                                           <a href="shop-details?product_id=<?=$product['id']?>"><div class="product__cart__item__pic">
-                                                <img src="global/assets/images/<?= $image['image'] ?>"
-                                                    style="width: 90px;height: 160px; object-fit: cover" alt="">
-                                            </div>
-                                        </a>
+                                            <a href="shop-details?product_id=<?= $product['id'] ?>">
+                                                <div class="product__cart__item__pic">
+                                                    <img src="global/assets/images/<?= $image['image'] ?>"
+                                                        style="width: 90px;height: 160px; object-fit: cover" alt="">
+                                                </div>
+                                            </a>
                                             <div class="product__cart__item__text">
                                                 <h6>
                                                     <?= $product['name'] ?>
@@ -112,11 +113,11 @@ if (isset($_SESSION['user'])) {
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-                        <h4>Shopping Cart</h4>
+                        <h4>Orders</h4>
                         <div class="breadcrumb__links">
                             <a href="./index">Home</a>
-                            <a href="./shop">Shop</a>
-                            <span>Where the heck am I</span>
+                            <a href="./shop">Account</a>
+                            <span>Orders</span>
                         </div>
                     </div>
                 </div>
@@ -124,12 +125,9 @@ if (isset($_SESSION['user'])) {
         </div>
     </section>
     <section class="shopping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    Login Please
-                </div>
-            </div>
+        <div class="container text-center m-4">
+            <h1 class="display-1">Login Please</h1>
+            <p>Click <a href="login">here</a> to login</p>
         </div>
     </section>
     <?php

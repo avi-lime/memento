@@ -1,10 +1,7 @@
-<?php include("components/header.php");
+<?php
+include("components/header.php");
 include("global/api/conn.php");
 $userid = $_REQUEST['userid'] ?>
-
-<head>
-	<title>Wishlist</title>
-</head>
 
 <body>
 	<section class="breadcrumb-option" style="padding:15px 0 !important;">
@@ -15,7 +12,7 @@ $userid = $_REQUEST['userid'] ?>
 						<h4>Shop</h4>
 						<div class="breadcrumb__links">
 							<a href="./index">Home</a>
-							<span>Shop</span>
+							<span>Wishlist</span>
 						</div>
 					</div>
 				</div>
@@ -33,7 +30,7 @@ $userid = $_REQUEST['userid'] ?>
 					$product_result = mysqli_query($conn, $sql);
 					//print_r($product_result);
 					$wishlistdetails = mysqli_fetch_assoc($product_result)
-			?>
+						?>
 					<div class="col-md-3 pb-2 d-flex" style="gap: 8px">
 						<div class="card" style="width: 18rem; ">
 							<a href="shop-details?product_id=<?= $wishlistdetails['id'] ?>">
@@ -45,7 +42,8 @@ $userid = $_REQUEST['userid'] ?>
 									" alt="<?= $wishlistdetails['name'] ?>" />
 							</a>
 							<div class="card-img-overlay">
-								<a href="" style="color:white" class="delete" id="<?= $wishlist['id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
+								<a href="" style="color:white" class="delete" id="<?= $wishlist['id'] ?>"><i class="fa fa-trash"
+										aria-hidden="true"></i></a>
 							</div>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item" style="border:none">
@@ -63,20 +61,31 @@ $userid = $_REQUEST['userid'] ?>
 								</li>
 							</ul>
 							<div class="card-body">
-								<a href="" style="color:#ff3e6c;text-decoration: none" id="<?= $wishlistdetails["id"] ?>" class="addtobag">Add To
+								<a href="" style="color:#ff3e6c;text-decoration: none" id="<?= $wishlistdetails["id"] ?>"
+									class="addtobag">Add To
 									Bag</a>
 							</div>
 						</div>
 					</div>
-			<?php
+
+					<?php
 				}
+			} else {
+				?>
+				<section class="shopping-cart spad">
+					<div class="container text-center m-4">
+						<h1 class="display-1">Login Please</h1>
+						<p>Click <a href="login">here</a> to login</p>
+					</div>
+				</section>
+				<?php
 			}
 			?>
 		</div>
 	</div>
 	<script>
-		$(document).ready(function() {
-			$(".delete").click(function(e) {
+		$(document).ready(function () {
+			$(".delete").click(function (e) {
 
 				var id = $(this).attr("id");
 				console.log(id);
@@ -87,13 +96,13 @@ $userid = $_REQUEST['userid'] ?>
 						id: id,
 						table: "wishlist"
 					},
-					success: function(data) {
+					success: function (data) {
 						console.log("Product deleted")
 						document.location.reload();
 					}
 				})
 			})
-			$(".addtobag").click(function(e) {
+			$(".addtobag").click(function (e) {
 				e.preventDefault();
 				var id = $(this).attr("id");
 				console.log(id);
@@ -105,7 +114,7 @@ $userid = $_REQUEST['userid'] ?>
 						size: "m",
 						id: id
 					},
-					success: function(data) {
+					success: function (data) {
 						location.href = "shopping-cart.php";
 					}
 				})

@@ -22,6 +22,12 @@ require_once("../global/api/conn.php");
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+
+    <link rel="icon" type="image/x-icon" href="../img/mxm-white.png" sizes="any">
+    <link rel="shortcut icon" href="../img/mxm-white.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../img/mxm-white.png">
+
     <title>Login</title>
 </head>
 

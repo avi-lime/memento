@@ -94,6 +94,10 @@
                     const toast = new bootstrap.Toast($("#liveToast"))
                     toast.show()
 
+                    $('#name').val("");
+                    $('#email').val("");
+                    $('#message').val("");
+
                     $.ajax({
                         url: "api/message.php",
                         data: {

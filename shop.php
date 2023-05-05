@@ -29,12 +29,6 @@
     <hr>
     <div class="offcanvas-body">
 
-        <div class="shop__sidebar__search">
-            <form action="" method="POST">
-                <input type="text" placeholder="Search...">
-                <button type="submit"><span class="icon_search"></span></button>
-            </form>
-        </div>
         <div class="shop__sidebar__accordion">
             <div class="accordion" id="accordionExample">
                 <div class="card bg-black">
@@ -217,11 +211,8 @@
             <div class="card bg-black">
                 <div class="card-body">
                     <div class="shop__sidebar__size">
-                        <input type="button" class="primary-btn" id="btnFilterapply" name="btnFilterapply"
-                            value="Apply">
-                        <?php
-
-                        ?>
+                        <input type="button" class="primary-btn" id="btnFilterapply" name="btnFilterapply" value="Apply"
+                            style="background-color: white; color: black">
                     </div>
                 </div>
             </div>

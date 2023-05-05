@@ -196,7 +196,7 @@ if (isset($_SESSION['user'])) {
                         <div class="breadcrumb__links">
                             <a href="./index">Home</a>
                             <a href="./shop">Shop</a>
-                            <span>Where the heck am I</span>
+                            <span>Cart</span>
                         </div>
                     </div>
                 </div>
@@ -204,12 +204,9 @@ if (isset($_SESSION['user'])) {
         </div>
     </section>
     <section class="shopping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    Login Please
-                </div>
-            </div>
+        <div class="container text-center m-4">
+            <h1 class="display-1">Login Please</h1>
+            <p>Click <a href="login">here</a> to login</p>
         </div>
     </section>
     <?php

@@ -55,7 +55,10 @@ function redirect($url)
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <title>Memento Admin</title>
+
     <link rel="icon" type="image/x-icon" href="../img/mxm-white.png" sizes="any">
+    <link rel="shortcut icon" href="../img/mxm-white.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../img/mxm-white.png">
 </head>
 
 <body>

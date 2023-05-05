@@ -222,19 +222,19 @@ if (isset($_SESSION['user'])) {
                         data.forEach(item => {
                             let address = $.parseJSON(item)
                             content += `<div class="card my-3">
-                                                        <div class="card-body">
-                                                            <h3 class="card-title">${address.addressname} `
+                                                                <div class="card-body">
+                                                                    <h3 class="card-title">${address.addressname} `
                             content += (address.is_default != "0") ? "<span>[DEFAULT]<span>" : ""
                             content += `</h3>
-                                                    <p>${address.address}</p>
-                                                    <p>${address.city}. ${address.state} - ${address.pincode}</p>
-                                                    <button id="edit-${address.id}" class="edit primary-btn">EDIT</button>
-                                                    <button id="delete-${address.id}" class="delete primary-btn">DELETE</button>`
+                                                            <p>${address.address}</p>
+                                                            <p>${address.city}. ${address.state} - ${address.pincode}</p>
+                                                            <button id="edit-${address.id}" class="edit primary-btn">EDIT</button>
+                                                            <button id="delete-${address.id}" class="delete primary-btn">DELETE</button>`
                             // content += (address.is_default == "0") ?
                             //     `<button id="default-${address.id}" class="default primary-btn mx-1">SET DEFAULT</button>` : ""
                             content += `</div>
-                                                    </div>
-                                                    `;
+                                                            </div>
+                                                            `;
                         });
                     } else content = "<h2 class='text-center mt-6'>No saved addresses.</h2>"
                     $("#addressList").html(content)
@@ -253,8 +253,8 @@ if (isset($_SESSION['user'])) {
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
                             <a href="./index">Home</a>
-                            <a href="./shop">Shop</a>
-                            <span>Where the heck am I</span>
+                            <a href="./account">Account</a>
+                            <span>Address</span>
                         </div>
                     </div>
                 </div>
@@ -262,12 +262,9 @@ if (isset($_SESSION['user'])) {
         </div>
     </section>
     <section class="shopping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    Login Please
-                </div>
-            </div>
+        <div class="container text-center m-4">
+            <h1 class="display-1">Login Please</h1>
+            <p>Click <a href="login">here</a> to login</p>
         </div>
     </section>
     <?php
