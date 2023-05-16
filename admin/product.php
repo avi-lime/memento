@@ -14,11 +14,9 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
     <hr>
 
     <div class="actions">
-        <?php if ($super) { ?>
-            <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
-                Add Product
-            </button>
-        <?php } ?>
+        <button type="button" class="my-btn" data-bs-toggle="modal" data-bs-target="#modal" id="btnAdd">
+            Add Product
+        </button>
         <div class="sort">
             <select class="nice-select" name="sort" id="sort">
                 <option value="id" selected>ID, 1-9</option>
@@ -276,13 +274,11 @@ if (!isset($_SESSION["super"]) || $_SESSION["super"] != 1) {
                                         </li>
                                     </ul>
                                     <div class="card-body">
-                                    <?php if ($super) { ?>
                                         <div class="btn-group w-100" role="group" aria-label="Actions">
                                             <!-- <button type="button" class="btn my-btn">View</button> -->
                                             <a id="${parsedItem.id}" role="button" class="btn my-btn btn-edit">Update</a>
                                             <a role="button" id="${parsedItem.id}" class="btn my-btn btn-del">Delete</a>
                                         </div>
-                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
